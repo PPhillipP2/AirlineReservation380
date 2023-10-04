@@ -1,0 +1,3 @@
+/Users/diego/Desktop/JavaProgs/.DS_Store
+/Users/diego/Desktop/JavaProgs/xxxxxodds.class
+/Users/diego/Desktop/JavaProgs/xxxxxodds.java
