@@ -41,4 +41,6 @@ public class HelloController {
     private Accordion accordion;
 
     // You can add more fields as needed to match other elements in your FXML file.
+
+    //Phillip: a parse/read JSON data here
 }
