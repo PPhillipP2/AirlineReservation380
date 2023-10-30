@@ -6,4 +6,19 @@ public class Passenger {
     private String DOB;
     private int bags;
 
+    public Passenger(String firstName, String lastName, String DOB, int bags){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.DOB = DOB;
+        this.bags = bags;
+    }
+
+    public String getFirstName(){
+        return this.firstName;
+    }
+
+    public String getLastName(){
+        return this.lastName;
+    }
+
 }
