@@ -2,16 +2,7 @@ package debuggerenjoyers.airlinereservation;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
+import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import java.net.URL;
@@ -19,7 +10,7 @@ import java.util.ResourceBundle;
 
 public class HelloController implements Initializable {
     @FXML
-    private AnchorPane AnchorPane;
+    private AnchorPane anchorPane;
 
     @FXML
     private MenuBar menuBar;
@@ -58,58 +49,36 @@ public class HelloController implements Initializable {
     private Label resultsLabel;
 
     @FXML
-    private CheckBox checkBox1;
+    private TableView<?> tableView;
 
     @FXML
-    private CheckBox checkBox2;
+    private TableColumn<?,?> flightIdColumn;
 
     @FXML
-    private CheckBox checkBox3;
+    private TableColumn<?, ?> originColumn;
 
     @FXML
-    private Accordion accordion;
+    private TableColumn<?, ?> destinationColumn;
 
     @FXML
-    private AnchorPane resultsAnchorPane1;
+    private TableColumn<?, ?> departTimeColumn;
 
     @FXML
-    private Label pricePerTicketLabel1;
+    private TableColumn<?, ?> arrivalTimeColumn;
 
     @FXML
-    private Label seatsAvailableLabel1;
+    private MenuItem readReviewsMenuItem;
 
     @FXML
-    private Label planeIdLabel1;
+    private MenuItem writeReviewMenuItem;
 
     @FXML
-    private AnchorPane resultsAnchorPane2;
-
-    @FXML
-    private Label pricePerTicketLabel2;
-
-    @FXML
-    private Label seatsAvailableLabel2;
-
-    @FXML
-    private Label planeIdLabel2;
-
-    @FXML
-    private AnchorPane resultsAnchorPane3;
-
-    @FXML
-    private Label pricePerTicketLabel3;
-
-    @FXML
-    private Label seatsAvailableLabel3;
-
-    @FXML
-    private Label planeIdLabel3;
-
-    @FXML
-    private Button seatSelectionButton;
+    private MenuItem action1MenuItem;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Initialize your controller here
+        // You can initialize your controller here if needed
     }
+
+    // You can add methods to handle user interactions or perform actions in your application.
 }
