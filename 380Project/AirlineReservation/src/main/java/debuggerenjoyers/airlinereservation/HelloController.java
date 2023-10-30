@@ -1,46 +1,115 @@
 package debuggerenjoyers.airlinereservation;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class HelloController {
+public class HelloController implements Initializable {
     @FXML
-    private RadioButton oneWayRadioButton;
+    private AnchorPane AnchorPane;
 
     @FXML
-    private RadioButton roundTripRadioButton;
+    private MenuBar menuBar;
+
+    @FXML
+    private SplitPane splitPane;
 
     @FXML
     private Button searchFlightsButton;
 
     @FXML
-    private DatePicker departureDatePicker;
+    private DatePicker datePicker;
 
     @FXML
-    private DatePicker arrivalDatePicker;
+    private Label departureLabel;
+
+    @FXML
+    private Label passengersLabel;
 
     @FXML
     private TextField passengersTextField;
 
     @FXML
-    private ChoiceBox<String> originChoiceBox;
+    private ChoiceBox<?> originChoiceBox;
 
     @FXML
-    private ChoiceBox<String> destinationChoiceBox;
+    private ChoiceBox<?> destinationChoiceBox;
 
     @FXML
-    private CheckBox resultCheckBox1;
+    private Label originLabel;
 
     @FXML
-    private CheckBox resultCheckBox2;
+    private Label destinationLabel;
 
     @FXML
-    private CheckBox resultCheckBox3;
+    private Label resultsLabel;
+
+    @FXML
+    private CheckBox checkBox1;
+
+    @FXML
+    private CheckBox checkBox2;
+
+    @FXML
+    private CheckBox checkBox3;
 
     @FXML
     private Accordion accordion;
 
-    // You can add more fields as needed to match other elements in your FXML file.
+    @FXML
+    private AnchorPane resultsAnchorPane1;
 
-    //Phillip: a parse/read JSON data here
+    @FXML
+    private Label pricePerTicketLabel1;
+
+    @FXML
+    private Label seatsAvailableLabel1;
+
+    @FXML
+    private Label planeIdLabel1;
+
+    @FXML
+    private AnchorPane resultsAnchorPane2;
+
+    @FXML
+    private Label pricePerTicketLabel2;
+
+    @FXML
+    private Label seatsAvailableLabel2;
+
+    @FXML
+    private Label planeIdLabel2;
+
+    @FXML
+    private AnchorPane resultsAnchorPane3;
+
+    @FXML
+    private Label pricePerTicketLabel3;
+
+    @FXML
+    private Label seatsAvailableLabel3;
+
+    @FXML
+    private Label planeIdLabel3;
+
+    @FXML
+    private Button seatSelectionButton;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        // Initialize your controller here
+    }
 }
