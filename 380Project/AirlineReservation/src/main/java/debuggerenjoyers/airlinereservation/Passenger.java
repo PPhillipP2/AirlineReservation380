@@ -21,4 +21,11 @@ public class Passenger {
         return this.lastName;
     }
 
+    public String getDOB(){
+        return this.DOB;
+    }
+
+    public int getBags() {
+        return bags;
+    }
 }
