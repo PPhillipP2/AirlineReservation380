@@ -13,6 +13,13 @@ public class Passenger {
         this.bags = bags;
     }
 
+    public Passenger(){
+        this.firstName = null;
+        this.lastName = null;
+        this.DOB = null;
+        this.bags = -1;
+    }
+
     public String getFirstName(){
         return this.firstName;
     }

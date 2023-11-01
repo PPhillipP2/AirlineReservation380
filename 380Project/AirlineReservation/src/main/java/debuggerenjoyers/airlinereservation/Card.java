@@ -14,6 +14,13 @@ public class Card {
         this.cardAddress = cardAddress;
     }
 
+    public Card(){
+        this.cardNum = -1;
+        this.experationDate = null;
+        this.cvc = -1;
+        this.cardAddress = null;
+    }
+
     public int getCardNum(){
         return cardNum;
     }
