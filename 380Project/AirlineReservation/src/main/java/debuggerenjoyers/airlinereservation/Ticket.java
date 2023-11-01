@@ -19,11 +19,31 @@ public class Ticket {
     }
 
     //Get Methods
-    public int getFlightID(){return flightID;}
-    public String getPassengerName(){
+
+    public int getFlightID() {
+        return flightID;
+    }
+
+    public String getpassengerName(){
         String first = this.passenger.getFirstName();
         String last = this.passenger.getLastName();
-        return first ;
+        return first+" "+last;
+    }
+
+    public int getBags() {
+        return bags;
+    }
+
+    public boolean isSeatType() {
+        return seatType;
+    }
+
+    public int getSeatNum() {
+        return seatNum;
+    }
+
+    public double getPrice() {
+        return price;
     }
 
 }
