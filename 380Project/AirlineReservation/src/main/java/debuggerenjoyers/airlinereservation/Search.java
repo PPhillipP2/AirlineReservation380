@@ -9,7 +9,7 @@ public class Search {
     public Search(List<Flight> flights) {
         this.flights = flights;
     }
-    public List<Flight> searchFlights(String departAirport, String arrivalAirport, Date departDate) {
+    public List<Flight> searchFlights(String departAirport, String arrivalAirport, String departDate) {
         List<Flight> searchResults = new ArrayList<>();
 
         for (Flight flight : flights) {
