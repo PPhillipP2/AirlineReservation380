@@ -18,9 +18,7 @@ public class Ticket {
 
     //Getter Methods
     public String getPassengerName(){
-        String first = this.passenger.getFirstName();
-        String last = this.passenger.getLastName();
-        return first+" "+last;
+        return passenger.getFirstName()+" "+passenger.getLastName();
     }
 
     public String getPassengerDOB(){
