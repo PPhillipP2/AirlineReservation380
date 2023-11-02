@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -8,8 +10,10 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" prefHeight="546.0" prefWidth="761.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.HelloController">
     <children>
@@ -30,19 +34,19 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.7555994729907773" layoutX="156.0" layoutY="72.0" prefHeight="440.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+        <SplitPane dividerPositions="0.116600790513834, 0.5" layoutX="156.0" layoutY="72.0" prefHeight="440.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="309.0" style="-fx-background-color: #ADD8E6;">
                     <children>
-                        <Button fx:id="searchFlightsButton" layoutX="215.0" layoutY="343.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="184.0" text="Search flights" />
+                        <Button layoutX="215.0" layoutY="343.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="184.0" text="Search flights" />
+                        <DatePicker layoutX="12.0" layoutY="201.0" />
                         <Label layoutX="78.0" layoutY="176.0" text="Departure" />
                         <Label layoutX="447.0" layoutY="176.0" text="Passengers" />
-                        <TextField fx:id="passengerNum" layoutX="399.0" layoutY="201.0" />
+                        <TextField layoutX="399.0" layoutY="201.0" />
+                        <ChoiceBox layoutX="30.0" layoutY="90.0" prefWidth="150.0" />
+                        <ChoiceBox layoutX="399.0" layoutY="90.0" prefWidth="150.0" />
                         <Label layoutX="82.0" layoutY="67.0" text="Origin" />
                         <Label layoutX="448.0" layoutY="67.0" text="Destination" />
-                  <TextField fx:id="originChoice" layoutX="24.0" layoutY="99.0" />
-                  <TextField fx:id="destinationChoice" layoutX="399.0" layoutY="99.0" />
-                  <TextField fx:id="departureDate" layoutX="24.0" layoutY="202.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="649.0" style="-fx-background-color: #808080;">
@@ -64,6 +68,18 @@
                   </TableView>
                     </children>
                 </AnchorPane>
+            <AnchorPane prefHeight="516.0" prefWidth="629.0">
+               <children>
+                  <TextField layoutX="24.0" layoutY="144.0" promptText="Enter Your First Name" />
+                  <TextField layoutX="24.0" layoutY="208.0" promptText="Enter Your Last Name" />
+                  <TextField layoutX="24.0" layoutY="246.0" promptText="Enter Your Email Address" />
+                  <TextArea editable="false" layoutX="242.0" layoutY="72.0" prefHeight="26.0" prefWidth="130.0" text=" Reservation Page">
+                     <font>
+                        <Font size="13.0" />
+                     </font>
+                  </TextArea>
+               </children>
+            </AnchorPane>
             </items>
         </SplitPane>
     </children>

@@ -4,11 +4,11 @@ public class Ticket {
 
     private Passenger passenger;
     private Flight flight;
-    private boolean seatType;
+    private Boolean seatType;
     private int seatNum;
     private double price;
 
-    public Ticket(Passenger passenger, Flight flight, boolean seatType, int seatNum ){
+    public Ticket(Passenger passenger, Flight flight, Boolean seatType, int seatNum ){
         this.flight = flight;
         this.passenger = passenger;
         this.seatType = seatType;
@@ -16,19 +16,16 @@ public class Ticket {
         this.price = flight.getPrice()+(passenger.getBags()*50);
     }
 
+    public Ticket(){
+        this.flight = null;
+        this.passenger = null;
+        this.seatType = null;
+        this.seatNum = -1;
+        this.price = -1;
+    }
+
     //Getter Methods
-    public String getPassengerName(){
-        String first = this.passenger.getFirstName();
-        String last = this.passenger.getLastName();
-        return first+" "+last;
-    }
-
-    public String getPassengerDOB(){
-        return passenger.getDOB();
-    }
-
-
-    public boolean isSeatType() {
+    public Boolean isSeatType() {
         return seatType;
     }
 
@@ -44,8 +41,8 @@ public class Ticket {
         return flight;
     }
 
-//    public int getBags(){
-//        return passenger.getBags();
-//    }
+    public Passenger getPassenger(){
+        return  passenger;
+    }
 
 }
