@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -27,7 +28,7 @@ public class HelloController implements Initializable {
     private Button searchFlightsButton;
 
     @FXML
-    private DatePicker datePicker;
+    private TextField departureDate;
 
     @FXML
     private Label departureLabel;
@@ -36,13 +37,13 @@ public class HelloController implements Initializable {
     private Label passengersLabel;
 
     @FXML
-    private TextField passengersTextField;
+    private TextField passengersNum;
 
     @FXML
-    private ChoiceBox<?> originChoiceBox;
+    private TextField originChoice;
 
     @FXML
-    private ChoiceBox<?> destinationChoiceBox;
+    private TextField destinationChoice;
 
     @FXML
     private Label originLabel;
@@ -89,15 +90,37 @@ public class HelloController implements Initializable {
 
 
         Flight emp1 = new Flight(123, "LAX", "JFK", "10/28/2002", "10:00 AM", "2:00 PM", 10, "2FE", 10.50);
-        Flight emp2 = new Flight(123, "LAX", "JFK", "10/28/2002", "10:00 AM", "2:00 PM", 10, "2FE", 10.50);
-        Flight emp3 = new Flight(123, "LAX", "JFK", "10/28/2002", "10:00 AM", "2:00 PM", 10, "2FE", 10.50);
-        Flight emp4 = new Flight(123, "LAX", "JFK", "10/28/2002", "10:00 AM", "2:00 PM", 10, "2FE", 10.50);
+        Flight emp2 = new Flight(124, "LBC", "AUS", "05/18/2002", "10:00 AM", "2:00 PM", 10, "2FE", 10.50);
+       // Flight emp3 = new Flight(125, "LAX", "JFK", "10/28/2002", "10:00 AM", "2:00 PM", 10, "2FE", 10.50);
+       // Flight emp4 = new Flight(126, "LAX", "JFK", "10/28/2002", "10:00 AM", "2:00 PM", 10, "2FE", 10.50);
 
-        dataList.addAll(emp1,emp2, emp3, emp4);
+        dataList.addAll(emp1,emp2);
         tableView.setItems(dataList);
 
-
+        searchFlightsButton.setOnAction(this::handleSearchFlights);
     }
+    private void handleSearchFlights(ActionEvent event) {
+        String selectedOrigin = originChoice.getText(); // Use .getText() for TextField
+        String selectedDestination = destinationChoice.getText(); // Use .getText() for TextField
+        String selectedDepartureDate = departureDate.getText();
+        int numPassengers = Integer.parseInt(passengersNum.getText());
 
+        // Implement flight filtering logic here
+        // Create a filtered list of flights based on the selected criteria
+        FilteredList<Flight> filteredFlights = dataList.filtered(flight -> {
+            boolean originMatch = selectedOrigin.equalsIgnoreCase(flight.getDepartAirport());
+            boolean destinationMatch = selectedDestination.equalsIgnoreCase(flight.getArrivalAirport());
+            boolean departureDateMatch = selectedDepartureDate.equals(flight.getDepartDate());
+            boolean seatsAvailable = flight.getSeatsOpen() >= numPassengers;
+            return originMatch && destinationMatch && departureDateMatch && seatsAvailable;
+        });
+
+        // Create a SortedList with a comparator to enable sorting of the filtered data
+        SortedList<Flight> sortedFlights = new SortedList<>(filteredFlights);
+        sortedFlights.comparatorProperty().bind(tableView.comparatorProperty());
+
+        // Bind the sorted and filtered list to the TableView
+        tableView.setItems(sortedFlights);
+    }
     // You can add methods to handle user interactions or perform actions in your application.
 }
