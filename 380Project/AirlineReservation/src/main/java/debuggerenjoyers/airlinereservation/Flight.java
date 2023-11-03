@@ -1,17 +1,37 @@
 package debuggerenjoyers.airlinereservation;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public class Flight {
 
+    // Add the @SerializedName annotation to map JSON keys to Java field names
+    @SerializedName("flightID")
     private final int flightID;
+
+    @SerializedName("departAirport")
     private final String departAirport;
+
+    @SerializedName("arrivalAirport")
     private final String arrivalAirport;
+
+    @SerializedName("departDate")
     private final String departDate;
+
+    @SerializedName("departTime")
     private final String departTime;
+
+    @SerializedName("arrivalTime")
     private final String arrivalTime;
+
+    @SerializedName("seatsOpen")
     private final int seatsOpen;
+
+    @SerializedName("seatChart")
     private final String seatChart;
+
+    @SerializedName("price")
     private final double price;
 
     public Flight(int flightID, String departAirport, String arrivalAirport, String departDate,
