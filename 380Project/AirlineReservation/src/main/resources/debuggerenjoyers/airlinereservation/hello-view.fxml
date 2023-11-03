@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -32,19 +30,19 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.116600790513834" layoutX="156.0" layoutY="72.0" prefHeight="440.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+        <SplitPane dividerPositions="0.7555994729907773" layoutX="156.0" layoutY="72.0" prefHeight="440.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="309.0" style="-fx-background-color: #ADD8E6;">
                     <children>
-                        <Button layoutX="215.0" layoutY="343.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="184.0" text="Search flights" />
-                        <DatePicker layoutX="12.0" layoutY="201.0" />
+                        <Button fx:id="searchFlightsButton" layoutX="215.0" layoutY="343.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="184.0" text="Search flights" />
                         <Label layoutX="78.0" layoutY="176.0" text="Departure" />
                         <Label layoutX="447.0" layoutY="176.0" text="Passengers" />
-                        <TextField layoutX="399.0" layoutY="201.0" />
-                        <ChoiceBox layoutX="30.0" layoutY="90.0" prefWidth="150.0" />
-                        <ChoiceBox layoutX="399.0" layoutY="90.0" prefWidth="150.0" />
+                        <TextField fx:id="passengerNumText" layoutX="399.0" layoutY="201.0" />
                         <Label layoutX="82.0" layoutY="67.0" text="Origin" />
                         <Label layoutX="448.0" layoutY="67.0" text="Destination" />
+                  <TextField fx:id="originText" layoutX="18.0" layoutY="99.0" />
+                  <TextField fx:id="departureDateText" layoutX="18.0" layoutY="201.0" />
+                  <TextField fx:id="destinationText" layoutX="409.0" layoutY="100.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="649.0" style="-fx-background-color: #808080;">
@@ -53,15 +51,13 @@
                   <Button layoutX="594.0" layoutY="470.0" mnemonicParsing="false" text="Seat Selection" />
                   <TableView fx:id="tableView" layoutX="11.0" layoutY="55.0" prefHeight="406.0" prefWidth="646.0">
                     <columns>
-                      <TableColumn fx:id="flightID" prefWidth="47.0" text="Flight ID" />
-                      <TableColumn fx:id="departAirport" prefWidth="62.0" text="Origin" />
-                        <TableColumn fx:id="departDate" prefWidth="60.0" text="Depart Date" />
-                        <TableColumn fx:id="arrivalAirport" prefWidth="74.0" text="Destination" />
-                        <TableColumn fx:id="departTime" minWidth="0.0" prefWidth="75.0" text="Depart Time" />
-                        <TableColumn fx:id="arrivalTime" prefWidth="50.0" text="Arrival Time" />
-                        <TableColumn fx:id="seatsOpen" minWidth="0.0" prefWidth="100.0" text="Seats Available" />
-                        <TableColumn fx:id="seatChart" prefWidth="50.0" text="Seat Chart" />
-                        <TableColumn fx:id="price" prefWidth="127.0" text="Price per Ticket" />
+                      <TableColumn fx:id="flightID" prefWidth="67.0" text="Flight ID" />
+                        <TableColumn fx:id="departDate" prefWidth="119.0" text="Depart Date" />
+                      <TableColumn fx:id="departAirport" prefWidth="67.0" text="Origin" />
+                        <TableColumn fx:id="arrivalAirport" prefWidth="79.0" text="Destination" />
+                        <TableColumn fx:id="departTime" minWidth="0.0" prefWidth="119.0" text="Depart Time" />
+                        <TableColumn fx:id="seatsOpen" minWidth="0.0" prefWidth="103.0" text="Seats Available" />
+                        <TableColumn fx:id="price" prefWidth="91.0" text="Price per Ticket" />
                     </columns>
                   </TableView>
                     </children>

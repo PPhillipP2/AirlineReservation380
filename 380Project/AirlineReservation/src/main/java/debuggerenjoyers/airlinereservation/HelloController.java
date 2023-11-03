@@ -23,6 +23,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
+import javafx.collections.transformation.FilteredList;
 
 
 public class HelloController implements Initializable {
@@ -39,7 +40,7 @@ public class HelloController implements Initializable {
     private Button searchFlightsButton;
 
     @FXML
-    private TextField departureDate;
+    private TextField departureDateText;
 
     @FXML
     private Label departureLabel;
@@ -48,13 +49,13 @@ public class HelloController implements Initializable {
     private Label passengersLabel;
 
     @FXML
-    private TextField passengersNum;
+    private TextField passengerNumText;
 
     @FXML
-    private TextField originChoice;
+    private TextField originText;
 
     @FXML
-    private TextField destinationChoice;
+    private TextField destinationText;
 
     @FXML
     private Label originLabel;
@@ -87,6 +88,8 @@ public class HelloController implements Initializable {
     @FXML
     private MenuItem action1MenuItem;
 
+    private FilteredList<Flight> filteredFlights;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Flight> flights = JSONParser.parseFlightData("/Users/angel/Downloads/ATL_JFK_december.json");
@@ -97,12 +100,36 @@ public class HelloController implements Initializable {
         departDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate()));
         departTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartTime()));
         seatsOpen.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSeatsOpen()).asObject());
-        seatChart.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSeatChart()));
-
+        price.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
 
         ObservableList<Flight> dataList = FXCollections.observableArrayList(flights);
-        tableView.setItems(dataList);
+        tableView.setItems(FXCollections.observableArrayList());
+        filteredFlights = new FilteredList<>(dataList);
+        searchFlightsButton.setOnAction(this::filterFlights);
+
+
     }
 
+    private void filterFlights(ActionEvent event) {
+        filteredFlights.setPredicate(flight -> {
+            String originFilter = originText.getText().toLowerCase();
+            String destinationFilter = destinationText.getText().toLowerCase();
+            String departureDateFilter = departureDateText.getText();
+            String passengerNumFilter = passengerNumText.getText();
 
+            boolean originMatch = originFilter.isEmpty() || flight.getDepartAirport().toLowerCase().contains(originFilter);
+            boolean destinationMatch = destinationFilter.isEmpty() || flight.getArrivalAirport().toLowerCase().contains(destinationFilter);
+            boolean departureDateMatch = departureDateFilter.isEmpty() || flight.getDepartDate().contains(departureDateFilter);
+
+            if (!passengerNumFilter.isEmpty()) {
+                int passengerNumber = Integer.parseInt(passengerNumFilter);
+                return originMatch && destinationMatch && departureDateMatch && flight.getSeatsOpen() >= passengerNumber;
+            }
+
+            return originMatch && destinationMatch && departureDateMatch;
+        });
+
+        // Set the filtered list as the new items for the TableView
+        tableView.setItems(new SortedList<>(filteredFlights));
+    }
 }
