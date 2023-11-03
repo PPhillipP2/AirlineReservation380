@@ -9,7 +9,10 @@ import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -24,6 +27,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
 import javafx.collections.transformation.FilteredList;
+import javafx.stage.Stage;
 
 
 public class HelloController implements Initializable {
@@ -38,6 +42,9 @@ public class HelloController implements Initializable {
 
     @FXML
     private Button searchFlightsButton;
+
+    @FXML
+    private Button seatSelectionButton;
 
     @FXML
     private TextField departureDateText;
@@ -131,5 +138,28 @@ public class HelloController implements Initializable {
 
         // Set the filtered list as the new items for the TableView
         tableView.setItems(new SortedList<>(filteredFlights));
+
+
+    }
+
+    @FXML
+    private void handleSeatSelectionButtonClick(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("seatUI.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the seat selection UI
+            Stage seatStage = new Stage();
+            seatStage.setTitle("Seat Selection");
+            seatStage.setScene(new Scene(root));
+
+            // Show the seat selection UI
+            seatStage.show();
+
+            // Optionally, close the current window if needed
+            // ((Node)(event.getSource())).getScene().getWindow().hide();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -30,7 +30,7 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.7555994729907773" layoutX="156.0" layoutY="72.0" prefHeight="440.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+        <SplitPane dividerPositions="0.11396574440052701" layoutX="156.0" layoutY="72.0" prefHeight="440.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="309.0" style="-fx-background-color: #ADD8E6;">
                     <children>
@@ -48,7 +48,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="649.0" style="-fx-background-color: #808080;">
                     <children>
                         <Label layoutX="356.0" layoutY="14.0" text="Results" textFill="WHITE" />
-                  <Button layoutX="594.0" layoutY="470.0" mnemonicParsing="false" text="Seat Selection" />
+                  <Button fx:id="seatSelectionButton" layoutX="594.0" layoutY="470.0" mnemonicParsing="false" onAction="#handleSeatSelectionButtonClick" text="Seat Selection" />
                   <TableView fx:id="tableView" layoutX="11.0" layoutY="55.0" prefHeight="406.0" prefWidth="646.0">
                     <columns>
                       <TableColumn fx:id="flightID" prefWidth="67.0" text="Flight ID" />
