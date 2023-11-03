@@ -7,18 +7,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 
 public class JSONParser {
     public static List<Flight> parseFlightData(String filePath) {
         Gson gson = new Gson();
-        List<Flight> flights = null;
+        FlightDataWrapper dataWrapper = null;
         try (Reader reader = new FileReader(filePath)) {
-            Type flightListType = new TypeToken<List<Flight>>() {}.getType();
-            flights = gson.fromJson(reader, flightListType);
+            dataWrapper = gson.fromJson(reader, FlightDataWrapper.class);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return flights;
+        if (dataWrapper != null) {
+            return dataWrapper.getFlights();
+        }
+        return Collections.emptyList();
     }
 }

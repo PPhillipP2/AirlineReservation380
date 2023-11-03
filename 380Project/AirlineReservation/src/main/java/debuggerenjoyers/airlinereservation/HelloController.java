@@ -99,6 +99,7 @@ public class HelloController implements Initializable {
         seatsOpen.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSeatsOpen()).asObject());
         seatChart.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getSeatChart()));
 
+
         ObservableList<Flight> dataList = FXCollections.observableArrayList(flights);
         tableView.setItems(dataList);
     }
