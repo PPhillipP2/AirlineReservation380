@@ -3,7 +3,6 @@ module debuggerenjoyers.airlinereservation {
     requires javafx.fxml;
     requires com.google.gson;
 
-
-    opens debuggerenjoyers.airlinereservation to javafx.fxml;
+    opens debuggerenjoyers.airlinereservation to javafx.fxml, com.google.gson;
     exports debuggerenjoyers.airlinereservation;
 }
