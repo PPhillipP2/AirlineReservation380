@@ -1,14 +1,16 @@
 package debuggerenjoyers.airlinereservation;
 
+import java.util.List;
+
 public class Reservation {
 
-    private Ticket[] tickets;
+    private List<Ticket> tickets;
     private Purchase purchase;
     private Boolean tripType;
     private double priceTotal;
     private String confirmationNum;
 
-    public Reservation(Ticket[] tickets, Purchase purchase, Boolean tripType, String confirmationNum){
+    public Reservation(List<Ticket> tickets, Purchase purchase, Boolean tripType, String confirmationNum){
         this.tickets = tickets;
         this.purchase = purchase;
         this.tripType = tripType;
@@ -30,7 +32,8 @@ public class Reservation {
     }
 
 
-    public Ticket[] getTickets(){
+//GETTER METHODS
+    public List<Ticket> getTickets(){
         return tickets;
     }
 
@@ -48,5 +51,14 @@ public class Reservation {
 
     public String getConfirmationNum(){
         return confirmationNum;
+    }
+
+    //SETTER METHODS
+    public void setPurchase(Purchase purchase){
+        this.purchase = purchase;
+    }
+
+    public void setTickets(List<Ticket> tickets){
+        this.tickets = tickets;
     }
 }

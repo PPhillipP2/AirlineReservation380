@@ -33,4 +33,10 @@ public class Purchase {
     public int getCardUsedIndex(){
         return cardUsedIndex;
     }
+
+    //SET METHODS
+
+    public void setCustomer(Customer customer){
+        this.customer = customer;
+    }
 }
