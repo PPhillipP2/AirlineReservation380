@@ -97,6 +97,7 @@ public class HelloController implements Initializable {
 
     private FilteredList<Flight> filteredFlights;
 
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         List<Flight> flights = JSONParser.parseFlightData("/Users/angel/Downloads/ATL_JFK_december.json");

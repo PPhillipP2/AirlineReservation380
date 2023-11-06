@@ -8,17 +8,31 @@ public class Ticket {
     private int seatNum;
     private double price;
 
-    public Ticket(Passenger passenger, Flight flight, Boolean seatType, int seatNum ){
+    public Ticket(Passenger passenger, Flight flight,int seatNum ){
         this.flight = flight;
         this.passenger = passenger;
-        this.seatType = seatType;
         this.seatNum = seatNum;
+
         this.price = flight.getPrice()+(passenger.getBags()*50);
+
+        if(seatNum<11){
+            seatType = Boolean.TRUE;
+        }
+        else
+            seatType = Boolean.FALSE;
     }
 
     public Ticket(){
         this.flight = null;
         this.passenger = null;
+        this.seatType = null;
+        this.seatNum = -1;
+        this.price = -1;
+    }
+
+    public Ticket(Passenger passenger, Flight flight){
+        this.flight = flight;
+        this.passenger = passenger;
         this.seatType = null;
         this.seatNum = -1;
         this.price = -1;
