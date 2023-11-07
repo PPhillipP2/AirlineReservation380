@@ -15,7 +15,7 @@ public class Purchase {
 
     public Purchase(){
         this.customer = null;
-        this.purchaseStatus = null;
+        this.purchaseStatus = false;
         this.purchaseTotal = -1;
         this.cardUsedIndex = -1;
     }

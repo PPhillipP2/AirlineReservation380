@@ -38,6 +38,7 @@ public class Ticket {
         this.price = -1;
     }
 
+
     //Getter Methods
     public Boolean isSeatType() {
         return seatType;
@@ -59,4 +60,20 @@ public class Ticket {
         return  passenger;
     }
 
+    // Set Methods
+    public void setPassenger(Passenger passenger){
+        this.passenger = passenger;
+    }
+    public void setFlight(Flight flight) {
+        this.flight = flight;
+    }
+    public void setPrice(double price) {
+        this.price = price;
+    }
+    public void setSeatNum(int seatNum) {
+        this.seatNum = seatNum;
+    }
+    public void setSeatType(Boolean seatType) {
+        this.seatType = seatType;
+    }
 }
