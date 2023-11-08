@@ -153,9 +153,9 @@ public class HelloController implements Initializable {
         //Getting Instance of Reservation and Populating it with Tickets that only have flight
         //Currently only takes one way trips
         int passengerNum = 1;
-        if(passengerNumText.getText() != null) {
-            passengerNum = Integer.parseInt(passengerNumText.getText());
-        }
+//        if(passengerNumText.getText() != null) {
+//            passengerNum = Integer.parseInt(passengerNumText.getText());
+//        }
 
         Flight flight = tableView.getSelectionModel().getSelectedItem();
         reservation.setTickets(ReservationSystem.createTickets(passengerNum, Boolean.FALSE, flight,null));
