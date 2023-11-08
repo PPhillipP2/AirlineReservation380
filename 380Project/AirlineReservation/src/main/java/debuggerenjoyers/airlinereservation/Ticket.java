@@ -76,4 +76,14 @@ public class Ticket {
     public void setSeatType(Boolean seatType) {
         this.seatType = seatType;
     }
+
+    // Update Method
+    public void updatePrice(){
+        if (seatType){
+            price = flight.getPrice() + (passenger.getBags()*30)+30;
+        }
+        else{
+            price = flight.getPrice() + (passenger.getBags()*30);
+        }
+    }
 }

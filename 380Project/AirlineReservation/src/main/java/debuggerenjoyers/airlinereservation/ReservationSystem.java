@@ -5,18 +5,6 @@ import java.util.List;
 
 public class ReservationSystem {
 
-    public Reservation createReservation(SelectedFlight flightInfo, List<Ticket> tickets){
-        double total = 0;
-        for (Ticket ticket : tickets) {
-            total = ticket.getPrice();
-        }
-        Reservation reservation = new Reservation();
-        reservation.setTickets(tickets);
-        reservation.setTripType(flightInfo.getTripType());
-        reservation.setPriceTotal(total);
-        return reservation;
-    }
-
     public static  List<Ticket> createTickets(int passengerNum, Boolean tripType, Flight flight1, Flight flight2){
 
         List<Ticket> tickets = new ArrayList<>();
@@ -34,6 +22,12 @@ public class ReservationSystem {
             return tickets;
         }
 
+    }
+    public static List<Ticket> populatePassenger(List<Ticket> tickets){
+        for(Ticket ticket:tickets){
+            ticket.setPassenger(new Passenger());
+        }
+        return tickets;
     }
 
 

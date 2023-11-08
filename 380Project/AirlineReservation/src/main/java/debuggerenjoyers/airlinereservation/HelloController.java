@@ -17,7 +17,10 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import com.google.gson.Gson;
@@ -98,12 +101,14 @@ public class HelloController implements Initializable {
     private FilteredList<Flight> filteredFlights;
 
     Reservation reservation = Reservation.getInstance();
-
+    List<Flight> flights = JSONParser.parseFlightData(getClass().getClassLoader().getResourceAsStream("debuggerenjoyers/airlinereservation/ATL_JFK_december.json"));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Flight> flights = JSONParser.parseFlightData("/Users/angel/Downloads/ATL_JFK_december.json");
 
+
+
+        //List<Flight> flights = new ArrayList<>();
         flightID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getFlightID()).asObject());
         departAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartAirport()));
         arrivalAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArrivalAirport()));

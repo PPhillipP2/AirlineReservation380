@@ -1,6 +1,6 @@
 {
-	"flights":{
-		"flight":[
+
+		"flights":[
 {
      "flightID": 1001,
      "DepartAiport": "ATL",
@@ -1012,4 +1012,3 @@
 
 		]
 	}
-}
