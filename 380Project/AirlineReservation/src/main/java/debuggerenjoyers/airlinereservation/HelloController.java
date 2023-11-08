@@ -97,6 +97,8 @@ public class HelloController implements Initializable {
 
     private FilteredList<Flight> filteredFlights;
 
+    Reservation reservation = Reservation.getInstance();
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -145,6 +147,13 @@ public class HelloController implements Initializable {
 
     @FXML
     private void handleSeatSelectionButtonClick(ActionEvent event) {
+        //Getting Instance of Reservation and Populating it with Tickets that only have flight
+        //Currently only takes one way trips
+
+        int passengerNum = Integer.parseInt(passengerNumText.getText());
+        Flight flight = tableView.getSelectionModel().getSelectedItem();
+        reservation.setTickets(ReservationSystem.createTickets(passengerNum, Boolean.FALSE, flight,null));
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("seatUI.fxml"));
             Parent root = loader.load();

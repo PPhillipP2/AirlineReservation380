@@ -1,13 +1,14 @@
 package debuggerenjoyers.airlinereservation;
 
+import java.util.List;
 public class Customer {
 
     private String firstName;
     private String lastName;
     private String emailAddress;
-    private Card[] creditCards;
+    private List<Card> creditCards;
 
-    public Customer(String firstName, String lastName, String emailAddress, Card[] creditCards){
+    public Customer(String firstName, String lastName, String emailAddress, List<Card> creditCards){
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
@@ -33,7 +34,7 @@ public class Customer {
     public String getEmailAddress(){
         return emailAddress;
     }
-    public Card[] getCreditCards(){
+    public List<Card> getCreditCards(){
         return creditCards;
     }
 }

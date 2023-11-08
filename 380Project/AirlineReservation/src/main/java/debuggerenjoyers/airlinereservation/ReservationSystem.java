@@ -17,25 +17,23 @@ public class ReservationSystem {
         return reservation;
     }
 
-    public  List<Ticket> createTickets(SelectedFlight flightInfo,PassengerInfo passengerInfo){
-        List<Passenger> passengers = new ArrayList<>();
+    public static  List<Ticket> createTickets(int passengerNum, Boolean tripType, Flight flight1, Flight flight2){
+
         List<Ticket> tickets = new ArrayList<>();
-        if(!flightInfo.getTripType()){
-            for(int i=0; i < flightInfo.getPassengerNum();i++){
-                passengers.add(new Passenger(passengerInfo.getFirstName(i), passengerInfo.getLastName(i), passengerInfo.getDOB(i), passengerInfo.getBags(i)));
-                tickets.add(new Ticket(passengers.get(i), flightInfo.getFlight1(),passengerInfo.getSeat1Num(i)));
+        if(tripType == Boolean.FALSE){
+            for(int i=0; i < passengerNum;i++){
+                tickets.add(new Ticket(flight1));
             }
             return  tickets;
         }
-        else if (flightInfo.getTripType()){
-            for(int i=0; i< flightInfo.getPassengerNum(); i++) {
-                passengers.add(new Passenger(passengerInfo.getFirstName(i), passengerInfo.getLastName(i), passengerInfo.getDOB(i), passengerInfo.getBags(i)));
-                tickets.add(new Ticket(passengers.get(i), flightInfo.getFlight1(), passengerInfo.getSeat1Num(i)));
-                tickets.add(new Ticket(passengers.get(i), flightInfo.getFlight2(), passengerInfo.getSeat2Num(i)));
+        else{
+            for(int i=0; i< passengerNum; i++) {
+                tickets.add(new Ticket(flight1));
+                tickets.add(new Ticket(flight2));
             }
             return tickets;
         }
-        return null;
+
     }
 
 

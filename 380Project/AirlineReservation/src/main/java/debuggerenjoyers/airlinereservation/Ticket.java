@@ -30,9 +30,9 @@ public class Ticket {
         this.price = -1;
     }
 
-    public Ticket(Passenger passenger, Flight flight){
+    public Ticket(Flight flight){
         this.flight = flight;
-        this.passenger = passenger;
+        this.passenger = null;
         this.seatType = null;
         this.seatNum = -1;
         this.price = -1;
