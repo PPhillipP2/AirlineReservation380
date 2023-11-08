@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -30,19 +32,19 @@
                 </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.11396574440052701" layoutX="156.0" layoutY="72.0" prefHeight="440.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
+        <SplitPane dividerPositions="0.8293807641633728" layoutX="156.0" layoutY="72.0" prefHeight="440.0" prefWidth="624.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="28.0">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="309.0" style="-fx-background-color: #ADD8E6;">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="118.0" style="-fx-background-color: #ADD8E6;">
                     <children>
                         <Button fx:id="searchFlightsButton" layoutX="215.0" layoutY="343.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="184.0" text="Search flights" />
                         <Label layoutX="78.0" layoutY="176.0" text="Departure" />
                         <Label layoutX="447.0" layoutY="176.0" text="Passengers" />
-                        <TextField fx:id="passengerNumText" layoutX="399.0" layoutY="201.0" />
-                        <Label layoutX="82.0" layoutY="67.0" text="Origin" />
+                        <Label layoutX="98.0" layoutY="67.0" text="Origin" />
                         <Label layoutX="448.0" layoutY="67.0" text="Destination" />
-                  <TextField fx:id="originText" layoutX="18.0" layoutY="99.0" />
-                  <TextField fx:id="departureDateText" layoutX="18.0" layoutY="201.0" />
+                  <TextField fx:id="originText" layoutX="35.0" layoutY="100.0" />
                   <TextField fx:id="destinationText" layoutX="409.0" layoutY="100.0" />
+                  <Spinner fx:id="passengerNumText" layoutX="399.0" layoutY="201.0" />
+                  <DatePicker fx:id="departureDateText" layoutX="22.0" layoutY="201.0" />
                     </children>
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="516.0" prefWidth="649.0" style="-fx-background-color: #808080;">

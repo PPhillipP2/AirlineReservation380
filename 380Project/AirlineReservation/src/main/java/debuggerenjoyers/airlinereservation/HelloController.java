@@ -20,6 +20,7 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -51,7 +52,7 @@ public class HelloController implements Initializable {
     private Button seatSelectionButton;
 
     @FXML
-    private TextField departureDateText;
+    private DatePicker departureDateText;
 
     @FXML
     private Label departureLabel;
@@ -60,7 +61,7 @@ public class HelloController implements Initializable {
     private Label passengersLabel;
 
     @FXML
-    private TextField passengerNumText;
+    private Spinner<Integer> passengerNumText;
 
     @FXML
     private TextField originText;
@@ -110,7 +111,7 @@ public class HelloController implements Initializable {
         flightID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getFlightID()).asObject());
         departAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartAirport()));
         arrivalAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArrivalAirport()));
-        departDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate()));
+        departDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate().toString()));
         departTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartTime()));
         seatsOpen.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSeatsOpen()).asObject());
         price.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
@@ -127,17 +128,17 @@ public class HelloController implements Initializable {
         filteredFlights.setPredicate(flight -> {
             String originFilter = originText.getText().toLowerCase();
             String destinationFilter = destinationText.getText().toLowerCase();
-            String departureDateFilter = departureDateText.getText();
-            String passengerNumFilter = passengerNumText.getText();
+            String departureDateFilter = departureDateText.getValue().toString();
+            int passengerNumFilter = passengerNumText.getValue();
 
             boolean originMatch = originFilter.isEmpty() || flight.getDepartAirport().toLowerCase().contains(originFilter);
             boolean destinationMatch = destinationFilter.isEmpty() || flight.getArrivalAirport().toLowerCase().contains(destinationFilter);
             boolean departureDateMatch = departureDateFilter.isEmpty() || flight.getDepartDate().contains(departureDateFilter);
 
-            if (!passengerNumFilter.isEmpty()) {
-                int passengerNumber = Integer.parseInt(passengerNumFilter);
-                return originMatch && destinationMatch && departureDateMatch && flight.getSeatsOpen() >= passengerNumber;
+            if (passengerNumFilter > 0) {
+                return originMatch && destinationMatch && departureDateMatch && flight.getSeatsOpen() >= passengerNumFilter;
             }
+
 
             return originMatch && destinationMatch && departureDateMatch;
         });

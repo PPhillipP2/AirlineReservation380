@@ -2,6 +2,7 @@ package debuggerenjoyers.airlinereservation;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Flight {
@@ -17,7 +18,7 @@ public class Flight {
     private final String arrivalAirport;
 
     @SerializedName("departDate")
-    private final String departDate;
+    private final LocalDate departDate;
 
     @SerializedName("departTime")
     private final String departTime;
@@ -34,7 +35,7 @@ public class Flight {
     @SerializedName("price")
     private final double price;
 
-    public Flight(int flightID, String departAirport, String arrivalAirport, String departDate,
+    public Flight(int flightID, String departAirport, String arrivalAirport, LocalDate departDate,
                   String departTime, String arrivalTime, int seatsOpen, String seatChart, double price) {
         this.flightID = flightID;
         this.departAirport = departAirport;
@@ -61,7 +62,7 @@ public class Flight {
     }
 
     public String getDepartDate() {
-        return departDate;
+        return departDate.toString();
     }
 
     public String getDepartTime() {
