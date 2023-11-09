@@ -103,7 +103,7 @@ public class HelloController implements Initializable {
     private FilteredList<Flight> filteredFlights;
 
     Reservation reservation = Reservation.getInstance();
-    List<Flight> flights = JSONParser.parseFlightData(getClass().getResourceAsStream("ATL_JFK_december.json"));
+    List<Flight> flights = JSONParser.parseFlightData(getClass().getResourceAsStream("flight.json"));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -111,7 +111,7 @@ public class HelloController implements Initializable {
         flightID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getFlightID()).asObject());
         departAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartAirport()));
         arrivalAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArrivalAirport()));
-        departDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate().toString()));
+        departDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate()));
         departTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartTime()));
         seatsOpen.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSeatsOpen()).asObject());
         price.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
@@ -129,11 +129,13 @@ public class HelloController implements Initializable {
             String originFilter = originText.getText().toLowerCase();
             String destinationFilter = destinationText.getText().toLowerCase();
             String departureDateFilter = departureDateText.getValue().toString();
-            int passengerNumFilter = passengerNumText.getValue();
+            Integer passengerNumFilter = passengerNumText.getValue();
+            passengerNumFilter = 1;
 
             boolean originMatch = originFilter.isEmpty() || flight.getDepartAirport().toLowerCase().contains(originFilter);
             boolean destinationMatch = destinationFilter.isEmpty() || flight.getArrivalAirport().toLowerCase().contains(destinationFilter);
             boolean departureDateMatch = departureDateFilter.isEmpty() || flight.getDepartDate().contains(departureDateFilter);
+
 
             if (passengerNumFilter > 0) {
                 return originMatch && destinationMatch && departureDateMatch && flight.getSeatsOpen() >= passengerNumFilter;

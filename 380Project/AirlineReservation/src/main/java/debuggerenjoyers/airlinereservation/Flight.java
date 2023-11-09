@@ -18,7 +18,7 @@ public class Flight {
     private final String arrivalAirport;
 
     @SerializedName("departDate")
-    private final LocalDate departDate;
+    private final String departDate;
 
     @SerializedName("departTime")
     private final String departTime;
@@ -35,7 +35,7 @@ public class Flight {
     @SerializedName("price")
     private final double price;
 
-    public Flight(int flightID, String departAirport, String arrivalAirport, LocalDate departDate,
+    public Flight(int flightID, String departAirport, String arrivalAirport, String departDate,
                   String departTime, String arrivalTime, int seatsOpen, String seatChart, double price) {
         this.flightID = flightID;
         this.departAirport = departAirport;
