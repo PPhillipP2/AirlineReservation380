@@ -2,6 +2,7 @@ package debuggerenjoyers.airlinereservation;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class Flight {
@@ -61,7 +62,7 @@ public class Flight {
     }
 
     public String getDepartDate() {
-        return departDate;
+        return departDate.toString();
     }
 
     public String getDepartTime() {

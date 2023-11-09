@@ -1,5 +1,4 @@
 package debuggerenjoyers.airlinereservation;
 
-public class FlightTest {
-
+public class JSONRewrite {
 }

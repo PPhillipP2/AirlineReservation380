@@ -17,7 +17,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.File;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import com.google.gson.Gson;
@@ -28,6 +32,7 @@ import java.io.Reader;
 import java.lang.reflect.Type;
 import javafx.collections.transformation.FilteredList;
 import javafx.stage.Stage;
+import java.util.*;
 
 
 public class HelloController implements Initializable {
@@ -47,7 +52,7 @@ public class HelloController implements Initializable {
     private Button seatSelectionButton;
 
     @FXML
-    private TextField departureDateText;
+    private DatePicker departureDateText;
 
     @FXML
     private Label departureLabel;
@@ -56,7 +61,7 @@ public class HelloController implements Initializable {
     private Label passengersLabel;
 
     @FXML
-    private TextField passengerNumText;
+    private Spinner<Integer> passengerNumText;
 
     @FXML
     private TextField originText;
@@ -97,10 +102,11 @@ public class HelloController implements Initializable {
 
     private FilteredList<Flight> filteredFlights;
 
+    Reservation reservation = Reservation.getInstance();
+    List<Flight> flights = JSONParser.parseFlightData(getClass().getResourceAsStream("flight.json"));
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        List<Flight> flights = JSONParser.parseFlightData("/Users/angel/Downloads/ATL_JFK_december.json");
 
         flightID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getFlightID()).asObject());
         departAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartAirport()));
@@ -122,17 +128,19 @@ public class HelloController implements Initializable {
         filteredFlights.setPredicate(flight -> {
             String originFilter = originText.getText().toLowerCase();
             String destinationFilter = destinationText.getText().toLowerCase();
-            String departureDateFilter = departureDateText.getText();
-            String passengerNumFilter = passengerNumText.getText();
+            String departureDateFilter = departureDateText.getValue().toString();
+            Integer passengerNumFilter = passengerNumText.getValue();
+            passengerNumFilter = 1;
 
             boolean originMatch = originFilter.isEmpty() || flight.getDepartAirport().toLowerCase().contains(originFilter);
             boolean destinationMatch = destinationFilter.isEmpty() || flight.getArrivalAirport().toLowerCase().contains(destinationFilter);
             boolean departureDateMatch = departureDateFilter.isEmpty() || flight.getDepartDate().contains(departureDateFilter);
 
-            if (!passengerNumFilter.isEmpty()) {
-                int passengerNumber = Integer.parseInt(passengerNumFilter);
-                return originMatch && destinationMatch && departureDateMatch && flight.getSeatsOpen() >= passengerNumber;
+
+            if (passengerNumFilter > 0) {
+                return originMatch && destinationMatch && departureDateMatch && flight.getSeatsOpen() >= passengerNumFilter;
             }
+
 
             return originMatch && destinationMatch && departureDateMatch;
         });
@@ -145,6 +153,16 @@ public class HelloController implements Initializable {
 
     @FXML
     private void handleSeatSelectionButtonClick(ActionEvent event) {
+        //Getting Instance of Reservation and Populating it with Tickets that only have flight
+        //Currently only takes one way trips
+        int passengerNum = 1;
+//        if(passengerNumText.getText() != null) {
+//            passengerNum = Integer.parseInt(passengerNumText.getText());
+//        }
+
+        Flight flight = tableView.getSelectionModel().getSelectedItem();
+        reservation.setTickets(ReservationSystem.createTickets(passengerNum, Boolean.FALSE, flight,null));
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("seatUI.fxml"));
             Parent root = loader.load();
