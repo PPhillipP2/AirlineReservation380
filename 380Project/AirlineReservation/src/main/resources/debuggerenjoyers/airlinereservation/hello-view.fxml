@@ -43,7 +43,7 @@
                         <Label layoutX="448.0" layoutY="67.0" text="Destination" />
                   <TextField fx:id="originText" layoutX="35.0" layoutY="100.0" />
                   <TextField fx:id="destinationText" layoutX="409.0" layoutY="100.0" />
-                  <Spinner fx:id="passengerNumText" layoutX="399.0" layoutY="201.0" />
+                  <Spinner fx:id="passengerNumSpinner" layoutX="399.0" layoutY="201.0" />
                   <DatePicker fx:id="departureDateText" layoutX="22.0" layoutY="201.0" />
                     </children>
                 </AnchorPane>

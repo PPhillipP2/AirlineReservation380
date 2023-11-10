@@ -61,7 +61,7 @@ public class HelloController implements Initializable {
     private Label passengersLabel;
 
     @FXML
-    private Spinner<Integer> passengerNumText;
+    private Spinner<Integer> passengerNumSpinner;
 
     @FXML
     private TextField originText;
@@ -115,7 +115,7 @@ public class HelloController implements Initializable {
         departTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartTime()));
         seatsOpen.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSeatsOpen()).asObject());
         price.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
-
+        passengerNumSpinner.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 9, 1));
         ObservableList<Flight> dataList = FXCollections.observableArrayList(flights);
         tableView.setItems(FXCollections.observableArrayList());
         filteredFlights = new FilteredList<>(dataList);
@@ -129,7 +129,7 @@ public class HelloController implements Initializable {
             String originFilter = originText.getText().toLowerCase();
             String destinationFilter = destinationText.getText().toLowerCase();
             String departureDateFilter = departureDateText.getValue().toString();
-            Integer passengerNumFilter = passengerNumText.getValue();
+            Integer passengerNumFilter = passengerNumSpinner.getValue();
             passengerNumFilter = 1;
 
             boolean originMatch = originFilter.isEmpty() || flight.getDepartAirport().toLowerCase().contains(originFilter);
