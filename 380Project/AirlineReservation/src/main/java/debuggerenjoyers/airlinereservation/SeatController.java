@@ -1,11 +1,10 @@
 package debuggerenjoyers.airlinereservation;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
-import javafx.scene.text.Text;
+import javafx.scene.control.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,39 +12,52 @@ import java.util.ResourceBundle;
 public class SeatController implements Initializable {
 
     @FXML
-    private TextField firstNameTextField;
+    private ComboBox<String> ticketsComboBox;
 
     @FXML
-    private TextField lastNameTextField;
+    private ComboBox<String> bagsComboBox;
 
     @FXML
-    private TextField dobTextField;
+    private Spinner<String> ticketsSpinner;
 
     @FXML
-    private Button submitButton;
-
-    @FXML
-    private Button nextButton;
-
-    @FXML
-    private Text ticketsText;
-
-    @FXML
-    private Text passengerPageText;
-
-    @FXML
-    private Text bagsText;
-
-    @FXML
-    private ComboBox<Integer> ticketsComboBox;
-
-    @FXML
-    private ComboBox<Integer> bagsComboBox;
+    private Spinner<String> bagsSpinner;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        // Set up event handlers or additional initialization if needed
-    }
+        // Customize the ticketsComboBox with a string converter
+        ticketsComboBox.getItems().addAll(
+                "Passenger 1", "Passenger 2", "Passenger 3", "Passenger 4", "Passenger 5",
+                "Passenger 6", "Passenger 7", "Passenger 8", "Passenger 9"
+        );
 
-    // You can add methods for event handling or additional logic as needed
+        // Set up values and converters for spinners
+        ticketsSpinner.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<>(
+                ticketsComboBox.getItems()
+        ));
+        ticketsSpinner.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!ticketsComboBox.getItems().contains(newValue)) {
+                    ticketsSpinner.getValueFactory().setValue(ticketsComboBox.getItems().get(0));
+                }
+            }
+        });
+
+        bagsComboBox.getItems().addAll(
+                "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"
+        );
+        bagsSpinner.setValueFactory(new SpinnerValueFactory.ListSpinnerValueFactory<>(
+                bagsComboBox.getItems()
+        ));
+        bagsSpinner.getEditor().textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                if (!bagsComboBox.getItems().contains(newValue)) {
+                    bagsSpinner.getValueFactory().setValue(bagsComboBox.getItems().get(0));
+                }
+            }
+        });
+    }
 }
+
