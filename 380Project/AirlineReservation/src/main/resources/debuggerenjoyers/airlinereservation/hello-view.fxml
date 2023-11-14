@@ -18,7 +18,7 @@
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
                 <Menu mnemonicParsing="false" text="Home" />
-                <Menu mnemonicParsing="false" text="Check In" />
+                <Menu mnemonicParsing="false" text="View/Modify Ticket" />
                 <Menu mnemonicParsing="false" text="Review">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Read Reviews" />
