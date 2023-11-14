@@ -19,7 +19,7 @@
         <Button layoutX="367.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Submit " />
         <Button layoutX="198.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Save Passenger" />
         <ScrollBar orientation="VERTICAL" />
-        <Text layoutX="58.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Number Of Tickets" wrappingWidth="160.62109375" />
+        <Text layoutX="58.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Passenger" wrappingWidth="160.62109375" />
         <Text layoutX="344.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passenger Page" />
         <Text layoutX="58.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Number Of Bags" wrappingWidth="160.62109375" />
         <Spinner fx:id="ticketsSpinner" layoutX="48.0" layoutY="67.0" prefWidth="150.0" />
