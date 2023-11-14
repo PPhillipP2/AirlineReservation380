@@ -159,7 +159,7 @@ public class HelloController implements Initializable {
         int passengerNum = passengerNumSpinner.getValue();
 
         Flight flight = tableView.getSelectionModel().getSelectedItem();
-        reservation.setTickets(ReservationSystem.createTickets(passengerNum, Boolean.FALSE, flight,null));
+        reservation.setTickets(ReservationSystem.populatePassenger(ReservationSystem.createTickets(passengerNum, Boolean.FALSE, flight,null)));
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("seatUI.fxml"));

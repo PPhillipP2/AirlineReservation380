@@ -35,4 +35,20 @@ public class Passenger {
     public int getBags() {
         return bags;
     }
+
+    public void setFirstName(String firstName){
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setBags(int bags) {
+        this.bags = bags;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
 }
