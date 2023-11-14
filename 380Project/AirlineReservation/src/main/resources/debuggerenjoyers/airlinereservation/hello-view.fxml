@@ -18,7 +18,7 @@
         <MenuBar AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <menus>
                 <Menu mnemonicParsing="false" text="Home" />
-                <Menu mnemonicParsing="false" text="Check In" />
+                <Menu mnemonicParsing="false" text="View/Modify Ticket" />
                 <Menu mnemonicParsing="false" text="Review">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Read Reviews" />
@@ -43,7 +43,7 @@
                         <Label layoutX="448.0" layoutY="67.0" text="Destination" />
                   <TextField fx:id="originText" layoutX="35.0" layoutY="100.0" />
                   <TextField fx:id="destinationText" layoutX="409.0" layoutY="100.0" />
-                  <Spinner fx:id="passengerNumText" layoutX="399.0" layoutY="201.0" />
+                  <Spinner fx:id="passengerNumSpinner" layoutX="399.0" layoutY="201.0" />
                   <DatePicker fx:id="departureDateText" layoutX="22.0" layoutY="201.0" />
                     </children>
                 </AnchorPane>

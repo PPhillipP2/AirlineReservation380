@@ -27,10 +27,10 @@ public class Flight {
     private final String arrivalTime;
 
     @SerializedName("seatsOpen")
-    private final int seatsOpen;
+    private int seatsOpen;
 
     @SerializedName("seatChart")
-    private final String seatChart;
+    private String seatChart;
 
     @SerializedName("price")
     private final double price;
@@ -62,7 +62,7 @@ public class Flight {
     }
 
     public String getDepartDate() {
-        return departDate.toString();
+        return departDate;
     }
 
     public String getDepartTime() {
@@ -83,5 +83,15 @@ public class Flight {
 
     public double getPrice() {
         return price;
+    }
+
+    // Setter methods for the flight class
+
+    public void setSeatsOpen(int seatsOpen) {
+        this.seatsOpen = seatsOpen;
+    }
+
+    public void setSeatChart(String seatChart) {
+        this.seatChart = seatChart;
     }
 }
