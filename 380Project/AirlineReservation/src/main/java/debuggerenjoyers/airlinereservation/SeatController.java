@@ -60,4 +60,3 @@ public class SeatController implements Initializable {
         });
     }
 }
-
