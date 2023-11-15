@@ -10,10 +10,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class CancelController {
-
+public class PurchaseController {
     @FXML
-    private void CanceltoHomeButton(ActionEvent event) {
+    private void PurchasetoHomeButton(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Parent root = loader.load();

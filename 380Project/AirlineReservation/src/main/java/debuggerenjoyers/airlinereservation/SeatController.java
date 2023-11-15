@@ -4,11 +4,18 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -73,6 +80,31 @@ public class SeatController implements Initializable {
     public void setOptionsList(ObservableList<String> newOptionsList) {
         optionsList.setAll(newOptionsList);
         updateOptionsList();
+    }
+
+    @FXML
+    private void PassengertoPurchaseButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("PurchaseUI.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the seat selection UI
+            Stage seatStage = new Stage();
+            seatStage.setTitle("Purchase");
+            seatStage.setScene(new Scene(root));
+
+            // Get the current scene and window
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Close the current window
+            currentStage.close();
+
+            // Show the new stage
+            seatStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

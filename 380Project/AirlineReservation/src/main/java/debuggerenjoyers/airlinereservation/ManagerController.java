@@ -10,10 +10,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class CancelController {
-
+public class ManagerController {
     @FXML
-    private void CanceltoHomeButton(ActionEvent event) {
+    private void ManagertoHomeButton(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Parent root = loader.load();
@@ -21,11 +20,6 @@ public class CancelController {
             // Create a new stage for the seat selection UI
             Stage seatStage = new Stage();
             seatStage.setTitle("Airline Reservation");
-
-            // Set a fixed size for the new stage
-            seatStage.setWidth(1550);
-            seatStage.setHeight(900);
-
             seatStage.setScene(new Scene(root));
 
             // Get the current scene and window

@@ -11,6 +11,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -47,6 +48,8 @@ public class HelloController implements Initializable {
 
     @FXML
     private Button searchFlightsButton;
+    @FXML
+    private Button ViewTicketButton;
 
     @FXML
     private Button seatSelectionButton;
@@ -86,19 +89,9 @@ public class HelloController implements Initializable {
     @FXML private TableColumn<Flight, String> departTime;
     @FXML private TableColumn<Flight, String> arrivalTime;
     @FXML private TableColumn<Flight, Integer> seatsOpen;
-    @FXML private TableColumn<Flight, String> seatChart;
     @FXML private TableColumn<Flight, Double> price;
 
 
-
-    @FXML
-    private MenuItem readReviewsMenuItem;
-
-    @FXML
-    private MenuItem writeReviewMenuItem;
-
-    @FXML
-    private MenuItem action1MenuItem;
 
     private FilteredList<Flight> filteredFlights;
 
@@ -162,21 +155,77 @@ public class HelloController implements Initializable {
         reservation.setTickets(ReservationSystem.populatePassenger(ReservationSystem.createTickets(passengerNum, Boolean.FALSE, flight,null)));
 
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("seatUI.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("SeatUI.fxml"));
             Parent root = loader.load();
 
             // Create a new stage for the seat selection UI
             Stage seatStage = new Stage();
-            seatStage.setTitle("Seat Selection");
+            seatStage.setTitle("Seat");
             seatStage.setScene(new Scene(root));
 
-            // Show the seat selection UI
-            seatStage.show();
+            // Get the current scene and window
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            Stage currentStage = (Stage) currentScene.getWindow();
 
-            // Optionally, close the current window if needed
-            // ((Node)(event.getSource())).getScene().getWindow().hide();
+            // Close the current window
+            currentStage.close();
+
+            // Show the new stage
+            seatStage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-}
+
+    @FXML
+    private void handleViewModifyTicketMenuItem(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelUI.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the seat selection UI
+            Stage seatStage = new Stage();
+            seatStage.setTitle("View Ticket");
+            seatStage.setScene(new Scene(root));
+
+            // Get the current scene and window
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Close the current window
+            currentStage.close();
+
+            // Show the new stage
+            seatStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+      }
+
+    @FXML
+    private void HometoManagerButton(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ManagerUI.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the seat selection UI
+            Stage seatStage = new Stage();
+            seatStage.setTitle("Manager");
+            seatStage.setScene(new Scene(root));
+
+            // Get the current scene and window
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Close the current window
+            currentStage.close();
+
+            // Show the new stage
+            seatStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    }
+
+
