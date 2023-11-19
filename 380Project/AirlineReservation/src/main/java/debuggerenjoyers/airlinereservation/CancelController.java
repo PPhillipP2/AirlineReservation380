@@ -116,17 +116,16 @@ public class CancelController {
     private List<Reservation> reservations; // The list of reservations
 
     // Method to handle retrieving the reservation based on confirmation number
-    @FXML
+  @FXML
     private void initialize() {
         // Initialize the TableView columns with their respective data
-        seatNumberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().getTickets().getSeatNum()));
+        seatNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(
+                cellData.getValue().getSeatNum()).asObject().asString());
         firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().getPassenger().getFirstName()));
         lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
                 cellData.getValue().getPassenger().getLastName()));
-        checkedInBagsColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(
-                cellData.getValue().getPassenger().getBags().asObject()));
+        checkedInBagsColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPassenger().getBags()).asObject());
 
     }
 
@@ -159,5 +158,7 @@ public class CancelController {
     }
 
     // Other methods to handle cancel, reschedule, menu actions, etc.
+
+
 }
 
