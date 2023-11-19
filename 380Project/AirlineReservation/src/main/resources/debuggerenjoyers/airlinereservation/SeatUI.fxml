@@ -9,11 +9,11 @@
 
 <AnchorPane prefHeight="900.0" prefWidth="1550.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.SeatController">
     <children>
-        <TextField layoutX="49.0" layoutY="165.0" promptText="Passenger First Name" />
-        <TextField layoutX="49.0" layoutY="201.0" promptText="Passenger Last Name" />
-        <TextField layoutX="49.0" layoutY="235.0" promptText="Enter DOB: MM/DD/YYYY" />
-        <Button layoutX="367.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Submit " />
-        <Button layoutX="198.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Save Passenger" />
+        <TextField fx:id="firstNameTxt" layoutX="49.0" layoutY="165.0" promptText="Passenger First Name" />
+        <TextField fx:id="lastNameTxt" layoutX="49.0" layoutY="201.0" promptText="Passenger Last Name" />
+        <TextField fx:id="DOBTxt" layoutX="49.0" layoutY="235.0" promptText="Enter DOB: MM/DD/YYYY" />
+        <Button layoutX="367.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Cancel" onAction="#CancelRes" />
+        <Button layoutX="198.0" layoutY="494.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="140.0" text="Save Passenger" onAction="#SavePassengerButton" />
         <ScrollBar orientation="VERTICAL" />
         <Text layoutX="58.0" layoutY="54.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Passenger" wrappingWidth="160.62109375" />
         <Text layoutX="344.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Passenger Page" />

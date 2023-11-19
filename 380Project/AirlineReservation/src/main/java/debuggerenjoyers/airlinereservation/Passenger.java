@@ -51,4 +51,17 @@ public class Passenger {
     public void setDOB(String DOB) {
         this.DOB = DOB;
     }
+
+    public Boolean checkPassenger(){
+        if(firstName == null){
+            return false;
+        } else if(lastName == null){
+            return  false;
+        } else if (DOB == null) {
+            return false;
+        } else if (bags == -1) {
+            return  false;
+        } else
+            return true;
+    }
 }

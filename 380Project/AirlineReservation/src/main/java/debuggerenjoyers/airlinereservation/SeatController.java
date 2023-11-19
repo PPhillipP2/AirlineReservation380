@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
+import java.util.List;
 
 import java.io.IOException;
 import java.net.URL;
@@ -27,10 +29,16 @@ public class SeatController implements Initializable {
 
     @FXML
     private Spinner<Integer> bagsSpinner;
-
+    @FXML
+    private TextField lastNameTxt;
+    @FXML
+    private TextField firstNameTxt;
+    @FXML
+    private TextField DOBTxt;
     Reservation reservation = Reservation.getInstance();
 
     private final ObservableList<String> optionsList = FXCollections.observableArrayList();
+    private final ObservableList<Integer> seatList = FXCollections.observableArrayList();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -72,6 +80,13 @@ public class SeatController implements Initializable {
 
     }
 
+    private void updateSeatList(){
+        return;
+    }
+    private void setSeatList(){
+        return;
+    }
+
     private void updateOptionsList() {
         ListSpinnerValueFactory<String> valueFactory = new ListSpinnerValueFactory<>(optionsList);
         ticketsSpinner.setValueFactory(valueFactory);
@@ -84,6 +99,13 @@ public class SeatController implements Initializable {
 
     @FXML
     private void PassengertoPurchaseButton(ActionEvent event) {
+        Boolean result =reservation.checkTickets();
+
+        if(result == false){
+            SeatController.IncompleteInfo();
+            return;
+        }
+
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("PurchaseUI.fxml"));
             Parent root = loader.load();
@@ -105,6 +127,62 @@ public class SeatController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void SavePassengerButton(ActionEvent event){
+        int selectedPassenger = Character.getNumericValue(ticketsSpinner.getValue().charAt(ticketsSpinner.getValue().length() - 1))-1;
+
+        List<Ticket> tickets = reservation.getTickets();
+        Passenger passenger = tickets.get(selectedPassenger).getPassenger();
+
+        passenger.setFirstName(firstNameTxt.getText());
+        passenger.setLastName(lastNameTxt.getText());
+        passenger.setDOB(DOBTxt.getText());
+        passenger.setBags(bagsSpinner.getValue());
+
+        reservation.setTickets(tickets);
+        SeatController.DisplayTickets();
+
+    }
+
+    @FXML
+    private  void CancelRes(ActionEvent event){
+        reservation.clearReservation();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the seat selection UI
+            Stage seatStage = new Stage();
+            seatStage.setTitle("Airline Reservation");
+
+            // Set a fixed size for the new stage
+            seatStage.setWidth(1550);
+            seatStage.setHeight(900);
+
+            seatStage.setScene(new Scene(root));
+
+            // Get the current scene and window
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Close the current window
+            currentStage.close();
+
+            // Show the new stage
+            seatStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void IncompleteInfo(){
+        return;
+    }
+
+    private static void DisplayTickets(){
+        return;
     }
 
 }
