@@ -49,6 +49,17 @@ public class Reservation {
         priceTotal = -1;
     }
 
+    public Boolean checkTickets() {
+        Boolean result = false;
+
+        for (Ticket ticket : tickets) {
+            result = ticket.checkTicket();
+            if(result == false){
+                return false;
+            }
+        }
+        return result;
+    }
 
 //GETTER METHODS
 
@@ -74,6 +85,7 @@ public class Reservation {
     public String getConfirmationNum(){
         return confirmationNum;
     }
+
 
     //SETTER METHODS
     public void setPurchase(Purchase purchase){

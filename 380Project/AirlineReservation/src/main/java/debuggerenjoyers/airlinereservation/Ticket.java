@@ -86,4 +86,12 @@ public class Ticket {
             price = flight.getPrice() + (passenger.getBags()*30);
         }
     }
+
+    public Boolean checkTicket(){
+        Boolean result ;
+
+        result = passenger.checkPassenger();
+
+        return result;
+    }
 }

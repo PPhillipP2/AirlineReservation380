@@ -4,7 +4,7 @@ public class Passenger {
     private String firstName;
     private String lastName;
     private String DOB;
-    private int bags;
+    private Integer bags;
 
     public Passenger(String firstName, String lastName, String DOB, int bags){
         this.firstName = firstName;
@@ -32,7 +32,7 @@ public class Passenger {
         return this.DOB;
     }
 
-    public int getBags() {
+    public Integer getBags() {
         return bags;
     }
 
@@ -50,5 +50,18 @@ public class Passenger {
 
     public void setDOB(String DOB) {
         this.DOB = DOB;
+    }
+
+    public Boolean checkPassenger(){
+        if(firstName == null){
+            return false;
+        } else if(lastName == null){
+            return  false;
+        } else if (DOB == null) {
+            return false;
+        } else if (bags == -1) {
+            return  false;
+        } else
+            return true;
     }
 }

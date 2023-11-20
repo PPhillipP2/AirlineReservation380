@@ -3,7 +3,9 @@ package debuggerenjoyers.airlinereservation;
 import com.google.gson.annotations.SerializedName;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Flight {
 
@@ -83,6 +85,25 @@ public class Flight {
 
     public double getPrice() {
         return price;
+    }
+
+    public List<Integer> getSeatList(){
+        String[] convertArray = seatChart.split(",");
+        List<Integer> finalList = new ArrayList<Integer>();
+        int temp;
+        int count = 0;
+        for(String in : convertArray){
+            if(in == " "){
+                continue;
+            }
+
+            temp = Integer.parseInt(in.trim());
+            if(temp == 0){
+                finalList.add(count);
+            }
+            count++;
+        }
+        return finalList;
     }
 
     // Setter methods for the flight class
