@@ -6,6 +6,8 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 
 <AnchorPane prefHeight="900.0" prefWidth="1550.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.SeatController">
     <children>
@@ -20,6 +22,15 @@
         <Text layoutX="58.0" layoutY="113.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Select Number Of Bags" wrappingWidth="160.62109375" />
         <Spinner fx:id="ticketsSpinner" layoutX="48.0" layoutY="67.0" prefWidth="150.0" />
         <Spinner fx:id="bagsSpinner" layoutX="48.0" layoutY="127.0" prefWidth="150.0" />
-      <Button fx:id="PassengertoPuchase" layoutX="655.0" layoutY="555.0" mnemonicParsing="false" onAction="#PassengertoPurchaseButton" text="Purchase" />
+        <Button fx:id="PassengertoPuchase" layoutX="655.0" layoutY="555.0" mnemonicParsing="false" onAction="#PassengertoPurchaseButton" text="Purchase" />
+        <TableView layoutX="300" layoutY="67" prefHeight="400.0" prefWidth="700" fx:id="ticketTableView">
+            <columns>
+                <TableColumn prefWidth="85" text="Passenger" fx:id="passengerColumn"/>
+                <TableColumn prefWidth="75.0" text="First Name" fx:id="firstNameColumn"/>
+                <TableColumn prefWidth="75.0" text="Last Name" fx:id="lastNameColumn"/>
+                <TableColumn prefWidth="104.0" text="Checked In Bags" fx:id="checkedInBagsColumn"/>
+                <TableColumn prefWidth="82.0" text="Seat Number" fx:id="seatNumberColumn"/>
+            </columns>
+        </TableView>
     </children>
 </AnchorPane>

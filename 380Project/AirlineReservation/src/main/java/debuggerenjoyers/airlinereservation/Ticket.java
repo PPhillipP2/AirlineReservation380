@@ -5,10 +5,10 @@ public class Ticket {
     private Passenger passenger;
     private Flight flight;
     private Boolean seatType;
-    private int seatNum;
+    private Integer seatNum;
     private double price;
 
-    public Ticket(Passenger passenger, Flight flight,int seatNum ){
+    public Ticket(Passenger passenger, Flight flight,Integer seatNum ){
         this.flight = flight;
         this.passenger = passenger;
         this.seatNum = seatNum;
@@ -44,7 +44,7 @@ public class Ticket {
         return seatType;
     }
 
-    public int getSeatNum() {
+    public Integer getSeatNum() {
         return seatNum;
     }
 
@@ -70,7 +70,7 @@ public class Ticket {
     public void setPrice(double price) {
         this.price = price;
     }
-    public void setSeatNum(int seatNum) {
+    public void setSeatNum(Integer seatNum) {
         this.seatNum = seatNum;
     }
     public void setSeatType(Boolean seatType) {
