@@ -6,11 +6,38 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class PurchaseController {
+
+    @FXML
+    private Button PurchasetoHome;
+
+    @FXML
+    private TextField firstNameField;
+
+    @FXML
+    private TextField lastNameField;
+
+    @FXML
+    private TextField homeAddressField;
+
+    @FXML
+    private TextField cardNumberField;
+
+    @FXML
+    private TextField expirationDateField;
+
+    @FXML
+    private TextField cvvField;
+
+    @FXML
+    private TextField emailAddressField;
+
     @FXML
     private void PurchasetoHomeButton(ActionEvent event) {
         try {
@@ -40,4 +67,27 @@ public class PurchaseController {
             e.printStackTrace();
         }
     }
+
+    @FXML
+    private void cancelButtonClicked(ActionEvent event) {
+        // Handle the action when the "Cancel Purchase" button is clicked
+        // You can cancel the purchase or perform any other action
+    }
+
+    @FXML
+    private void submitButtonClicked(ActionEvent event) {
+        // Handle the action when the "Submit Information" button is clicked
+        // You can collect the entered information and perform further actions
+        String firstName = firstNameField.getText();
+        String lastName = lastNameField.getText();
+        String homeAddress = homeAddressField.getText();
+        String cardNumber = cardNumberField.getText();
+        String expirationDate = expirationDateField.getText();
+        String cvv = cvvField.getText();
+        String emailAddress = emailAddressField.getText();
+
+
+        // Perform actions with the collected information, e.g., initiate a purchase
+    }
 }
+

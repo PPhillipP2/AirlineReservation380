@@ -90,18 +90,12 @@ public class Flight {
     public List<Integer> getSeatList(){
         String[] convertArray = seatChart.split(",");
         List<Integer> finalList = new ArrayList<Integer>();
-        int temp;
-        int count = 0;
+
         for(String in : convertArray){
             if(in == " "){
                 continue;
             }
-
-            temp = Integer.parseInt(in.trim());
-            if(temp == 0){
-                finalList.add(count);
-            }
-            count++;
+            finalList.add(Integer.parseInt(in.trim()));
         }
         return finalList;
     }

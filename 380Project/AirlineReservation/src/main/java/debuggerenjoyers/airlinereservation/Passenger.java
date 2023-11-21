@@ -17,7 +17,7 @@ public class Passenger {
         this.firstName = null;
         this.lastName = null;
         this.DOB = null;
-        this.bags = -1;
+        this.bags = 0;
     }
 
     public String getFirstName(){
@@ -59,7 +59,7 @@ public class Passenger {
             return  false;
         } else if (DOB == null) {
             return false;
-        } else if (bags == -1) {
+        } else if (bags == null) {
             return  false;
         } else
             return true;

@@ -1,5 +1,7 @@
 package debuggerenjoyers.airlinereservation;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.SpinnerValueFactory.ListSpinnerValueFactory;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.w3c.dom.Text;
 import java.util.List;
@@ -23,10 +26,22 @@ import java.util.ResourceBundle;
 
 public class SeatController implements Initializable {
 
+    @FXML
+    private TableView<CombinedObject> ticketTableView; // TableView for displaying ticket details
+    @FXML
+    private TableColumn<CombinedObject, String> passengerColumn;
+    @FXML
+    private TableColumn<CombinedObject, String> firstNameColumn; // Columns for ticket details
+    @FXML
+    private TableColumn<CombinedObject, String> lastNameColumn;
+    @FXML
+    private TableColumn<CombinedObject, Integer> checkedInBagsColumn;
+    @FXML
+    private TableColumn<CombinedObject, String> seatNumberColumn;
+
 
     @FXML
     private Spinner<String> ticketsSpinner;
-
     @FXML
     private Spinner<Integer> bagsSpinner;
     @FXML
@@ -39,44 +54,23 @@ public class SeatController implements Initializable {
 
     private final ObservableList<String> optionsList = FXCollections.observableArrayList();
     private final ObservableList<Integer> seatList = FXCollections.observableArrayList();
+    private final ObservableList<Ticket> ticketsList = FXCollections.observableArrayList();
 
-    @Override
+
+    @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         ListSpinnerValueFactory<Integer> valueFactory = new ListSpinnerValueFactory<>(FXCollections.observableArrayList(1,2,3,4,5));
         bagsSpinner.setValueFactory(valueFactory);
+        initList();
+        DisplayTickets();
 
-        int passengerNum = reservation.getTickets().size();
+        passengerColumn.setCellValueFactory((cellData-> new SimpleStringProperty(cellData.getValue().getComboPass())));
+        seatNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getComboTix().getSeatNum()).asObject().asString());
+        firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getComboTix().getPassenger().getFirstName()));
+        lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getComboTix().getPassenger().getLastName()));
+        checkedInBagsColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getComboTix().getPassenger().getBags()).asObject());
 
-        switch (passengerNum){
-            case 1:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1"));
-                break;
-            case 2:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2"));
-                break;
-            case 3:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3"));
-                break;
-            case 4:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4"));
-                break;
-            case 5:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5"));
-                break;
-            case 6:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6"));
-                break;
-            case 7:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6","Passenger 7"));
-                break;
-            case 8:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6","Passenger 7","Passenger 8"));
-                break;
-            case 9:
-                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6","Passenger 7","Passenger 8","Passenger 9"));
-                break;
-        }
 
     }
 
@@ -142,7 +136,7 @@ public class SeatController implements Initializable {
         passenger.setBags(bagsSpinner.getValue());
 
         reservation.setTickets(tickets);
-        SeatController.DisplayTickets();
+        DisplayTickets();
 
     }
 
@@ -181,8 +175,63 @@ public class SeatController implements Initializable {
         return;
     }
 
-    private static void DisplayTickets(){
-        return;
+    private void DisplayTickets(){
+        ObservableList<Ticket> tickets = FXCollections.observableArrayList(reservation.getTickets());
+        ObservableList<CombinedObject> combinedList = FXCollections.observableArrayList();
+
+        for (int i = 0; i < Math.min(tickets.size(), optionsList.size()); i++) {
+            combinedList.add(new CombinedObject(tickets.get(i), optionsList.get(i)));
+        }
+        ticketTableView.setItems(combinedList);
+    }
+
+    private void initList(){
+        int passengerNum = reservation.getTickets().size();
+
+        switch (passengerNum){
+            case 1:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1"));
+                break;
+            case 2:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2"));
+                break;
+            case 3:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3"));
+                break;
+            case 4:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4"));
+                break;
+            case 5:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5"));
+                break;
+            case 6:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6"));
+                break;
+            case 7:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6","Passenger 7"));
+                break;
+            case 8:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6","Passenger 7","Passenger 8"));
+                break;
+            case 9:
+                setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6","Passenger 7","Passenger 8","Passenger 9"));
+                break;
+        }
+    }
+
+    public static class CombinedObject{
+        private final Ticket ticket;
+        private final String passenger;
+        public CombinedObject(Ticket ticket, String passenger){
+            this.ticket = ticket;
+            this.passenger = passenger;
+        }
+        public Ticket getComboTix(){
+            return ticket;
+        }
+        public String getComboPass(){
+            return passenger;
+        }
     }
 
 }
