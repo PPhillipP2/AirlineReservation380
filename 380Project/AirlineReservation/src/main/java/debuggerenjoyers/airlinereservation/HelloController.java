@@ -1,3 +1,17 @@
+/**
+ * HelloController Class
+ * November 20, 2023
+ * @author Angel Merchant
+ *
+ * The purpose of this class is designed to act as the controller for the Search Flights User Interface
+ * It is responsible to handle user inputs and displaying the flight information in a table view.
+ * This also works as the main user interface as this will be the first thing the user interacts with, so it also includes other functions such as moving
+ * to the manager, view ticket and seat selection user interfaces.
+ *
+ *
+ * @version 1.0
+ */
+
 package debuggerenjoyers.airlinereservation;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -98,6 +112,14 @@ public class HelloController implements Initializable {
     Reservation reservation = Reservation.getInstance();
     List<Flight> flights = JSONParser.parseFlightData(getClass().getResourceAsStream("flight.json"));
 
+
+    /**
+     * Configures the TableView columns with cell value factories, initializes the passenger number spinner,
+     * and associates the "Search Flights" button with an event handler for dynamic flight filtering.
+     *
+     * @param url
+     * @param resourceBundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -117,6 +139,16 @@ public class HelloController implements Initializable {
 
     }
 
+    /**
+     * Filters and updates the displayed flights in the TableView based on user input.
+     * The method uses filters such as origin, destination, departure date, and passenger number to adjust the list of flights.
+     *
+     * - Extracts filter criteria from UI components
+     * - Checks if origin, destination, and departure date match the corresponding filter requirements.
+     * - Sets the filtered list as the new items for the TableView.
+     *
+     * @param event
+     */
     private void filterFlights(ActionEvent event) {
         filteredFlights.setPredicate(flight -> {
             String originFilter = originText.getText().toLowerCase();
@@ -144,6 +176,14 @@ public class HelloController implements Initializable {
 
     }
 
+    /**
+     * Opens the  seat selection UI, closing the current window in the process when the "Select Seat" button is clicked.
+     *
+     * Retrieves the selected flight and passenger number from the UI components, then creates and populates
+     * the reservation with tickets corresponding to the selected flight and passenger information.
+     *
+     * @param event
+     */
     @FXML
     private void handleSeatSelectionButtonClick(ActionEvent event) {
         //Getting Instance of Reservation and Populating it with Tickets that only have flight
@@ -177,6 +217,12 @@ public class HelloController implements Initializable {
         }
     }
 
+    /**
+     * Loads the ticket viewing/modification UI by initializing a new FXMLLoader, creating a new stage,
+     * and closing the current window before displaying the new stage when the "View/Ticket" button is clicked.
+     *
+     * @param event
+     */
     @FXML
     private void handleViewModifyTicketMenuItem(ActionEvent event) {
         try {
@@ -202,6 +248,12 @@ public class HelloController implements Initializable {
         }
       }
 
+    /**
+     * Loads the manager UI by initializing a new FXMLLoader, creating a new stage,
+     * and closing the current window before displaying the new stage when the "Manager" button is clicked.
+     *
+     * @param event
+     */
     @FXML
     private void HometoManagerButton(ActionEvent event) {
         try {

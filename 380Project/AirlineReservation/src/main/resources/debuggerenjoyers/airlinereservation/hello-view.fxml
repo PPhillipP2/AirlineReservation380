@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #e0f7fa;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.HelloController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1400.0" style="-fx-background-color: #e0f7fa;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.HelloController">
     <children>
           <AnchorPane layoutY="170.0" minHeight="0.0" minWidth="0.0" prefHeight="729.0" prefWidth="1554.0" style="-fx-background-color: #bbdefb;">
               <children>
@@ -37,7 +37,7 @@
                           <TableColumn fx:id="price" prefWidth="202.29058837890625" text="Price per Ticket" />
                       </columns>
                   </TableView>
-                  <Button fx:id="seatSelectionButton" layoutX="1341.0" layoutY="673.0" mnemonicParsing="false" onAction="#handleSeatSelectionButtonClick" text="Seat Selection" />
+                  <Button fx:id="seatSelectionButton" layoutX="1334.0" layoutY="401.0" mnemonicParsing="false" onAction="#handleSeatSelectionButtonClick" text="Seat Selection" />
             <Text layoutX="86.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOCATIONS" underline="true">
                <font>
                   <Font name="Chakra Petch SemiBold" size="20.0" />
@@ -51,7 +51,7 @@
             <Text layoutX="84.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOS ANGELES (LAX)" />
             <Text layoutX="92.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW YORK (JFK)" />
             <Text layoutX="96.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ATLANTA (ATL)" />
-            <Text layoutX="1329.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DENVER (DEN)" />
+            <Text layoutX="1304.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DENVER (DEN)" />
               </children>
           </AnchorPane>
         <Button fx:id="ViewTicketButton" layoutX="1252.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleViewModifyTicketMenuItem" text="View/Modify Ticket" />
