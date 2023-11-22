@@ -2,7 +2,6 @@
  * HelloController Class
  * November 20, 2023
  * @author Angel Merchant
- *
  * The purpose of this class is designed to act as the controller for the Search Flights User Interface
  * It is responsible to handle user inputs and displaying the flight information in a table view.
  * This also works as the main user interface as this will be the first thing the user interacts with, so it also includes other functions such as moving
@@ -117,8 +116,8 @@ public class HelloController implements Initializable {
      * Configures the TableView columns with cell value factories, initializes the passenger number spinner,
      * and associates the "Search Flights" button with an event handler for dynamic flight filtering.
      *
-     * @param url
-     * @param resourceBundle
+     * @param url The URL location of the FXML file to initialize.
+     * @param resourceBundle The ResourceBundle used to localize the root object.
      */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -147,7 +146,8 @@ public class HelloController implements Initializable {
      * - Checks if origin, destination, and departure date match the corresponding filter requirements.
      * - Sets the filtered list as the new items for the TableView.
      *
-     * @param event
+     * @param event The ActionEvent triggered by clicking the "Search Flights" button.
+     *
      */
     private void filterFlights(ActionEvent event) {
         filteredFlights.setPredicate(flight -> {
@@ -182,7 +182,7 @@ public class HelloController implements Initializable {
      * Retrieves the selected flight and passenger number from the UI components, then creates and populates
      * the reservation with tickets corresponding to the selected flight and passenger information.
      *
-     * @param event
+     * @param event The ActionEvent triggered by clicking the "Select Seat" button.
      */
     @FXML
     private void handleSeatSelectionButtonClick(ActionEvent event) {

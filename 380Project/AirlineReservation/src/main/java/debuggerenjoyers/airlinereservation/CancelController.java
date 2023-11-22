@@ -1,3 +1,15 @@
+
+/**
+ * CancelController Class
+ * November 20, 2023
+ * @author Angel Merchant
+ *
+ * The purpose of the CancelController class is to manage the cancellation of airline reservations.
+ * This class also lets the customer view their ticket which will be displayed after inputing the confirmation code.
+ *
+ * @version 1.0
+ */
+
 package debuggerenjoyers.airlinereservation;
 
 import javafx.beans.binding.Bindings;
@@ -83,6 +95,13 @@ public class CancelController {
     @FXML
     private Label ticketLabel; // Label for the
 
+    /**
+     * Handles the action triggered when the user clicks the "Home" button.
+     * Loads the main home UI by initializing a new FXMLLoader, creating a new stage,
+     * and closing the current window before displaying the new stage.
+     *
+     * @param event The ActionEvent triggered by clicking the "Home" button.
+     */
     @FXML
     private void CanceltoHomeButton(ActionEvent event) {
         try {
@@ -116,6 +135,12 @@ public class CancelController {
     private List<Reservation> reservations; // The list of reservations
 
     // Method to handle retrieving the reservation based on confirmation number
+
+    /**
+     * Initializes the seat selection UI, setting up the TableView columns with
+     * seatNumberColumn, firstNameColumn, lastNameColumn, checkedInBagsColumn.
+     *
+     */
   @FXML
     private void initialize() {
         // Initialize the TableView columns with their respective data
@@ -129,6 +154,12 @@ public class CancelController {
 
     }
 
+
+    /**
+     * Retrieves a reservation based on the confirmation number entered by the user.
+     * Gets the confirmation number from the input field, searches for the reservation, and displays its tickets.
+     *
+     */
     @FXML
     private void retrieveReservation() {
         String confirmationNum = confirmationNumField.getText(); // Get confirmation number from the input field
@@ -143,6 +174,12 @@ public class CancelController {
         }
     }
 
+    /**
+     * Finds a reservation in the list based on the provided confirmation number.
+     * @param confirmationNum The confirmation number to search for.
+     * @return The Reservation object
+     *
+     */
     private Reservation findReservationByConfirmationNumber(String confirmationNum) {
         for (Reservation reservation : reservations) {
             if (reservation.getConfirmationNum().equals(confirmationNum)) {
@@ -152,6 +189,10 @@ public class CancelController {
         return null; // Return null if no reservation matches the confirmation number
     }
 
+    /**
+     * Displays a list of tickets in a TableView.
+     * @param tickets The list of tickets to be displayed.
+     */
     private void displayTickets(List<Ticket> tickets) {
         ObservableList<Ticket> ticketData = FXCollections.observableArrayList(tickets);
         ticketTableView.setItems(ticketData);

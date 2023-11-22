@@ -1,3 +1,15 @@
+
+/**
+ * Flight Class
+ * November 20, 2023
+ * @author Angel Merchant
+ * This class encapsulates information about a flight, including its unique identifier, departure and arrival airports,
+ * departure date and time, arrival time, available seats, seat chart, and price.
+ *
+ * @version 1.0
+ */
+
+
 package debuggerenjoyers.airlinereservation;
 
 import com.google.gson.annotations.SerializedName;
@@ -37,6 +49,19 @@ public class Flight {
     @SerializedName("price")
     private final double price;
 
+    /**
+     * Constructs a Flight object with the specified attributes.
+     *
+     * @param flightID the unique identifier of the flight
+     * @param departAirport the departure airport code
+     * @param arrivalAirport the arrival airport code
+     * @param departDate the departure date
+     * @param departTime the departure time
+     * @param arrivalTime the arrival time
+     * @param seatsOpen the number of available seats
+     * @param seatChart the seat chart represented as a string
+     * @param price the price of the flight
+     */
     public Flight(int flightID, String departAirport, String arrivalAirport, String departDate,
                   String departTime, String arrivalTime, int seatsOpen, String seatChart, double price) {
         this.flightID = flightID;
@@ -87,6 +112,11 @@ public class Flight {
         return price;
     }
 
+    /**
+     * Gets the seat list as a List of integers.
+     *
+     * @return the seat list
+     */
     public List<Integer> getSeatList(){
         String[] convertArray = seatChart.split(",");
         List<Integer> finalList = new ArrayList<Integer>();
