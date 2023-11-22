@@ -1,3 +1,13 @@
+
+/**
+ * PurchaseController is a class that handles user interactions related to the purchase of airline tickets.
+ * It manages the UI for entering purchase information.
+ *
+ * @version 1.0
+ * @author Angel Merhant
+ * @since November 20, 2023
+ */
+
 package debuggerenjoyers.airlinereservation;
 
 import javafx.event.ActionEvent;
@@ -38,6 +48,12 @@ public class PurchaseController {
     @FXML
     private TextField emailAddressField;
 
+    /**
+     * Handles the action triggered when the user clicks the "Home" button.
+     *
+     * @param event The ActionEvent triggered by clicking the "Home" button.
+     */
+
     @FXML
     private void PurchasetoHomeButton(ActionEvent event) {
         try {
@@ -68,11 +84,19 @@ public class PurchaseController {
         }
     }
 
+    /**
+     * Handles the action triggered when the user clicks the "Cancel Purchase" button.
+     * @param event The ActionEvent triggered by clicking the "Cancel Purchase" button.
+     */
+
     @FXML
     private void cancelButtonClicked(ActionEvent event) {
-        // Handle the action when the "Cancel Purchase" button is clicked
-        // You can cancel the purchase or perform any other action
     }
+
+    /**
+     * Handles the action triggered when the user clicks the "Submit Information" button.
+     * @param event The ActionEvent triggered by clicking the button.
+     */
 
     @FXML
     private void submitButtonClicked(ActionEvent event) {
@@ -87,7 +111,7 @@ public class PurchaseController {
         String emailAddress = emailAddressField.getText();
 
 
-        // Perform actions with the collected information, e.g., initiate a purchase
+        // Perform actions with the collected information.
     }
 }
 
