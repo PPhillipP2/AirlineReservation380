@@ -120,10 +120,10 @@ public class Flight {
     public List<Integer> getSeatList(){
         String[] convertArray = seatChart.split(",");
         List<Integer> finalList = new ArrayList<Integer>();
-
+        int i = 0;
         for(String in : convertArray){
-            if(in == " "){
-                continue;
+            if(i == convertArray.length-1){
+                break;
             }
             finalList.add(Integer.parseInt(in.trim()));
         }

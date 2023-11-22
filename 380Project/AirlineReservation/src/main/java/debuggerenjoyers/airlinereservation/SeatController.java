@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import org.w3c.dom.Text;
 import java.util.List;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,6 +35,8 @@ public class SeatController implements Initializable {
     private TableColumn<CombinedObject, String> firstNameColumn; // Columns for ticket details
     @FXML
     private TableColumn<CombinedObject, String> lastNameColumn;
+    @FXML
+    private TableColumn<CombinedObject, String> dobColumn;
     @FXML
     private TableColumn<CombinedObject, Integer> checkedInBagsColumn;
     @FXML
@@ -50,10 +53,13 @@ public class SeatController implements Initializable {
     private TextField firstNameTxt;
     @FXML
     private TextField DOBTxt;
+    @FXML
+    private ComboBox<Integer> seatComboBox;
+
     Reservation reservation = Reservation.getInstance();
 
     private final ObservableList<String> optionsList = FXCollections.observableArrayList();
-    private final ObservableList<Integer> seatList = FXCollections.observableArrayList();
+    private final ObservableList<Integer> seatList = FXCollections.observableArrayList(reservation.getTickets().getFirst().getFlight().getSeatList());
     private final ObservableList<Ticket> ticketsList = FXCollections.observableArrayList();
 
 
@@ -69,16 +75,20 @@ public class SeatController implements Initializable {
         seatNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getComboTix().getSeatNum()).asObject().asString());
         firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getComboTix().getPassenger().getFirstName()));
         lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getComboTix().getPassenger().getLastName()));
+        dobColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getComboTix().getPassenger().getDOB()));
         checkedInBagsColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getComboTix().getPassenger().getBags()).asObject());
 
 
     }
 
-    private void updateSeatList(){
-        return;
+    private void updateSeatList(Integer selectedSeat){
+        seatList.set(selectedSeat, 1);
+        setSeatList();
     }
     private void setSeatList(){
-        return;
+        seatComboBox.setItems(FXCollections.observableArrayList(ReservationSystem.getOpenSeats(seatList)));
+        seatComboBox.getSelectionModel().clearSelection();
+        seatComboBox.setPromptText("Select Seat");
     }
 
     private void updateOptionsList() {
@@ -128,15 +138,25 @@ public class SeatController implements Initializable {
         int selectedPassenger = Character.getNumericValue(ticketsSpinner.getValue().charAt(ticketsSpinner.getValue().length() - 1))-1;
 
         List<Ticket> tickets = reservation.getTickets();
-        Passenger passenger = tickets.get(selectedPassenger).getPassenger();
+        Ticket ticket = tickets.get(selectedPassenger);
+        Passenger passenger = ticket.getPassenger();
 
         passenger.setFirstName(firstNameTxt.getText());
         passenger.setLastName(lastNameTxt.getText());
         passenger.setDOB(DOBTxt.getText());
         passenger.setBags(bagsSpinner.getValue());
+        ticket.setSeatNum(seatComboBox.getValue());
+
+        updateSeatList(seatComboBox.getValue());
+
 
         reservation.setTickets(tickets);
         DisplayTickets();
+
+
+        firstNameTxt.setText("");
+        lastNameTxt.setText("");
+        DOBTxt.setText("");
 
     }
 
@@ -217,6 +237,8 @@ public class SeatController implements Initializable {
                 setOptionsList(FXCollections.observableArrayList("Passenger 1","Passenger 2","Passenger 3","Passenger 4","Passenger 5","Passenger 6","Passenger 7","Passenger 8","Passenger 9"));
                 break;
         }
+
+        setSeatList();
     }
 
     public static class CombinedObject{

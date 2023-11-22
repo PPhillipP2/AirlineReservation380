@@ -7,12 +7,24 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
 
 <AnchorPane prefHeight="900.0" prefWidth="1550.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.SeatController">
     <children>
         <TextField fx:id="firstNameTxt" layoutX="49.0" layoutY="165.0" promptText="Passenger First Name" />
         <TextField fx:id="lastNameTxt" layoutX="49.0" layoutY="201.0" promptText="Passenger Last Name" />
         <TextField fx:id="DOBTxt" layoutX="49.0" layoutY="235.0" promptText="Enter DOB: MM/DD/YYYY" />
+        <TableView fx:id="ticketTableView" layoutX="300" layoutY="67" prefHeight="245" prefWidth="700">
+            <columns>
+                <TableColumn fx:id="passengerColumn" prefWidth="100" text="Passenger" />
+                <TableColumn fx:id="firstNameColumn" prefWidth="150" text="First Name" />
+                <TableColumn fx:id="lastNameColumn" prefWidth="150" text="Last Name" />
+                <TableColumn fx:id="dobColumn" prefWidth="100" text="DOB" />
+                <TableColumn fx:id="checkedInBagsColumn" prefWidth="100" text="Checked In Bags" />
+                <TableColumn fx:id="seatNumberColumn" prefWidth="100" text="Seat Number" />
+            </columns>
+        </TableView>
 
         <!-- Add ComboBox for seat selection -->
         <ComboBox fx:id="seatComboBox" layoutX="49.0" layoutY="300.0" promptText="Select Seat" />
