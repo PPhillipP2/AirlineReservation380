@@ -1,3 +1,12 @@
+
+/**
+ * ManagerController is responsible for managing actions and UI transitions in the Manager User Interface.
+ * It looks over the data that was collected such as the flights, reservations made and the total revenue.
+ * @version 1.0
+ * @author Angel Merchant
+ * @since November 20, 2023
+ */
+
 package debuggerenjoyers.airlinereservation;
 
 import javafx.event.ActionEvent;
@@ -11,6 +20,11 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class ManagerController {
+    /**
+     * Handles the action triggered when the user clicks the "Home" button which changes the scene to the Home Page.
+     *
+     * @param event The ActionEvent triggered by the button click.
+     */
     @FXML
     private void ManagertoHomeButton(ActionEvent event) {
         try {
