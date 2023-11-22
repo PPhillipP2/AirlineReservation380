@@ -30,5 +30,16 @@ public class ReservationSystem {
         return tickets;
     }
 
+    public static  List<Integer> getOpenSeats(List<Integer> inList){
+        List<Integer> outList = new ArrayList<Integer>();
+        int count =0;
+        for (Integer in : inList){
+            if (in.equals(0)){
+                outList.add(count);
+            }
+            count++;
+        }
+        return  outList;
+    }
 
 }
