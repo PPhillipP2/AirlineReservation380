@@ -1,3 +1,12 @@
+/**
+ * SeatController.java
+ * November 21, 2023
+ * @author Diego Hernandez
+ *
+ * The purpose of this class is designed to act as the controller for the Seat Selection User Interface
+ * It is responsible to handle user inputs and displaying the Passenger info in a table view.
+ * This also leads into Purchase User Interface.
+ */
 package debuggerenjoyers.airlinereservation;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -63,6 +72,12 @@ public class SeatController implements Initializable {
     private final ObservableList<Ticket> ticketsList = FXCollections.observableArrayList();
 
 
+    /**
+     * Configures the Tableview columns with cell value factories, initializes the Passenger Spinner,
+     * bag spinner and Seat Combo Box.
+     * @param url
+     * @param resourceBundle
+     */
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -81,26 +96,46 @@ public class SeatController implements Initializable {
 
     }
 
+    /**
+     * This method updates the SeatList Observable List to change open seat to taken on the seat chart.
+     * @param selectedSeat
+     */
     private void updateSeatList(Integer selectedSeat){
         seatList.set(selectedSeat, 1);
         setSeatList();
     }
+
+    /**
+     * This Method updates the Seat ComboBox to the Observable SeatList
+     */
     private void setSeatList(){
         seatComboBox.setItems(FXCollections.observableArrayList(ReservationSystem.getOpenSeats(seatList)));
         seatComboBox.getSelectionModel().clearSelection();
         seatComboBox.setPromptText("Select Seat");
     }
 
+    /**
+     * This Method updates the passenger spinner options list
+     */
     private void updateOptionsList() {
         ListSpinnerValueFactory<String> valueFactory = new ListSpinnerValueFactory<>(optionsList);
         ticketsSpinner.setValueFactory(valueFactory);
     }
 
+    /**
+     * This sets the observable OptionsList to the parameter
+     * @param newOptionsList
+     */
     public void setOptionsList(ObservableList<String> newOptionsList) {
         optionsList.setAll(newOptionsList);
         updateOptionsList();
     }
 
+    /**
+     * Method to Verify all the needed information as been filled out
+     * Leads to the Purchase Scene
+     * @param event
+     */
     @FXML
     private void PassengertoPurchaseButton(ActionEvent event) {
         Boolean result =reservation.checkTickets();
@@ -133,6 +168,10 @@ public class SeatController implements Initializable {
         }
     }
 
+    /**
+     * Saves the users Input, Stores it into the relevant Ticket and updates the Table view`
+     * @param event
+     */
     @FXML
     private void SavePassengerButton(ActionEvent event){
         int selectedPassenger = Character.getNumericValue(ticketsSpinner.getValue().charAt(ticketsSpinner.getValue().length() - 1))-1;
@@ -160,6 +199,12 @@ public class SeatController implements Initializable {
 
     }
 
+    /**
+     * This method handles the cancel reservation button
+     * It clears the Reservation Singleton
+     * And Starts the Home Scene
+     * @param event
+     */
     @FXML
     private  void CancelRes(ActionEvent event){
         reservation.clearReservation();
@@ -195,6 +240,10 @@ public class SeatController implements Initializable {
         return;
     }
 
+    /**
+     * Display Tickets method creates the CombinedList Object, Populates it,
+     * and sets tableview items to the Combined List Object
+     */
     private void DisplayTickets(){
         ObservableList<Ticket> tickets = FXCollections.observableArrayList(reservation.getTickets());
         ObservableList<CombinedObject> combinedList = FXCollections.observableArrayList();
@@ -205,6 +254,9 @@ public class SeatController implements Initializable {
         ticketTableView.setItems(combinedList);
     }
 
+    /**
+     * initList  method is a switch case to select the correct amount of options for the passenger spinner and calls the setSeatList method.
+     */
     private void initList(){
         int passengerNum = reservation.getTickets().size();
 
@@ -241,20 +293,38 @@ public class SeatController implements Initializable {
         setSeatList();
     }
 
+    /**
+     * The CombinedObject class is made to package two objects into one for the tableview to access the info.
+     */
     public static class CombinedObject{
         private final Ticket ticket;
         private final String passenger;
+
+        /**
+         * CombinedObject Constructor takes ticket and passengerNum as parameter input
+         * @param ticket
+         * @param passenger
+         */
         public CombinedObject(Ticket ticket, String passenger){
             this.ticket = ticket;
             this.passenger = passenger;
         }
+
+        /**
+         * Access method for CombinedObject ticket. Returns ticket
+         * @return ticket
+         */
         public Ticket getComboTix(){
             return ticket;
         }
+
+        /**
+         * Access method for CombinedObject passenger. Returns String
+         * @return passenger
+         */
         public String getComboPass(){
             return passenger;
         }
     }
 
 }
-
