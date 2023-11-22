@@ -1,3 +1,12 @@
+
+/**
+ * JSONParser class provides methods to parse JSON data representing reservations and flights.
+ *
+ * @version 1.0
+ * @author Angel Merchant
+ * @since November 20, 2023
+ */
+
 package debuggerenjoyers.airlinereservation;
 
 import com.google.gson.Gson;
@@ -13,6 +22,13 @@ import java.util.*;
 
 public class JSONParser {
 
+
+    /**
+     * Parses reservation data
+     *
+     * @param fileStream The input stream containing reservation data in JSON format.
+     * @return A list of reservations parsed from the JSON data.
+     */
     public static List<Reservation> parseReservationData(InputStream fileStream){
         Gson gson = new Gson();
         ReservationDataWrapper dataWrapper = null;
@@ -32,6 +48,14 @@ public class JSONParser {
         }
         return Collections.emptyList();
     }
+
+
+    /**
+     * Parses flight data from the provided input stream.
+     *
+     * @param fileStream The input stream containing flight data in JSON format.
+     * @return A list of flights
+     */
 
     public static List<Flight> parseFlightData(InputStream fileStream) {
         Gson gson = new Gson();
