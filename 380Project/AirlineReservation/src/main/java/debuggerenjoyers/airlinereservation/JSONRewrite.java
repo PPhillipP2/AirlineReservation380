@@ -1,10 +1,25 @@
+
+/**
+ * JSONRewrite class provides methods for updating seat information in the seat chart of flights.
+ * @version 1.0
+ * @author Angel Merchant
+ * @since November 20, 2023
+ */
+
 package debuggerenjoyers.airlinereservation;
 
 import java.util.List;
 
 public class JSONRewrite {
 
-    // Take in the index of the flight to find its position and edit its seatChart and seatsOpen
+    /**
+     * Updates the number of open seats and seat chart of a specific flight.
+     *
+     * @param flights     The list of flights.
+     * @param flightIndex The index of the flight to be updated.
+     * @param seatIndex   The index of the seat to be updated.
+     * @param increase    A boolean indicating whether to increase or decrease the open seats.
+     */
     public static void updateSeatsAndChart(List<Flight> flights, int flightIndex, int seatIndex, boolean increase) {
         Flight flight = flights.get(flightIndex);
         int currentSeats = flight.getSeatsOpen();
@@ -19,7 +34,13 @@ public class JSONRewrite {
         }
     }
 
-    // Part of updateSeatsAndChart made for updating the chart specifically
+    /**
+     * Updates the seat chart of a specific flight
+     *
+     * @param flight The flight to be updated.
+     * @param index  The index of the seat
+     * @param reserve A boolean indicating whether to mark the seat as reserved or empty.
+     */
     private static void updateSeatChart(Flight flight, int index, boolean reserve) {
         String seatChart = flight.getSeatChart();
         char[] seatChartArray = seatChart.toCharArray();
