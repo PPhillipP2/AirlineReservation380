@@ -16,10 +16,111 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import javafx.scene.control.Button;
+
+import javafx.scene.control.*;
 
 public class ManagerController {
+
+    @FXML
+    private TextField userText;
+
+    @FXML
+    private PasswordField passwordText;
+
+    @FXML
+    private Button flightButton;
+
+    @FXML
+    private Button reservationButton;
+
+    @FXML
+    private Button revenueButton;
+
+    @FXML
+    private Button loginButton;
+
+    @FXML
+    private TableView<?> flightsTableView;
+
+    @FXML
+    private TableView<?> reservationTableView;
+
+    @FXML
+    private TableView<?> revenueTableView;
+
+
+
+    @FXML
+    private void flightButtonAction(ActionEvent event) {
+        // Set visibility and disable properties of flightsTableView
+        flightsTableView.setDisable(false);
+        flightsTableView.setVisible(true);
+
+
+        reservationTableView.setDisable(true);
+        reservationTableView.setVisible(false);
+
+        revenueTableView.setDisable(true);
+        revenueTableView.setVisible(false);
+
+    }
+
+    @FXML
+    private void reservationButtonAction(ActionEvent event) {
+        // Set visibility and disable properties of reservationTableView
+        reservationTableView.setDisable(false);
+        reservationTableView.setVisible(true);
+
+
+        flightsTableView.setDisable(true);
+        flightsTableView.setVisible(false);
+
+        revenueTableView.setDisable(true);
+        revenueTableView.setVisible(false);
+
+    }
+
+    @FXML
+    private void revenueButtonAction(ActionEvent event) {
+        // Set visibility and disable properties of revenueTableView
+        revenueTableView.setDisable(false);
+        revenueTableView.setVisible(true);
+
+        //hide other table views
+        flightsTableView.setDisable(true);
+        flightsTableView.setVisible(false);
+
+        reservationTableView.setDisable(true);
+        reservationTableView.setVisible(false);
+
+
+    }
+
+
+    @FXML
+    private void loginButtonAction(ActionEvent event) {
+        // Check if username and password match
+        if ("admin".equals(userText.getText()) && "password".equals(passwordText.getText())) {
+            // Set visibility of buttons to true
+            flightButton.setVisible(true);
+            reservationButton.setVisible(true);
+            revenueButton.setVisible(true);
+
+            // Enable the buttons
+            flightButton.setDisable(false);
+            reservationButton.setDisable(false);
+            revenueButton.setDisable(false);
+
+            // Disable the login button to prevent further login attempts
+            loginButton.setDisable(true);
+        } else {
+
+            System.out.println("Invalid login credentials");
+        }
+    }
+
     /**
      * Handles the action triggered when the user clicks the "Home" button which changes the scene to the Home Page.
      *

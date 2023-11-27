@@ -11,11 +11,11 @@
 <AnchorPane prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #ADD8E6;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.CancelController">
    <children>
       <Label layoutX="41.0" layoutY="256.0" text="Departure:" />
-      <Label layoutX="28.0" layoutY="323.0" text="Departure Time:" />
-      <Label layoutX="51.0" layoutY="289.0" text="Arrival:" />
+      <Label layoutX="28.0" layoutY="323.0" text="Departure Date:" />
+      <Label layoutX="53.0" layoutY="290.0" text="Arrival:" />
       <AnchorPane prefHeight="35.0" prefWidth="1550.0" style="-fx-background-color: #808080;" />
 
-      <TableView layoutX="201.0" layoutY="468.0" prefHeight="248.0" prefWidth="426.0">
+      <TableView layoutX="527.0" layoutY="340.0" prefHeight="248.0" prefWidth="426.0">
         <columns>
             <TableColumn prefWidth="99.218017578125" text="First Name" />
           <TableColumn prefWidth="95.43365478515625" text="Last Name" />
@@ -23,14 +23,14 @@
             <TableColumn prefWidth="129.43130493164062" text="Seat Number" />
         </columns>
       </TableView>
-      <Button fx:id="cancelButton" layoutX="465.0" layoutY="776.0" mnemonicParsing="false" text="Cancel" />
+      <Button fx:id="cancelButton" layoutX="297.0" layoutY="785.0" mnemonicParsing="false" text="Cancel Reservation" />
       <Button layoutX="827.0" layoutY="785.0" mnemonicParsing="false" text="Reschedule" />
       <Label layoutX="666.0" layoutY="92.0" text="Ticket">
          <font>
             <Font name="System Bold" size="60.0" />
          </font>
       </Label>
-      <Label layoutX="57.0" layoutY="356.0" text="Price:" />
+      <Label layoutX="27.0" layoutY="358.0" text="Departure Time:" />
       <Label layoutX="48.0" layoutY="223.0" text="Flight ID: " />
       <Button fx:id="CanceltoHome" layoutX="1.0" layoutY="2.0" mnemonicParsing="false" onAction="#CancelToHomeButton" text="Home" />
       <TextField fx:id="confirmationNumField" layoutX="631.0" layoutY="187.0" promptText="Confirmation Number" />
@@ -40,5 +40,9 @@
       <TextField fx:id="deTimeField" layoutX="137.0" layoutY="319.0" />
       <TextField fx:id="priceField" layoutX="137.0" layoutY="353.0" />
       <Button fx:id="viewTicketButton" layoutX="823.0" layoutY="188.0" mnemonicParsing="false" text="Enter" />
+      <Label layoutX="36.0" layoutY="389.0" text="Arrival Time:" />
+      <TextField layoutX="137.0" layoutY="385.0" />
+      <Label layoutX="41.0" layoutY="426.0" text="Total Price:" />
+      <TextField layoutX="137.0" layoutY="422.0" />
    </children>
 </AnchorPane>

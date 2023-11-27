@@ -22,6 +22,6 @@
         <TextField layoutX="49.0" layoutY="342.0" prefHeight="25.0" prefWidth="68.0" promptText="CVV" />
         <TextField layoutX="49.0" layoutY="223.0" promptText="Enter Email Address" />
         <Button layoutX="198.0" layoutY="486.0" mnemonicParsing="false" text="Cancel Purchase" />
-        <Button layoutX="362.0" layoutY="486.0" mnemonicParsing="false" text="Submit Information" />
+        <Button fx:id="submitButton" layoutX="362.0" layoutY="486.0" mnemonicParsing="false" onAction="#submitButtonClicked" text="Submit Information" />
     </children>
 </AnchorPane>
