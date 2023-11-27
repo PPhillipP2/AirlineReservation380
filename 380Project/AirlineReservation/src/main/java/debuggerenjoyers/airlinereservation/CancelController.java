@@ -66,7 +66,14 @@ import static javafx.beans.binding.Bindings.createObjectBinding;
 
 public class CancelController {
 
-
+    public Button CanceltoHome;
+    public TextField flightIDField;
+    public TextField departureField;
+    public TextField arrivalField;
+    public TextField deTimeField;
+    public TextField priceField;
+    @FXML
+    private Button viewTicketButton;
     @FXML
     private TextField confirmationNumField; // TextField for confirmation number input
 
@@ -83,17 +90,9 @@ public class CancelController {
     private TableColumn<Ticket, String> seatNumberColumn;
 
     @FXML
-    private Button cancelBtn; // Button for cancel action
+    private Button cancelButton; // Button for cancel action
     @FXML
-    private Button rescheduleBtn; // Button for reschedule action
-
-    @FXML
-    private MenuBar menuBar; // MenuBar
-    @FXML
-    private MenuItem closeMenuItem; // MenuItem for closing
-
-    @FXML
-    private Label ticketLabel; // Label for the
+    private Button rescheduleButton; // Button for reschedule action
 
     /**
      * Handles the action triggered when the user clicks the "Home" button.
@@ -103,7 +102,7 @@ public class CancelController {
      * @param event The ActionEvent triggered by clicking the "Home" button.
      */
     @FXML
-    private void CanceltoHomeButton(ActionEvent event) {
+    private void CancelToHomeButton(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Parent root = loader.load();
@@ -132,47 +131,72 @@ public class CancelController {
         }
     }
 
-    private List<Reservation> reservations; // The list of reservations
+    private List<Reservation> reservations;
+
+    // Method to fetch reservations in order to ensure recent reservations are added to the List
+    public void fetchReservations() {
+        ReservationDataWrapper reservationDataWrapper = new ReservationDataWrapper();
+        this.reservations = reservationDataWrapper.getReservations();
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
 
     // Method to handle retrieving the reservation based on confirmation number
 
     /**
      * Initializes the seat selection UI, setting up the TableView columns with
      * seatNumberColumn, firstNameColumn, lastNameColumn, checkedInBagsColumn.
-     *
-     */
-  @FXML
-    private void initialize() {
-        // Initialize the TableView columns with their respective data
-        seatNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(
-                cellData.getValue().getSeatNum()).asObject().asString());
-        firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().getPassenger().getFirstName()));
-        lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
-                cellData.getValue().getPassenger().getLastName()));
-        checkedInBagsColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPassenger().getBags()).asObject());
-
-    }
-
-
-    /**
-     * Retrieves a reservation based on the confirmation number entered by the user.
-     * Gets the confirmation number from the input field, searches for the reservation, and displays its tickets.
-     *
      */
     @FXML
-    private void retrieveReservation() {
-        String confirmationNum = confirmationNumField.getText(); // Get confirmation number from the input field
+    private void initialize(ResourceBundle resourceBundle, Reservation reservation){
+            // Initialize the TableView columns with their respective data
+            seatNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(
+                    cellData.getValue().getSeatNum()).asObject().asString());
+            seatNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(
+                    cellData.getValue().getSeatNum()).asObject().asString());
+            firstNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                    cellData.getValue().getPassenger().getFirstName()));
+            lastNameColumn.setCellValueFactory(cellData -> new SimpleStringProperty(
+                    cellData.getValue().getPassenger().getLastName()));
+            checkedInBagsColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(
+                    cellData.getValue().getPassenger().getBags()).asObject());
+        //Find corresponding reservation and display tickets on table as well as static reservation info
+            viewTicketButton.setOnAction(this::retrieveReservation);
+
+            cancelButton.setOnAction(this::cancelReservation);
+
+    }
+
+
+        /**
+         * Retrieves a reservation based on the confirmation number entered by the user.
+         * Gets the confirmation number from the input field, searches for the reservation, and displays its tickets.
+         *
+         */
+    private void retrieveReservation(ActionEvent event){
+        String confirmationNum = confirmationNumField.getText();
         Reservation foundReservation = findReservationByConfirmationNumber(confirmationNum);
 
-        if (foundReservation != null) {
-            // Display the tickets of the found reservation
-            displayTickets(foundReservation.getTickets());
-        } else {
-            System.out.println("Reservation not found for confirmation number: " + confirmationNum);
-            // Handle case where the reservation is not found
-        }
+            if (foundReservation != null) {
+                // Display the tickets of the found reservation
+                displayTickets(foundReservation.getTickets());
+                //Display fixed info of the reservation
+
+                //flightIDField.setText(foundReservation.);
+                //departureField.setText(foundReservation.);
+                //arrivalField.setText(foundReservation.);
+                //deTimeField.setText(foundReservation.);
+                //priceField.setText(foundReservation.);
+            } else {
+                // Handle case where the reservation is not found
+                confirmationNumField.setText("ID Not Found");
+            }
     }
+
+
 
     /**
      * Finds a reservation in the list based on the provided confirmation number.
@@ -181,10 +205,9 @@ public class CancelController {
      *
      */
     private Reservation findReservationByConfirmationNumber(String confirmationNum) {
+        fetchReservations();
         for (Reservation reservation : reservations) {
-            if (reservation.getConfirmationNum().equals(confirmationNum)) {
-                return reservation; // Found the reservation, return it
-            }
+            if (reservation.getConfirmationNum().equals(confirmationNum)) return reservation; // Found the reservation, return it
         }
         return null; // Return null if no reservation matches the confirmation number
     }
@@ -200,6 +223,18 @@ public class CancelController {
 
     // Other methods to handle cancel, reschedule, menu actions, etc.
 
-
+    private void cancelReservation(ActionEvent event) {
+        //Pop up "Are you sure?"
+        //Remove reservation from the List
+        Reservation reservationToRemove = findReservationByConfirmationNumber(confirmationNumField.getText());
+        if (reservations != null && reservationToRemove != null) {
+            reservations.remove(reservationToRemove);
+            //Pop up confirmation screen
+        }
+        else {
+            //Pop up failed screen
+        }
+    }
 }
+
 
