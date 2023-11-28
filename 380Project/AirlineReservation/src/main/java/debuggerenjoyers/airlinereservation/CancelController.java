@@ -166,9 +166,12 @@ public class CancelController {
         //Find corresponding reservation and display tickets on table as well as static reservation info
             viewTicketButton.setOnAction(this::retrieveReservation);
 
-            cancelButton.setOnAction(this::cancelReservation);
+
 
     }
+
+
+
 
 
         /**
@@ -233,6 +236,25 @@ public class CancelController {
         }
         else {
             //Pop up failed screen
+        }
+    }
+
+
+    public void CancelPopUpButton(ActionEvent actionEvent) {
+        try {
+            // Load the FXML file for the new scene
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelConfirmUI.fxml"));
+            Parent root = loader.load();
+
+            Scene newScene = new Scene(root);
+            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+            Stage newStage = new Stage();
+            newStage.setScene(newScene);
+            newStage.initOwner(currentStage);
+            newStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle the exception appropriately (e.g., show an error message)
         }
     }
 }
