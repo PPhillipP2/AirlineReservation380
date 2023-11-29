@@ -52,6 +52,10 @@
             <Text layoutX="92.0" layoutY="191.0" strokeType="OUTSIDE" strokeWidth="0.0" text="NEW YORK (JFK)" />
             <Text layoutX="96.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ATLANTA (ATL)" />
             <Text layoutX="1304.0" layoutY="155.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DENVER (DEN)" />
+            <Text layoutX="1283.0" layoutY="183.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SALT LAKE CITY (SLC)" />
+            <Text layoutX="1302.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PHOENIX (PHX)" />
+            <Text layoutX="1262.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DALLAS/FORT WORTH (FTW)" />
+            <Text layoutX="69.0" layoutY="260.0" strokeType="OUTSIDE" strokeWidth="0.0" text="DES MOINES, IOWA (DSM)" />
               </children>
           </AnchorPane>
         <Button fx:id="ViewTicketButton" layoutX="1252.0" layoutY="80.0" mnemonicParsing="false" onAction="#handleViewModifyTicketMenuItem" text="View/Modify Ticket" />
