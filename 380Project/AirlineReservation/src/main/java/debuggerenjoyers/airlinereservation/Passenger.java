@@ -105,16 +105,11 @@ public class Passenger {
      * This method checks Passenger to ensure that no field in Passenger is null. Returns null if one field is null.
      * @return Boolean
      */
-    public Boolean checkPassenger(){
-        if(firstName == null){
+    public Boolean checkPassenger() {
+        if (firstName == null || lastName == null || DOB == null) {
             return false;
-        } else if(lastName == null){
-            return  false;
-        } else if (DOB == null) {
-            return false;
-        } else if (bags == null) {
-            return  false;
-        } else
-            return true;
+        } else {
+            return bags != null && bags > 0; // Consider zero as an invalid value
+        }
     }
 }
