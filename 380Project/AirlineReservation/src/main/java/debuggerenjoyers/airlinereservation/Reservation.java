@@ -105,6 +105,15 @@ public class Reservation {
     }
 
     /**
+     * Access method to get only the first ticket of the reservation
+     * @return Ticket
+     */
+    public Ticket getFirstTicket(){
+        if(tickets != null && !tickets.isEmpty()) return tickets.get(0);
+        else return null;
+    }
+
+    /**
      * Access method for Reservation Purchase. Returns a purchase object
      * @return purchase
      */

@@ -70,7 +70,9 @@ public class CancelController {
     public TextField flightIDField;
     public TextField departureField;
     public TextField arrivalField;
+    public TextField deDateField;
     public TextField deTimeField;
+    public TextField arrTimeField;
     public TextField priceField;
     @FXML
     private Button viewTicketButton;
@@ -166,6 +168,7 @@ public class CancelController {
         //Find corresponding reservation and display tickets on table as well as static reservation info
             viewTicketButton.setOnAction(this::retrieveReservation);
 
+            cancelButton.setOnAction(this::CancelPopUpButton);
 
 
     }
@@ -187,15 +190,16 @@ public class CancelController {
                 // Display the tickets of the found reservation
                 displayTickets(foundReservation.getTickets());
                 //Display fixed info of the reservation
-
-                //flightIDField.setText(foundReservation.);
-                //departureField.setText(foundReservation.);
-                //arrivalField.setText(foundReservation.);
-                //deTimeField.setText(foundReservation.);
-                //priceField.setText(foundReservation.);
+                Ticket infoHolder = foundReservation.getFirstTicket();
+                flightIDField.setText(infoHolder.getFlight().getFlightID());
+                departureField.setText(infoHolder.getFlight().getDepartAirport());
+                arrivalField.setText(infoHolder.getFlight().getArrivalAirport());
+                deDateField.setText(infoHolder.getFlight().getDepartAirport());
+                deTimeField.setText(infoHolder.getFlight().getDepartTime());
+                priceField.setText(Double.toString(infoHolder.getFlight().getPrice()));
             } else {
                 // Handle case where the reservation is not found
-                confirmationNumField.setText("ID Not Found");
+                confirmationNumField.setText("ID Not Found, Try Again");
             }
     }
 
@@ -224,20 +228,6 @@ public class CancelController {
         ticketTableView.setItems(ticketData);
     }
 
-    // Other methods to handle cancel, reschedule, menu actions, etc.
-
-    private void cancelReservation(ActionEvent event) {
-        //Pop up "Are you sure?"
-        //Remove reservation from the List
-        Reservation reservationToRemove = findReservationByConfirmationNumber(confirmationNumField.getText());
-        if (reservations != null && reservationToRemove != null) {
-            reservations.remove(reservationToRemove);
-            //Pop up confirmation screen
-        }
-        else {
-            //Pop up failed screen
-        }
-    }
 
 
     public void CancelPopUpButton(ActionEvent actionEvent) {

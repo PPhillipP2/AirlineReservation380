@@ -37,12 +37,12 @@
       <TextField fx:id="flightIDField" layoutX="137.0" layoutY="219.0" />
       <TextField fx:id="departureField" layoutX="137.0" layoutY="252.0" />
       <TextField fx:id="arrivalField" layoutX="137.0" layoutY="285.0" />
-      <TextField fx:id="deTimeField" layoutX="137.0" layoutY="319.0" />
-      <TextField fx:id="priceField" layoutX="137.0" layoutY="353.0" />
+      <TextField fx:id="deDateField" layoutX="137.0" layoutY="319.0" />
+      <TextField fx:id="deTimeField" layoutX="137.0" layoutY="353.0" />
       <Button fx:id="viewTicketButton" layoutX="823.0" layoutY="188.0" mnemonicParsing="false" text="Enter" />
       <Label layoutX="36.0" layoutY="389.0" text="Arrival Time:" />
-      <TextField layoutX="137.0" layoutY="385.0" />
+      <TextField fx:id="arrTimeField" layoutX="137.0" layoutY="385.0" />
       <Label layoutX="41.0" layoutY="426.0" text="Total Price:" />
-      <TextField layoutX="137.0" layoutY="422.0" />
+      <TextField fx:id="priceField" layoutX="137.0" layoutY="422.0" />
    </children>
 </AnchorPane>

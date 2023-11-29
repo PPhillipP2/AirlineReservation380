@@ -23,7 +23,7 @@ public class Flight {
 
     // Add the @SerializedName annotation to map JSON keys to Java field names
     @SerializedName("flightID")
-    private final int flightID;
+    private final String flightID;
 
     @SerializedName("departAirport")
     private final String departAirport;
@@ -62,7 +62,7 @@ public class Flight {
      * @param seatChart the seat chart represented as a string
      * @param price the price of the flight
      */
-    public Flight(int flightID, String departAirport, String arrivalAirport, String departDate,
+    public Flight(String flightID, String departAirport, String arrivalAirport, String departDate,
                   String departTime, String arrivalTime, int seatsOpen, String seatChart, double price) {
         this.flightID = flightID;
         this.departAirport = departAirport;
@@ -76,7 +76,7 @@ public class Flight {
     }
 
     // Getter methods for the Flight class
-    public int getFlightID() {
+    public String getFlightID() {
         return flightID;
     }
 

@@ -97,7 +97,7 @@ public class HelloController implements Initializable {
     private Label resultsLabel;
 
     @FXML private TableView<Flight> tableView;
-    @FXML private TableColumn<Flight,Integer> flightID;
+    @FXML private TableColumn<Flight, String> flightID;
     @FXML private TableColumn<Flight, String> departAirport;
     @FXML private TableColumn<Flight, String> arrivalAirport;
     @FXML private TableColumn<Flight, String> departDate;
@@ -124,7 +124,7 @@ public class HelloController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        flightID.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getFlightID()).asObject());
+        flightID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFlightID()));
         departAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartAirport()));
         arrivalAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArrivalAirport()));
         departDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate()));
