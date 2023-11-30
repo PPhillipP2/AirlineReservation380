@@ -64,7 +64,7 @@ import java.io.IOException;
 import static java.lang.String.valueOf;
 import static javafx.beans.binding.Bindings.createObjectBinding;
 
-public class CancelController {
+public class CancelController implements Initializable {
 
     public Button CanceltoHome;
     public TextField flightIDField;
@@ -153,7 +153,7 @@ public class CancelController {
      * seatNumberColumn, firstNameColumn, lastNameColumn, checkedInBagsColumn.
      */
     @FXML
-    private void initialize(ResourceBundle resourceBundle, Reservation reservation){
+    public void initialize(URL url, ResourceBundle resourceBundle){
             // Initialize the TableView columns with their respective data
             seatNumberColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(
                     cellData.getValue().getSeatNum()).asObject().asString());
