@@ -15,12 +15,12 @@
       <Label layoutX="53.0" layoutY="290.0" text="Arrival:" />
       <AnchorPane prefHeight="35.0" prefWidth="1550.0" style="-fx-background-color: #808080;" />
 
-      <TableView layoutX="369.0" layoutY="229.0" prefHeight="532.0" prefWidth="724.0">
+      <TableView fx:id="ticketTableView" layoutX="369.0" layoutY="229.0" prefHeight="532.0" prefWidth="724.0">
         <columns>
-            <TableColumn prefWidth="99.218017578125" text="First Name" />
-          <TableColumn prefWidth="95.43365478515625" text="Last Name" />
-          <TableColumn prefWidth="103.0687255859375" text="Checked In Bags" />
-            <TableColumn prefWidth="129.43130493164062" text="Seat Number" />
+            <TableColumn fx:id="firstNameColumn" prefWidth="99.218017578125" text="First Name" />
+          <TableColumn fx:id="lastNameColumn" prefWidth="95.43365478515625" text="Last Name" />
+          <TableColumn fx:id="checkedInBagsColumn" prefWidth="103.0687255859375" text="Checked In Bags" />
+            <TableColumn fx:id="seatNumberColumn" prefWidth="129.43130493164062" text="Seat Number" />
         </columns>
       </TableView>
       <Button fx:id="cancelButton" layoutX="372.0" layoutY="783.0" mnemonicParsing="false" onAction="#CancelPopUpButton" text="Cancel Reservation" />
