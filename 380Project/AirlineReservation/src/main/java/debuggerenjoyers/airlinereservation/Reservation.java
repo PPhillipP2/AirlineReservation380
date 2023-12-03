@@ -10,9 +10,12 @@
  */
 package debuggerenjoyers.airlinereservation;
 
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
+import java.util.Random;
+import java.io.File;
 
 public class Reservation {
 
@@ -164,6 +167,9 @@ public class Reservation {
      */
     public void setTickets(List<Ticket> tickets){
         this.tickets = tickets;
+
+    }
+    public void updatePrice(){
         double total = 0;
         for (Ticket ticket : tickets) {
             total = ticket.getPrice();
@@ -188,11 +194,29 @@ public class Reservation {
     }
 
     /**
-     * Modifier method for Reservation confirmation number. Sets confirmationNum to parameter.
-     * @param confirmationNum
+     * Modifier method for Reservation confirmation number.  Generates and sets a Confirmation Number
+     * @param
      */
-    public void setConfirmationNum(String confirmationNum){
-        this.confirmationNum = confirmationNum;
+    public void genConfirmationNum(){
+        JsonObject jsonObject = JSONParser.parseConfirmationNum(getClass().getResourceAsStream("confirmationNum.json"));
+        int confirmationNum = jsonObject.get("confirmationNumber").getAsInt()+1;
+
+        System.out.println(confirmationNum);
+        Random random = new Random();
+        jsonObject.addProperty("confirmationNumber", confirmationNum);
+        JSONRewrite.updateConfirmationNum(new File(getClass().getResource("confirmationNum.json").getFile()),jsonObject);
+
+        // Generate a string of four random single-digit numbers
+        StringBuilder randomNumberString = new StringBuilder();
+        randomNumberString.append(confirmationNum);
+        randomNumberString.append("-");
+        for (int i = 0; i < 4; i++) {
+            int randomNumber = random.nextInt(10); // Generates a random number between 0 and 9
+            randomNumberString.append(randomNumber);
+        }
+
+        this.confirmationNum = randomNumberString.toString();
+
     }
 
 

@@ -102,6 +102,25 @@ public class SeatController implements Initializable {
      */
     private void updateSeatList(Integer selectedSeat){
         seatList.set(selectedSeat, 1);
+        String seatChart = "";
+        int count = 0;
+
+        for(Integer seat : seatList){
+            seatChart = seatChart + seat.toString();
+            if (count == 99){
+                break;
+            }
+            else{
+                seatChart = seatChart + ", ";
+            }
+            count++;
+        }
+
+        for(Ticket ticket : reservation.getTickets()){
+            Flight og = ticket.getFlight();
+            og.setSeatChart(seatChart);
+            ticket.setFlight(og);
+        }
         setSeatList();
     }
 
@@ -139,6 +158,10 @@ public class SeatController implements Initializable {
     @FXML
     private void PassengertoPurchaseButton(ActionEvent event) {
         Boolean result =reservation.checkTickets();
+        for (Ticket ticketprice : reservation.getTickets()){
+            ticketprice.updatePrice();
+        }
+        reservation.updatePrice();
 
         if(result == false){
             SeatController.IncompleteInfo();
@@ -180,16 +203,21 @@ public class SeatController implements Initializable {
         Ticket ticket = tickets.get(selectedPassenger);
         Passenger passenger = ticket.getPassenger();
 
+
+
         passenger.setFirstName(firstNameTxt.getText());
         passenger.setLastName(lastNameTxt.getText());
         passenger.setDOB(DOBTxt.getText());
         passenger.setBags(bagsSpinner.getValue());
         ticket.setSeatNum(seatComboBox.getValue());
+        ticket.getFlight().setSeatsOpen(ticket.getFlight().getSeatsOpen()-1);
 
         updateSeatList(seatComboBox.getValue());
 
 
+
         reservation.setTickets(tickets);
+
         DisplayTickets();
 
 
@@ -259,6 +287,7 @@ public class SeatController implements Initializable {
      */
     private void initList(){
         int passengerNum = reservation.getTickets().size();
+        reservation.setTripType(false);
 
         switch (passengerNum){
             case 1:

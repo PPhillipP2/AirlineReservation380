@@ -134,6 +134,11 @@ public class Ticket {
      * @param seatNum
      */
     public void setSeatNum(Integer seatNum) {
+        if (seatNum <= 10){
+            this.seatType = Boolean.TRUE;
+        } else {
+            this.seatType = Boolean.FALSE;
+        }
         this.seatNum = seatNum;
     }
 

@@ -20,7 +20,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.io.IOException;
+import com.google.gson.Gson;
 
 public class PurchaseController {
 
@@ -47,6 +51,8 @@ public class PurchaseController {
 
     @FXML
     private TextField emailAddressField;
+
+    Reservation reservation = Reservation.getInstance();
 
     /**
      * Handles the action triggered when the user clicks the "Home" button.
@@ -107,11 +113,24 @@ public class PurchaseController {
         String homeAddress = homeAddressField.getText();
         String cardNumber = cardNumberField.getText();
         String expirationDate = expirationDateField.getText();
-        String cvv = cvvField.getText();
+        int cvv = Integer.parseInt(cvvField.getText());
         String emailAddress = emailAddressField.getText();
 
 
         // Perform actions with the collected information.
+        Card card = new Card(cardNumber, expirationDate,cvv, homeAddress);
+        List<Card> cards = new ArrayList<>();
+        cards.add(card);
+
+        Customer customer = new Customer(firstName,lastName, emailAddress,cards);
+        Purchase purchase = new Purchase(customer, Boolean.TRUE, reservation.getPriceTotal(), 0);
+        reservation.genConfirmationNum();
+        reservation.setPurchase(purchase);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(reservation);
+        System.out.println(json);
+
     }
 
 }

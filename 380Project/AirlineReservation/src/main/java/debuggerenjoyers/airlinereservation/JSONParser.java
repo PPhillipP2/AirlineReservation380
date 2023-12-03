@@ -10,6 +10,8 @@
 package debuggerenjoyers.airlinereservation;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.*;
@@ -75,5 +77,29 @@ public class JSONParser {
             return dataWrapper.getFlights();
         }
         return Collections.emptyList();
+    }
+    public static JsonObject parseConfirmationNum(InputStream fileStream) {
+        int confirmationNumber = -1; // Default value if parsing fails or number not found
+
+        try {
+            // Create a reader from the InputStream
+            Reader reader = new InputStreamReader(fileStream);
+
+            // Parse the JSON content
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+
+            // Get the confirmation number from the JSON
+            if (jsonObject.has("confirmationNumber")) {
+                confirmationNumber = jsonObject.get("confirmationNumber").getAsInt();
+            }
+
+            // Close resources
+            reader.close();
+            return jsonObject;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 }
