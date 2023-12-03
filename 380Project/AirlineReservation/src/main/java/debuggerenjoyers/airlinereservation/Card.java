@@ -10,8 +10,8 @@ package debuggerenjoyers.airlinereservation;
 import java.util.Date;
 public class Card {
 
-    private int cardNum;
-    private Date expirationDate;
+    private String cardNum;
+    private String expirationDate;
     private int cvc;
     private String cardAddress;
 
@@ -22,7 +22,7 @@ public class Card {
      * @param cvc
      * @param cardAddress
      */
-    public Card(int cardNum, Date expirationDate, int cvc, String cardAddress){
+    public Card(String cardNum, String expirationDate, int cvc, String cardAddress){
         this.cardNum = cardNum;
         this.expirationDate = expirationDate;
         this.cvc = cvc;
@@ -33,7 +33,7 @@ public class Card {
      * Default Card Constructor
      */
     public Card(){
-        this.cardNum = -1;
+        this.cardNum = null;
         this.expirationDate = null;
         this.cvc = -1;
         this.cardAddress = null;
@@ -43,7 +43,7 @@ public class Card {
      * Access method for Card cardNum. Returns Integer
      * @return cardNum
      */
-    public int getCardNum(){
+    public String getCardNum(){
         return cardNum;
     }
 
@@ -51,7 +51,7 @@ public class Card {
      * Access method for Card expirationDate. Returns Date
      * @return expirationDate
      */
-    public Date getExpirationDate(){
+    public String getExpirationDate(){
         return expirationDate;
     }
 

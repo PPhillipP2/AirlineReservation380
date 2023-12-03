@@ -8,7 +8,13 @@
 
 package debuggerenjoyers.airlinereservation;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import java.io.*;
 
 public class JSONRewrite {
 
@@ -53,5 +59,18 @@ public class JSONRewrite {
         }
         String updatedSeatChart = new String(seatChartArray);
         flight.setSeatChart(updatedSeatChart);
+    }
+    public static void updateConfirmationNum(File out, JsonObject in){
+        try {
+
+            String jsonString = in.toString();
+
+            BufferedWriter writer = new BufferedWriter(new FileWriter(out));
+            writer.write(jsonString);
+            writer.close();
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
     }
 }
