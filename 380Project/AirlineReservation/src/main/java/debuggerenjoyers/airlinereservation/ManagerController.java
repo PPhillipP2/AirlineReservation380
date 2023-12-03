@@ -14,6 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -90,6 +91,26 @@ public class ManagerController {
     @FXML
     private TableColumn<Flight, Double> totalRevenue;
 
+    @FXML
+    private TableColumn<Reservation, String> firstName;
+
+    @FXML
+    private TableColumn<Reservation, String> lastName;
+
+    @FXML
+    private TableColumn<Reservation, String> contactInfo;
+
+    @FXML
+    private TableColumn<Reservation, String> dateOfBirth;
+
+    @FXML
+    private TableColumn<Reservation, Integer> numBags;
+
+    @FXML
+    private TableColumn<Reservation, Double> priceAmount;
+
+
+
 
     @FXML
     private void flightButtonAction(ActionEvent event) {
@@ -108,7 +129,9 @@ public class ManagerController {
 
         flightsTableView.setDisable(true);
         flightsTableView.setVisible(false);
+        //populateReservationTableView();
     }
+
 
     private void populateFlightTableView() {
         List<Flight> flights = JSONParser.parseFlightData(getClass().getResourceAsStream("flight.json"));
@@ -128,7 +151,29 @@ public class ManagerController {
         flightsTableView.getItems().clear();
         flightsTableView.getItems().addAll(flights);
     }
+    @FXML
+    private void searchButtonAction(ActionEvent event) {
+        // Your existing implementation...
+    }
+    /*
+    private void populateReservationTableView(){
+        List<Reservation> reservations = JSONParser.parseReservationData(getClass().getResourceAsStream("test.json"));
+        flightIDReservation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFlightID()));
+        departAirportReservation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartAirport()));
+        arrivalAirportReservation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArrivalAirport()));
+        departDateReservation.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate()));
+        //firstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFirstName()));
+        //lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getLastName()));
+        //contactInfo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactInfo()));
+        //dateOfBirth.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getdateOfBirth()));
+        //numBags.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getnumBags()));
+        priceAmount.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPriceTotal()).asObject());
 
+        flightsTableView.getItems().clear();
+        flightsTableView.getItems().addAll(reservations);
+    }
+
+     */
 
 
     @FXML
