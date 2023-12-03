@@ -17,14 +17,35 @@
             "departTime": "10:30:00",
             "arrivalTime": "12:00:00",
             "seatsOpen": 89,
-            "seatChart": "0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0",
+            "seatChart": [0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             "price": 100.0
           },
           "seatType": true,
           "seatNum": 2,
           "price": 160.0
         }
-      ]
+      ],
+      "purchase": {
+        "customer": {
+          "firstName": "Elijah",
+          "lastName": "Davis",
+          "emailAddress": "xqclzwmsn@example.com",
+          "creditCards": [
+            {
+              "CardNum": "3457646436439220",
+              "expirationdate": "01/19/27",
+              "cvc": "248",
+              "cardAddress": "85 kLSkN St, beKzogk, AM 03815"
+            }
+          ]
+        },
+        "purchaseStatus": true,
+        "purchaseTotal": 160.0,
+        "cardUsedIndex": 0
+      },
+      "triptype": false,
+      "priceTotal": 160.0,
+      "confirmationNum": "1001-4492"
     }
   ]
 }
