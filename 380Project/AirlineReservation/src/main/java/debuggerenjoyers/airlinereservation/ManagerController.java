@@ -6,9 +6,14 @@
  * @author Angel Merchant
  * @since November 20, 2023
  */
-
 package debuggerenjoyers.airlinereservation;
 
+import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,10 +21,21 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import java.io.IOException;
-import javafx.scene.control.Button;
-
 import javafx.scene.control.*;
+import javafx.scene.control.TableView;
+import java.io.File;
+import java.io.IOException;
+import java.io.Reader;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import java.util.ResourceBundle;
 
 public class ManagerController {
 
@@ -36,67 +52,83 @@ public class ManagerController {
     private Button reservationButton;
 
     @FXML
-    private Button revenueButton;
-
-    @FXML
     private Button loginButton;
 
     @FXML
-    private TableView<?> flightsTableView;
+    private TableView<Flight> flightsTableView;
 
     @FXML
-    private TableView<?> reservationTableView;
+    private TableView<Reservation> reservationTableView;
 
     @FXML
-    private TableView<?> revenueTableView;
+    private Label resultsLabel;
 
+    @FXML
+    private TableView<?> tableView;
+
+    @FXML
+    private TableColumn<Flight, String> flightID;
+
+    @FXML
+    private TableColumn<Flight, String> departDate;
+
+    @FXML
+    private TableColumn<Flight, String> departAirport;
+
+    @FXML
+    private TableColumn<Flight, String> arrivalAirport;
+
+    @FXML
+    private TableColumn<Flight, String> departTime;
+
+    @FXML
+    private TableColumn<Flight, Integer> seatsOpen;
+
+    @FXML
+    private TableColumn<Flight, Double> price;
+
+    @FXML
+    private TableColumn<Flight, Double> totalRevenue;
 
 
     @FXML
     private void flightButtonAction(ActionEvent event) {
-        // Set visibility and disable properties of flightsTableView
         flightsTableView.setDisable(false);
         flightsTableView.setVisible(true);
 
-
         reservationTableView.setDisable(true);
         reservationTableView.setVisible(false);
-
-        revenueTableView.setDisable(true);
-        revenueTableView.setVisible(false);
-
+        populateFlightTableView();
     }
 
     @FXML
     private void reservationButtonAction(ActionEvent event) {
-        // Set visibility and disable properties of reservationTableView
         reservationTableView.setDisable(false);
         reservationTableView.setVisible(true);
 
-
         flightsTableView.setDisable(true);
         flightsTableView.setVisible(false);
-
-        revenueTableView.setDisable(true);
-        revenueTableView.setVisible(false);
-
     }
 
-    @FXML
-    private void revenueButtonAction(ActionEvent event) {
-        // Set visibility and disable properties of revenueTableView
-        revenueTableView.setDisable(false);
-        revenueTableView.setVisible(true);
+    private void populateFlightTableView() {
+        List<Flight> flights = JSONParser.parseFlightData(getClass().getResourceAsStream("flight.json"));
 
-        //hide other table views
-        flightsTableView.setDisable(true);
-        flightsTableView.setVisible(false);
+        flightID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFlightID()));
+        departDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate()));
+        departAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartAirport()));
+        arrivalAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArrivalAirport()));
+        departTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartTime()));
+        seatsOpen.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSeatsOpen()).asObject());
+        price.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        totalRevenue.setCellValueFactory(cellData -> {
+            double revenue = cellData.getValue().getPrice() * (100 - cellData.getValue().getSeatsOpen());
+            return new SimpleDoubleProperty(revenue).asObject();
+        });
 
-        reservationTableView.setDisable(true);
-        reservationTableView.setVisible(false);
-
-
+        flightsTableView.getItems().clear();
+        flightsTableView.getItems().addAll(flights);
     }
+
 
 
     @FXML
@@ -106,12 +138,12 @@ public class ManagerController {
             // Set visibility of buttons to true
             flightButton.setVisible(true);
             reservationButton.setVisible(true);
-            revenueButton.setVisible(true);
+
 
             // Enable the buttons
             flightButton.setDisable(false);
             reservationButton.setDisable(false);
-            revenueButton.setDisable(false);
+
 
             // Disable the login button to prevent further login attempts
             loginButton.setDisable(true);

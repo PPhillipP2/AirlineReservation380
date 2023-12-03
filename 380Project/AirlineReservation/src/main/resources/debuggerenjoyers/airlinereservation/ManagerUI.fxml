@@ -32,8 +32,6 @@
             <Text layoutX="88.0" layoutY="43.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LOGIN" />
             <Text layoutX="31.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="USERNAME:" />
             <Text layoutX="30.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="PASSWORD:" />
-            <Text layoutX="92.0" layoutY="493.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Revenue" />
-            <Button fx:id="revenueButton" disable="true" layoutX="48.0" layoutY="518.0" mnemonicParsing="false" onAction="#revenueButtonAction" text="Show Total Revenue" />
             <Button fx:id="loginButton" layoutX="94.0" layoutY="188.0" mnemonicParsing="false" onAction="#loginButtonAction" text="Enter" />
             <TextField fx:id="userText" layoutX="108.0" layoutY="76.0" prefHeight="26.0" prefWidth="111.0" />
             <PasswordField fx:id="passwordText" layoutX="108.0" layoutY="130.0" prefHeight="26.0" prefWidth="111.0" />
@@ -60,22 +58,16 @@
       <Text layoutX="691.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Departure" />
       <Text layoutX="892.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
       <Button layoutX="1180.0" layoutY="212.0" mnemonicParsing="false" text="SEARCH" />
-      <TableView fx:id="flightsTableView" disable="true" layoutX="374.0" layoutY="249.0" prefHeight="540.0" prefWidth="907.0">
+      <TableView fx:id="flightsTableView" disable="true" layoutX="374.0" layoutY="249.0" prefHeight="540.0" prefWidth="907.0" visible="false">
         <columns>
-          <TableColumn prefWidth="75.0" text="Flight ID" />
-            <TableColumn prefWidth="111.58132934570312" text="Depart Date" />
-            <TableColumn prefWidth="90.15106201171875" text="Origin" />
-            <TableColumn prefWidth="120.34893798828125" text="Destination" />
-            <TableColumn prefWidth="120.05816650390625" text="Depart Time" />
-            <TableColumn prefWidth="136.662841796875" text="Seats Available" />
-            <TableColumn prefWidth="119.12786865234375" text="Price Per Ticket" />
-            <TableColumn prefWidth="135.279052734375" text="Total Revenue" />
-        </columns>
-      </TableView>
-      <TableView fx:id="revenueTableView" disable="true" layoutX="374.0" layoutY="249.0" prefHeight="540.0" prefWidth="907.0" visible="false">
-        <columns>
-          <TableColumn prefWidth="75.0" text="Revenue" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="flightID" prefWidth="75.0" text="Flight ID" />
+            <TableColumn fx:id="departDate" prefWidth="111.58132934570312" text="Depart Date" />
+            <TableColumn fx:id="departAirport" prefWidth="90.15106201171875" text="Origin" />
+            <TableColumn fx:id="arrivalAirport" prefWidth="120.34893798828125" text="Destination" />
+            <TableColumn fx:id="departTime" prefWidth="120.05816650390625" text="Depart Time" />
+            <TableColumn fx:id="seatsOpen" prefWidth="136.662841796875" text="Seats Available" />
+            <TableColumn fx:id="price" prefWidth="119.12786865234375" text="Price Per Ticket" />
+            <TableColumn fx:id="totalRevenue" prefWidth="135.279052734375" text="Total Revenue" />
         </columns>
       </TableView>
       <ChoiceBox layoutX="1005.0" layoutY="151.0" prefWidth="150.0" />
