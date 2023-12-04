@@ -60,13 +60,12 @@ public class JSONRewrite {
         String updatedSeatChart = new String(seatChartArray);
         flight.setSeatChart(updatedSeatChart);
     }
-    public static void updateConfirmationNum(File out, JsonObject in){
+    public static void updateConfirmationNum(File out,JsonObject in){
         try {
-
-            String jsonString = in.toString();
+            Gson gson = new Gson();
 
             BufferedWriter writer = new BufferedWriter(new FileWriter(out));
-            writer.write(jsonString);
+            writer.write(gson.toJson(in));
             writer.close();
         }
         catch (IOException e){

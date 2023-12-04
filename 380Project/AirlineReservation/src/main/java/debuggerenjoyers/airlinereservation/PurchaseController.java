@@ -10,6 +10,8 @@
 
 package debuggerenjoyers.airlinereservation;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +22,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,8 +130,17 @@ public class PurchaseController {
         reservation.genConfirmationNum();
         reservation.setPurchase(purchase);
 
+        //Make the Reservation JSON Object for Ease of Storing
         Gson gson = new Gson();
         String json = gson.toJson(reservation);
+        JsonObject inReservation = gson.fromJson(json, JsonObject.class);
+
+        //Add the new Reservation to the JsonObject
+        JsonObject reservationJsonObject =  JSONParser.getReservationJsonObject(getClass().getResourceAsStream("reservations.json"));
+        JsonArray reservationArray = reservationJsonObject.getAsJsonArray("reservations");
+        reservationArray.add(inReservation);
+        JSONRewrite.updateConfirmationNum(new File(getClass().getResource("reservations.json").getFile()), reservationJsonObject);
+
         System.out.println(json);
 
     }

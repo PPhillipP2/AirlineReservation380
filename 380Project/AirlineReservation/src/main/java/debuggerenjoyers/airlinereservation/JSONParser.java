@@ -100,6 +100,26 @@ public class JSONParser {
             e.printStackTrace();
         }
         return null;
-
     }
+
+    public static JsonObject getReservationJsonObject(InputStream fileStream) {
+        Reservation reservationJsonObject = new Reservation(); // Default value if parsing fails or number not found
+
+        try {
+            // Create a reader from the InputStream
+            Reader reader = new InputStreamReader(fileStream);
+
+            // Parse the JSON content
+            JsonObject jsonObject = JsonParser.parseReader(reader).getAsJsonObject();
+
+            // Close resources
+            reader.close();
+            return jsonObject;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
 }
