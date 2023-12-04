@@ -17,7 +17,7 @@
             "departTime": "10:30:00",
             "arrivalTime": "12:00:00",
             "seatsOpen": 89,
-            "seatChart": [0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "seatChart": "0,1,0,0",
             "price": 100.0
           },
           "seatType": true,
@@ -46,6 +46,119 @@
       "triptype": false,
       "priceTotal": 160.0,
       "confirmationNum": "1001-4492"
+    },
+    {
+      "tickets": [
+        {
+          "passenger": {
+            "firstName": "Sophia",
+            "lastName": "Jackson",
+            "DOB": "09/17/68",
+            "bags": 0
+          },
+          "flight": {
+            "flightID": 1001,
+            "departAirport": "LAX",
+            "arrivalAirport": "SLC",
+            "departDate": "2024-01-01",
+            "departTime": "10:30:00",
+            "arrivalTime": "12:00:00",
+            "seatsOpen": 89,
+            "seatChart": "0, 1, 0, 0, 0, 0",
+            "price": 100.0
+          },
+          "seatType": true,
+          "seatNum": 3,
+          "price": 130.0
+        },
+        {
+          "passenger": {
+            "firstName": "Elijah",
+            "lastName": "Miller",
+            "DOB": "10/05/56",
+            "bags": 0
+          },
+          "flight": {
+            "flightID": 1001,
+            "departAirport": "LAX",
+            "arrivalAirport": "SLC",
+            "departDate": "2024-01-01",
+            "departTime": "10:30:00",
+            "arrivalTime": "12:00:00",
+            "seatsOpen": 89,
+            "seatChart": "0, 0, 1, 1, 1, 1, 1, 0, 1 0, 0, 0, 0",
+            "price": 100.0
+          },
+          "seatType": true,
+          "seatNum": 4,
+          "price": 130.0
+        },
+        {
+          "passenger": {
+            "firstName": "Benjamin",
+            "lastName": "Moore",
+            "DOB": "04/19/48",
+            "bags": 2
+          },
+          "flight": {
+            "flightID": 1001,
+            "departAirport": "LAX",
+            "arrivalAirport": "SLC",
+            "departDate": "2024-01-01",
+            "departTime": "10:30:00",
+            "arrivalTime": "12:00:00",
+            "seatsOpen": 89,
+            "seatChart": "0, 0, 0, 0, 0, 0, 0, 1 , 0, 0",
+            "price": 100.0
+          },
+          "seatType": true,
+          "seatNum": 5,
+          "price": 190.0
+        },
+        {
+          "passenger": {
+            "firstName": "William",
+            "lastName": "Garcia",
+            "DOB": "04/12/93",
+            "bags": 3
+          },
+          "flight": {
+            "flightID": 1001,
+            "departAirport": "LAX",
+            "arrivalAirport": "SLC",
+            "departDate": "2024-01-01",
+            "departTime": "10:30:00",
+            "arrivalTime": "12:00:00",
+            "seatsOpen": 89,
+            "seatChart": "0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0",
+            "price": 100.0
+          },
+          "seatType": true,
+          "seatNum": 6,
+          "price": 220.0
+        }
+      ],
+      "purchase": {
+        "customer": {
+          "firstName": "Abigail",
+          "lastName": "Johnson",
+          "emailAddress": "ddsffipue@gmail.com",
+          "creditCards": [
+            {
+              "CardNum": "4030073531141033",
+              "expirationdate": "08/14/25",
+              "cvc": "174",
+              "cardAddress": "24 bvsDeIuS St, JztKPNF, RF 18387"
+            }
+          ]
+        },
+        "purchaseStatus": true,
+        "purchaseTotal": 670.0,
+        "cardUsedIndex": 0
+      },
+      "triptype": false,
+      "priceTotal": 670.0,
+      "confirmationNum": "1002-7454"
     }
   ]
 }

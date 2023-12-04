@@ -112,4 +112,5 @@ public class Passenger {
             return bags != null && bags >= 0; // Consider zero as an invalid value
         }
     }
+
 }

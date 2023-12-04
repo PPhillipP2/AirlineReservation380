@@ -13,8 +13,6 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -24,19 +22,11 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
 import javafx.scene.control.TableView;
-import java.io.File;
-import java.io.IOException;
-import java.io.Reader;
-import java.net.URL;
-import java.util.List;
-import java.util.ResourceBundle;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
-import java.net.URL;
+import java.util.*;
+
 import java.util.List;
-import java.util.ResourceBundle;
 
 public class ManagerController {
 
@@ -59,7 +49,7 @@ public class ManagerController {
     private TableView<Flight> flightsTableView;
 
     @FXML
-    private TableView<Reservation> reservationTableView;
+    private TableView<Ticket> reservationTableView;
 
     @FXML
     private Label resultsLabel;
@@ -93,22 +83,22 @@ public class ManagerController {
     private TableColumn<Flight, Double> totalRevenue;
 
     @FXML
-    private TableColumn<Reservation, String> firstName;
+    private TableColumn<Ticket, String> firstName;
 
     @FXML
-    private TableColumn<Reservation, String> lastName;
+    private TableColumn<Ticket, String> lastName;
 
     @FXML
-    private TableColumn<Reservation, String> contactInfo;
+    private TableColumn<Ticket, String> contactInfo;
 
     @FXML
-    private TableColumn<Reservation, String> dateOfBirth;
+    private TableColumn<Ticket, String> dateOfBirth;
 
     @FXML
-    private TableColumn<Reservation, Integer> numBags;
+    private TableColumn<Ticket, Integer> numBags;
 
     @FXML
-    private TableColumn<Reservation, Double> priceAmount;
+    private TableColumn<Ticket, Double> priceAmount;
 
 
 
@@ -157,24 +147,29 @@ public class ManagerController {
         // Your existing implementation...
     }
 
+
+
     private void populateReservationTableView() {
         List<Reservation> reservations = JSONParser.parseReservationData(getClass().getResourceAsStream("test.json"));
 
-        // Assuming a reservation has multiple tickets (flights)
-        if (!reservations.isEmpty() && !reservations.get(0).getTickets().isEmpty()) {
-            Ticket firstTicket = reservations.get(0).getTickets().get(0);
+        ObservableList<Ticket> allTickets = FXCollections.observableArrayList();
 
-            firstName.setCellValueFactory(cellData -> new SimpleStringProperty(firstTicket.getPassenger().getFirstName()));
-            lastName.setCellValueFactory(cellData -> new SimpleStringProperty(firstTicket.getPassenger().getLastName()));
-            dateOfBirth.setCellValueFactory(cellData -> new SimpleStringProperty(firstTicket.getPassenger().getDOB()));
-            numBags.setCellValueFactory(cellData -> new SimpleIntegerProperty(firstTicket.getPassenger().getBags()).asObject());
-            priceAmount.setCellValueFactory(cellData -> new SimpleDoubleProperty(firstTicket.getPrice()).asObject());
+        for (Reservation reservation : reservations) {
+            List<Ticket> tickets = reservation.getTickets();
+            allTickets.addAll(tickets);
         }
 
-        ObservableList<Reservation> reservationObservableList = FXCollections.observableArrayList(reservations);
+
+        firstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassenger().getFirstName()));
+        lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassenger().getLastName()));
+        contactInfo.setCellValueFactory(cellData -> new SimpleStringProperty(reservation.getPurchase().getCustomer().getEmailAddress()));
+        dateOfBirth.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassenger().getDOB()));
+        numBags.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPassenger().getBags()).asObject());
+        priceAmount.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+
 
         reservationTableView.getItems().clear();
-        reservationTableView.setItems(reservationObservableList);
+        reservationTableView.getItems().addAll(allTickets);
     }
 
 
