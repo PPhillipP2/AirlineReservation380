@@ -1,24 +1,51 @@
 {
-  "flights": [
+  "reservations": [
     {
-      "flightID": 1001,
-      "departAirport": "ATL",
-      "arrivalAirport": "JFK",
-      "departDate": "2023-12-01",
-      "departTime": "10:15:00",
-      "seatsOpen": 59,
-      "seatChart": "1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, ",
-      "price": 10.50
-    },
-    {
-      "flightID": 1002,
-      "departAirport": "LAX",
-      "arrivalAirport": "ATL",
-      "departDate": "2002-10-28",
-      "departTime": "12:15:00",
-      "seatsOpen": 80,
-      "seatChart": "1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 0, 1, 1, 0, ",
-      "price": 10.50
+      "tickets": [
+        {
+          "passenger": {
+            "firstName": "Abigail",
+            "lastName": "Wilson",
+            "DOB": "12/06/45",
+            "bags": 1
+          },
+          "flight": {
+            "flightID": 1001,
+            "departAirport": "LAX",
+            "arrivalAirport": "SLC",
+            "departDate": "2024-01-01",
+            "departTime": "10:30:00",
+            "arrivalTime": "12:00:00",
+            "seatsOpen": 89,
+            "seatChart": [0, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            "price": 100.0
+          },
+          "seatType": true,
+          "seatNum": 2,
+          "price": 160.0
+        }
+      ],
+      "purchase": {
+        "customer": {
+          "firstName": "Elijah",
+          "lastName": "Davis",
+          "emailAddress": "xqclzwmsn@example.com",
+          "creditCards": [
+            {
+              "CardNum": "3457646436439220",
+              "expirationdate": "01/19/27",
+              "cvc": "248",
+              "cardAddress": "85 kLSkN St, beKzogk, AM 03815"
+            }
+          ]
+        },
+        "purchaseStatus": true,
+        "purchaseTotal": 160.0,
+        "cardUsedIndex": 0
+      },
+      "triptype": false,
+      "priceTotal": 160.0,
+      "confirmationNum": "1001-4492"
     }
   ]
 }

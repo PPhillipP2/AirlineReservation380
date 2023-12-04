@@ -19,6 +19,7 @@ import java.io.IOException;
 public class HelloApplication extends Application {
 
     /**
+     * 
      * The main entry point for the Airline Reservation application.
      * Loads the FXML file for the initial view, and displays the scene.
      *
@@ -28,7 +29,7 @@ public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1000, 700);
+        Scene scene = new Scene(fxmlLoader.load(), 1500, 900);
         stage.setTitle("Airline Reservation Portal");
         stage.setScene(scene);
         stage.show();
