@@ -12,6 +12,9 @@
 
 package debuggerenjoyers.airlinereservation;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.IntegerBinding;
 import javafx.beans.property.IntegerProperty;
@@ -33,7 +36,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-import java.io.File;
+import java.io.*;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -41,9 +44,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
+
 import java.lang.reflect.Type;
 import javafx.collections.transformation.FilteredList;
 import javafx.stage.Stage;
@@ -137,16 +138,26 @@ public class CancelController implements Initializable {
 
     // Method to fetch reservations in order to ensure recent reservations are added to the List
     public void fetchReservations() {
-        ReservationDataWrapper reservationDataWrapper = new ReservationDataWrapper();
-        this.reservations = reservationDataWrapper.getReservations();
+        try {
+            // Read the JSON file from resources folder
+            InputStream inputStream = getClass().getResourceAsStream("reservations.json");
+            if (inputStream != null) {
+                JsonObject jsonObject = JSONParser.getReservationJsonObject(inputStream);
+
+                JsonArray reservationsJsonArray = jsonObject.getAsJsonArray("reservations");
+
+                Gson gson = new Gson();
+                this.reservations = new ArrayList<>();
+
+                for (JsonElement jsonElement : reservationsJsonArray) {
+                    Reservation reservation = gson.fromJson(jsonElement, Reservation.class);
+                    this.reservations.add(reservation);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
-
-    public List<Reservation> getReservations() {
-        return reservations;
-    }
-
-
-    // Method to handle retrieving the reservation based on confirmation number
 
     /**
      * Initializes the seat selection UI, setting up the TableView columns with
@@ -167,14 +178,7 @@ public class CancelController implements Initializable {
                     cellData.getValue().getPassenger().getBags()).asObject());
         //Find corresponding reservation and display tickets on table as well as static reservation info
             viewTicketButton.setOnAction(this::retrieveReservation);
-
-            cancelButton.setOnAction(this::CancelPopUpButton);
-
-
     }
-
-
-
 
 
         /**
