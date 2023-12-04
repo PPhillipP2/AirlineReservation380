@@ -110,63 +110,85 @@ public class PurchaseController {
 
     @FXML
     private void submitButtonClicked(ActionEvent event) {
-        // Handle the action when the "Submit Information" button is clicked
-        // You can collect the entered information and perform further actions
-        String firstName = firstNameField.getText();
-        String lastName = lastNameField.getText();
-        String homeAddress = homeAddressField.getText();
-        String cardNumber = cardNumberField.getText();
-        String expirationDate = expirationDateField.getText();
-        int cvv = Integer.parseInt(cvvField.getText());
-        String emailAddress = emailAddressField.getText();
+
+            // Handle the action when the "Submit Information" button is clicked
+            // You can collect the entered information and perform further actions
+            String firstName = firstNameField.getText();
+            String lastName = lastNameField.getText();
+            String homeAddress = homeAddressField.getText();
+            String cardNumber = cardNumberField.getText();
+            String expirationDate = expirationDateField.getText();
+            int cvv = Integer.parseInt(cvvField.getText());
+            String emailAddress = emailAddressField.getText();
 
 
-        // Perform actions with the collected information.
-        Card card = new Card(cardNumber, expirationDate,cvv, homeAddress);
-        List<Card> cards = new ArrayList<>();
-        cards.add(card);
+            // Perform actions with the collected information.
+            Card card = new Card(cardNumber, expirationDate, cvv, homeAddress);
+            List<Card> cards = new ArrayList<>();
+            cards.add(card);
 
-        Customer customer = new Customer(firstName,lastName, emailAddress,cards);
-        Purchase purchase = new Purchase(customer, Boolean.TRUE, reservation.getPriceTotal(), 0);
-        reservation.genConfirmationNum();
-        reservation.setPurchase(purchase);
+            Customer customer = new Customer(firstName, lastName, emailAddress, cards);
+            Purchase purchase = new Purchase(customer, Boolean.TRUE, reservation.getPriceTotal(), 0);
+            reservation.genConfirmationNum();
+            reservation.setPurchase(purchase);
 
-        //Make the Reservation and FlightJSON Object for Ease of Storing
-        Gson gson = new Gson();
-        String json = gson.toJson(reservation);
-        Flight flight = reservation.getFirstTicket().getFlight();
-        JsonObject inReservation = gson.fromJson(json, JsonObject.class);
+            //Make the Reservation and FlightJSON Object for Ease of Storing
+            Gson gson = new Gson();
+            String json = gson.toJson(reservation);
+            Flight flight = reservation.getFirstTicket().getFlight();
+            JsonObject inReservation = gson.fromJson(json, JsonObject.class);
 
 
-        //Add the new Reservation to the JsonObject
-        JsonObject reservationJsonObject =  JSONParser.getReservationJsonObject(getClass().getResourceAsStream("reservations.json"));
-        JsonArray reservationArray = reservationJsonObject.getAsJsonArray("reservations");
-        reservationArray.add(inReservation);
-        JSONRewrite.updateConfirmationNum(new File(getClass().getResource("reservations.json").getFile()), reservationJsonObject);
+            //Add the new Reservation to the JsonObject
+            JsonObject reservationJsonObject = JSONParser.getReservationJsonObject(getClass().getResourceAsStream("reservations.json"));
+            JsonArray reservationArray = reservationJsonObject.getAsJsonArray("reservations");
+            reservationArray.add(inReservation);
+            JSONRewrite.updateConfirmationNum(new File(getClass().getResource("reservations.json").getFile()), reservationJsonObject);
 
-        //Update Flight JSON
-        JsonObject flightsJsonObject =  JSONParser.getReservationJsonObject(getClass().getResourceAsStream("flight.json"));
-        JsonArray flightsArray = flightsJsonObject.getAsJsonArray("flights");
+            //Update Flight JSON
+            JsonObject flightsJsonObject = JSONParser.getReservationJsonObject(getClass().getResourceAsStream("flight.json"));
+            JsonArray flightsArray = flightsJsonObject.getAsJsonArray("flights");
 
-        //Replacing the Flight
-        int flightID = Integer.parseInt(flight.getFlightID());
+            //Replacing the Flight
+            int flightID = Integer.parseInt(flight.getFlightID());
 
-        for (JsonElement element : flightsArray) {
-            JsonObject temp = element.getAsJsonObject();
-            int tempflightID = temp.get("flightID").getAsInt();
-            if (flightID == tempflightID) {
-                // Modify the seatChart field of the found flight
-                temp.addProperty("seatChart", flight.getSeatChart()); // Replace with your updated seatChart
+            for (JsonElement element : flightsArray) {
+                JsonObject temp = element.getAsJsonObject();
+                int tempflightID = temp.get("flightID").getAsInt();
+                if (flightID == tempflightID) {
+                    // Modify the seatChart field of the found flight
+                    temp.addProperty("seatChart", flight.getSeatChart()); // Replace with your updated seatChart
 
-                // Optionally, modify other fields if needed
-                temp.addProperty("seatsOpen", flight.getSeatsOpen()); // Modify seatsOpen to 85
-                break;
+                    // Optionally, modify other fields if needed
+                    temp.addProperty("seatsOpen", flight.getSeatsOpen()); // Modify seatsOpen to 85
+                    break;
+                }
             }
+
+            JSONRewrite.updateConfirmationNum(new File(getClass().getResource("flight.json").getFile()), flightsJsonObject);
+
+            System.out.println(json);
+            try{
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmationUI.fxml"));
+            Parent root = loader.load();
+
+            // Create a new stage for the seat selection UI
+            Stage seatStage = new Stage();
+            seatStage.setTitle("Confirmation");
+            seatStage.setScene(new Scene(root));
+
+            // Get the current scene and window
+            Scene currentScene = ((Node) event.getSource()).getScene();
+            Stage currentStage = (Stage) currentScene.getWindow();
+
+            // Close the current window
+            currentStage.close();
+
+            // Show the new stage
+            seatStage.show();
+        }catch (IOException e) {
+            e.printStackTrace();
         }
-
-        JSONRewrite.updateConfirmationNum(new File(getClass().getResource("flight.json").getFile()), flightsJsonObject);
-
-        System.out.println(json);
 
     }
 

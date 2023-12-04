@@ -34,7 +34,7 @@ public class Passenger {
         this.firstName = null;
         this.lastName = null;
         this.DOB = null;
-        this.bags = 0;
+        this.bags = -1;
     }
 
     /**
@@ -109,7 +109,7 @@ public class Passenger {
         if (firstName == null || lastName == null || DOB == null) {
             return false;
         } else {
-            return bags != null && bags > 0; // Consider zero as an invalid value
+            return bags != null && bags >= 0; // Consider zero as an invalid value
         }
     }
 }

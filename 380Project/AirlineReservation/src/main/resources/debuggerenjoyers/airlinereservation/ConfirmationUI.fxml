@@ -13,7 +13,7 @@
             <Font size="14.0" />
          </font>
       </Text>
-      <Button layoutX="224.0" layoutY="292.0" mnemonicParsing="false" text="Return To Main Menu" />
-      <Label layoutX="193.0" layoutY="183.0" text="&quot;This Label Is For The Confirmation Code&quot;" />
+      <Button layoutX="224.0" layoutY="292.0" mnemonicParsing="false" text="Return To Main Menu" onAction="#PurchasetoHomeButton" />
+      <Label fx:id="textout" layoutX="193.0" layoutY="183.0" text="&quot;This Label Is For The Confirmation Code&quot;" />
    </children>
 </AnchorPane>
