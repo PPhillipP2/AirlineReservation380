@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #e0f7fa;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.ManagerController">
+<AnchorPane fx:id="mainPane" prefHeight="900.0" prefWidth="1550.0" style="-fx-background-color: #e0f7fa;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="debuggerenjoyers.airlinereservation.ManagerController">
    <children>
       <Button fx:id="ManagertoHome" layoutY="2.0" mnemonicParsing="false" onAction="#ManagertoHomeButton" text="Home" />
       <Text layoutX="619.0" layoutY="146.0" strokeType="OUTSIDE" strokeWidth="0.0" text="MANAGER VIEW">
@@ -38,7 +38,7 @@
             <PasswordField fx:id="passwordText" layoutX="108.0" layoutY="130.0" prefHeight="26.0" prefWidth="111.0" />
          </children>
       </AnchorPane>
-      <TableView fx:id="reservationTableView" layoutX="374.0" layoutY="249.0" prefHeight="540.0" prefWidth="907.0">
+      <TableView fx:id="reservationTableView" disable="true" layoutX="374.0" layoutY="249.0" prefHeight="540.0" prefWidth="907.0" visible="false">
         <columns>
             <TableColumn fx:id="flightIDReservation" prefWidth="75.0" text="Flight ID" />
           <TableColumn fx:id="departAirportReservation" prefWidth="89.90219116210938" text="Origin" />
@@ -52,12 +52,12 @@
             <TableColumn fx:id="priceAmount" prefWidth="130.9852294921875" text="Price Per Ticket" />
         </columns>
       </TableView>
-      <TextField fx:id="originText" layoutX="403.0" layoutY="202.0" />
-      <TextField fx:id="arrivalText" layoutX="621.0" layoutY="205.0" prefHeight="26.0" prefWidth="165.0" />
-      <Text layoutX="471.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Origin" />
-      <Text layoutX="691.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Arrival" />
-      <Text layoutX="892.0" layoutY="188.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Date" />
-      <Button fx:id="searchButton" layoutX="1180.0" layoutY="212.0" mnemonicParsing="false" onAction="#searchButtonAction" text="SEARCH" />
+      <TextField fx:id="originTextField" disable="true" layoutX="403.0" layoutY="202.0" promptText="Origin" visible="false" />
+      <TextField fx:id="arrivalTextField" disable="true" layoutX="609.0" layoutY="202.0" prefHeight="26.0" prefWidth="165.0" promptText="Arrival" visible="false" />
+      <Label fx:id="originName" disable="true" layoutX="471.0" layoutY="188.0" text="Origin" visible="false" />
+      <Label fx:id="arrivalName" disable="true" layoutX="691.0" layoutY="188.0" text="Arrival" visible="false" />
+      <Label fx:id="dateName" disable="true" layoutX="892.0" layoutY="188.0" text="Date" visible="false" />
+      <Button fx:id="searchFlightsTableButton" disable="true" layoutX="1029.0" layoutY="202.0" mnemonicParsing="false" onAction="#searchFlightsTableButtonAction" text="SEARCH" visible="false" />
       <TableView fx:id="flightsTableView" disable="true" layoutX="374.0" layoutY="249.0" prefHeight="540.0" prefWidth="907.0" visible="false">
         <columns>
           <TableColumn fx:id="flightID" prefWidth="75.0" text="Flight ID" />
@@ -70,8 +70,13 @@
             <TableColumn fx:id="totalRevenue" prefWidth="135.279052734375" text="Total Revenue" />
         </columns>
       </TableView>
-      <ChoiceBox layoutX="1005.0" layoutY="151.0" prefWidth="150.0" />
-      <TextField layoutX="1002.0" layoutY="202.0" />
-      <DatePicker fx:id="datePicker" layoutX="812.0" layoutY="202.0" />
+      <DatePicker fx:id="datePickerField" disable="true" layoutX="812.0" layoutY="202.0" promptText="Date" visible="false" />
+      <Label fx:id="firstNameLabel" disable="true" layoutX="545.0" layoutY="180.0" text="First Name" visible="false" />
+      <Label fx:id="lastNameLabel" disable="true" layoutX="733.0" layoutY="179.0" text="Last Name" visible="false" />
+      <Label fx:id="dateOfBirthLabel" disable="true" layoutX="924.0" layoutY="172.0" text="Date Of Birth" visible="false" />
+      <TextField fx:id="firstNameTextField" disable="true" layoutX="493.0" layoutY="202.0" promptText="First Name" visible="false" />
+      <TextField fx:id="lastNameTextField" disable="true" layoutX="682.0" layoutY="201.0" promptText="Last Name" visible="false" />
+      <TextField fx:id="dateOfBirthTextField" disable="true" layoutX="876.0" layoutY="201.0" promptText="DD/MM/YEAR" visible="false" />
+      <Button fx:id="searchReservationTableButton" disable="true" layoutX="1085.0" layoutY="201.0" mnemonicParsing="false" onAction="#searchReservationTableButtonAction" text="SEARCH" visible="false" />
    </children>
 </AnchorPane>

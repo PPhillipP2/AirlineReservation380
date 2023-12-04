@@ -24,9 +24,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.TableView;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ManagerController {
 
@@ -49,13 +51,10 @@ public class ManagerController {
     private TableView<Flight> flightsTableView;
 
     @FXML
-    private TableView<Ticket> reservationTableView;
+    private TableView<CombinedObject> reservationTableView;
 
     @FXML
     private Label resultsLabel;
-
-    @FXML
-    private TableView<?> tableView;
 
     @FXML
     private TableColumn<Flight, String> flightID;
@@ -83,22 +82,69 @@ public class ManagerController {
     private TableColumn<Flight, Double> totalRevenue;
 
     @FXML
-    private TableColumn<Ticket, String> firstName;
+    private TableColumn<CombinedObject, String> firstName;
 
     @FXML
-    private TableColumn<Ticket, String> lastName;
+    private TableColumn<CombinedObject, String> lastName;
 
     @FXML
-    private TableColumn<Ticket, String> contactInfo;
+    private TableColumn<CombinedObject, String> contactInfo;
+
 
     @FXML
-    private TableColumn<Ticket, String> dateOfBirth;
+    private TableColumn<CombinedObject, String> dateOfBirth;
 
     @FXML
-    private TableColumn<Ticket, Integer> numBags;
+    private TableColumn<CombinedObject, Integer> numBags;
 
     @FXML
-    private TableColumn<Ticket, Double> priceAmount;
+    private TableColumn<CombinedObject, Double> priceAmount;
+
+    @FXML
+    private Label originName;
+
+    @FXML
+    private Label arrivalName;
+
+    @FXML
+    private Label dateName;
+
+    @FXML
+    private TextField originTextField;
+
+    @FXML
+    private TextField arrivalTextField;
+
+    @FXML
+    private DatePicker datePickerField;
+
+    @FXML
+    private Button searchFlightsTableButton;
+
+
+
+
+    @FXML
+    private Label firstNameLabel;
+
+    @FXML
+    private Label lastNameLabel;
+
+    @FXML
+    private Label dateOfBirthLabel;
+
+    @FXML
+    private TextField firstNameTextField;
+
+    @FXML
+    private TextField lastNameTextField;
+
+    @FXML
+    private TextField dateOfBirthTextField;
+
+    @FXML
+    private Button searchReservationTableButton;
+
 
 
 
@@ -108,8 +154,57 @@ public class ManagerController {
         flightsTableView.setDisable(false);
         flightsTableView.setVisible(true);
 
+        originName.setDisable(false);
+        originName.setVisible(true);
+
+        arrivalName.setDisable(false);
+        arrivalName.setVisible(true);
+
+        dateName.setDisable(false);
+        dateName.setVisible(true);
+
+        originTextField.setDisable(false);
+        originTextField.setVisible(true);
+
+        arrivalTextField.setDisable(false);
+        arrivalTextField.setVisible(true);
+
+        datePickerField.setDisable(false);
+        datePickerField.setVisible(true);
+
+        searchFlightsTableButton.setDisable(false);
+        searchFlightsTableButton.setVisible(true);
+
+
+
+
         reservationTableView.setDisable(true);
         reservationTableView.setVisible(false);
+
+        firstNameLabel.setDisable(true);
+        firstNameLabel.setVisible(false);
+
+        lastNameLabel.setDisable(true);
+        lastNameLabel.setVisible(false);
+
+        dateOfBirthLabel.setDisable(true);
+        dateOfBirthLabel.setVisible(false);
+
+        firstNameTextField.setDisable(true);
+        firstNameTextField.setVisible(false);
+
+        lastNameTextField.setDisable(true);
+        lastNameTextField.setVisible(false);
+
+        dateOfBirthTextField.setDisable(true);
+        dateOfBirthTextField.setVisible(false);
+
+        searchReservationTableButton.setDisable(true);
+        searchReservationTableButton.setVisible(false);
+
+
+
+
         populateFlightTableView();
     }
 
@@ -118,8 +213,57 @@ public class ManagerController {
         reservationTableView.setDisable(false);
         reservationTableView.setVisible(true);
 
+        firstNameLabel.setDisable(false);
+        firstNameLabel.setVisible(true);
+
+        lastNameLabel.setDisable(false);
+        lastNameLabel.setVisible(true);
+
+        dateOfBirthLabel.setDisable(false);
+        dateOfBirthLabel.setVisible(true);
+
+        firstNameTextField.setDisable(false);
+        firstNameTextField.setVisible(true);
+
+        lastNameTextField.setDisable(false);
+        lastNameTextField.setVisible(true);
+
+        dateOfBirthTextField.setDisable(false);
+        dateOfBirthTextField.setVisible(true);
+
+        searchReservationTableButton.setDisable(false);
+        searchReservationTableButton.setVisible(true);
+
+
+
+
+
         flightsTableView.setDisable(true);
         flightsTableView.setVisible(false);
+
+        originName.setDisable(true);
+        originName.setVisible(false);
+
+        arrivalName.setDisable(true);
+        arrivalName.setVisible(false);
+
+        dateName.setDisable(true);
+        dateName.setVisible(false);
+
+        originTextField.setDisable(true);
+        originTextField.setVisible(false);
+
+        arrivalTextField.setDisable(true);
+        arrivalTextField.setVisible(false);
+
+        datePickerField.setDisable(true);
+        datePickerField.setVisible(false);
+
+        searchFlightsTableButton.setDisable(true);
+        searchFlightsTableButton.setVisible(false);
+
+
+
         populateReservationTableView();
     }
 
@@ -143,33 +287,122 @@ public class ManagerController {
         flightsTableView.getItems().addAll(flights);
     }
     @FXML
-    private void searchButtonAction(ActionEvent event) {
-        // Your existing implementation...
+    private void searchFlightsTableButtonAction(ActionEvent event) {
+        // Get the values entered in the text fields and date picker
+        String origin = originTextField.getText().trim();
+        String arrival = arrivalTextField.getText().trim();
+        LocalDate date = datePickerField.getValue();
+
+        // Get the original list of flights
+        List<Flight> allFlights = JSONParser.parseFlightData(getClass().getResourceAsStream("flight.json"));
+
+        // Filter flights based on the entered criteria
+        List<Flight> filteredFlights = allFlights.stream()
+                .filter(flight -> origin.isEmpty() || flight.getDepartAirport().equalsIgnoreCase(origin))
+                .filter(flight -> arrival.isEmpty() || flight.getArrivalAirport().equalsIgnoreCase(arrival))
+                .filter(flight -> date == null || flight.getDepartDate().equals(date.toString()))
+                .collect(Collectors.toList());
+
+        // Update the table view with the filtered flights
+        updateFlightTableView(filteredFlights);
+    }
+
+    private void updateFlightTableView(List<Flight> flights) {
+        flightID.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getFlightID()));
+        departDate.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartDate()));
+        departAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartAirport()));
+        arrivalAirport.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getArrivalAirport()));
+        departTime.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getDepartTime()));
+        seatsOpen.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getSeatsOpen()).asObject());
+        price.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
+        totalRevenue.setCellValueFactory(cellData -> {
+            double revenue = cellData.getValue().getPrice() * (100 - cellData.getValue().getSeatsOpen());
+            return new SimpleDoubleProperty(revenue).asObject();
+        });
+
+        flightsTableView.getItems().clear();
+        flightsTableView.getItems().addAll(flights);
+    }
+
+    @FXML
+    private void searchReservationTableButtonAction(ActionEvent event) {
+        // Get the values entered in the text fields
+        String firstName = firstNameTextField.getText().trim();
+        String lastName = lastNameTextField.getText().trim();
+        String dateOfBirth = dateOfBirthTextField.getText().trim();
+
+        // Get the original list of reservations
+        List<Reservation> allReservations = JSONParser.parseReservationData(getClass().getResourceAsStream("reservations.json"));
+
+        // Filter reservations based on the entered criteria
+        List<CombinedObject> filteredReservations = allReservations.stream()
+                .flatMap(reservation -> reservation.getTickets().stream())
+                .filter(ticket -> firstName.isEmpty() || ticket.getPassenger().getFirstName().equalsIgnoreCase(firstName))
+                .filter(ticket -> lastName.isEmpty() || ticket.getPassenger().getLastName().equalsIgnoreCase(lastName))
+                .filter(ticket -> dateOfBirth.isEmpty() || ticket.getPassenger().getDOB().equalsIgnoreCase(dateOfBirth))
+                .map(ticket -> new CombinedObject(ticket, "")) // Empty string for ContactInfo
+                .collect(Collectors.toList());
+
+        // Update the table view with the filtered reservations
+        updateReservationTableView(filteredReservations);
+    }
+
+    private void updateReservationTableView(List<CombinedObject> reservations) {
+        firstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTicket().getPassenger().getFirstName()));
+        lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTicket().getPassenger().getLastName()));
+        contactInfo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactInfo()));
+        dateOfBirth.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTicket().getPassenger().getDOB()));
+        numBags.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTicket().getPassenger().getBags()).asObject());
+        priceAmount.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTicket().getPrice()).asObject());
+
+        reservationTableView.getItems().clear();
+        reservationTableView.getItems().addAll(reservations);
     }
 
 
 
     private void populateReservationTableView() {
-        List<Reservation> reservations = JSONParser.parseReservationData(getClass().getResourceAsStream("test.json"));
+        List<Reservation> reservations = JSONParser.parseReservationData(getClass().getResourceAsStream("reservations.json"));
 
-        ObservableList<Ticket> allTickets = FXCollections.observableArrayList();
+        ObservableList<CombinedObject> allTickets = FXCollections.observableArrayList();
 
         for (Reservation reservation : reservations) {
             List<Ticket> tickets = reservation.getTickets();
-            allTickets.addAll(tickets);
+            for (Ticket ticket : tickets) {
+                // Use the correct method to get customer's email
+                String contactInfo = reservation.getPurchase().getCustomer().getEmailAddress();
+
+                allTickets.add(new CombinedObject(ticket, contactInfo));
+            }
         }
 
-
-        firstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassenger().getFirstName()));
-        lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassenger().getLastName()));
-        contactInfo.setCellValueFactory(cellData -> new SimpleStringProperty(reservation.getPurchase().getCustomer().getEmailAddress()));
-        dateOfBirth.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getPassenger().getDOB()));
-        numBags.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getPassenger().getBags()).asObject());
-        priceAmount.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getPrice()).asObject());
-
+        // Now, you can update the cell value factories
+        firstName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTicket().getPassenger().getFirstName()));
+        lastName.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTicket().getPassenger().getLastName()));
+        contactInfo.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getContactInfo()));
+        dateOfBirth.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getTicket().getPassenger().getDOB()));
+        numBags.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().getTicket().getPassenger().getBags()).asObject());
+        priceAmount.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getTicket().getPrice()).asObject());
 
         reservationTableView.getItems().clear();
         reservationTableView.getItems().addAll(allTickets);
+    }
+    public class CombinedObject {
+        private final Ticket ticket;
+        private final String contactInfo;
+
+        public CombinedObject(Ticket ticket, String contactInfo) {
+            this.ticket = ticket;
+            this.contactInfo = contactInfo;
+        }
+
+        public Ticket getTicket() {
+            return ticket;
+        }
+
+        public String getContactInfo() {
+            return contactInfo;
+        }
     }
 
 
