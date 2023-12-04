@@ -136,7 +136,14 @@ public class Flight {
         this.seatsOpen = seatsOpen;
     }
 
-    public void setSeatChart(String seatChart) {
-        this.seatChart = seatChart;
+    public void setSeatChart(String str) {
+        int count = 100;
+        for (int i = 0; i < str.length(); i++) {
+            if (str.charAt(i) == '1') {
+                count--;
+            }
+        }
+        this.seatChart = str;
+        this.seatsOpen = count;
     }
 }

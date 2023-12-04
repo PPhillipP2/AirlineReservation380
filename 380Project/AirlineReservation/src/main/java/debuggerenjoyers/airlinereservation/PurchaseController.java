@@ -11,6 +11,7 @@
 package debuggerenjoyers.airlinereservation;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -130,16 +131,40 @@ public class PurchaseController {
         reservation.genConfirmationNum();
         reservation.setPurchase(purchase);
 
-        //Make the Reservation JSON Object for Ease of Storing
+        //Make the Reservation and FlightJSON Object for Ease of Storing
         Gson gson = new Gson();
         String json = gson.toJson(reservation);
+        Flight flight = reservation.getFirstTicket().getFlight();
         JsonObject inReservation = gson.fromJson(json, JsonObject.class);
+
 
         //Add the new Reservation to the JsonObject
         JsonObject reservationJsonObject =  JSONParser.getReservationJsonObject(getClass().getResourceAsStream("reservations.json"));
         JsonArray reservationArray = reservationJsonObject.getAsJsonArray("reservations");
         reservationArray.add(inReservation);
         JSONRewrite.updateConfirmationNum(new File(getClass().getResource("reservations.json").getFile()), reservationJsonObject);
+
+        //Update Flight JSON
+        JsonObject flightsJsonObject =  JSONParser.getReservationJsonObject(getClass().getResourceAsStream("flight.json"));
+        JsonArray flightsArray = flightsJsonObject.getAsJsonArray("flights");
+
+        //Replacing the Flight
+        int flightID = Integer.parseInt(flight.getFlightID());
+
+        for (JsonElement element : flightsArray) {
+            JsonObject temp = element.getAsJsonObject();
+            int tempflightID = temp.get("flightID").getAsInt();
+            if (flightID == tempflightID) {
+                // Modify the seatChart field of the found flight
+                temp.addProperty("seatChart", flight.getSeatChart()); // Replace with your updated seatChart
+
+                // Optionally, modify other fields if needed
+                temp.addProperty("seatsOpen", flight.getSeatsOpen()); // Modify seatsOpen to 85
+                break;
+            }
+        }
+
+        JSONRewrite.updateConfirmationNum(new File(getClass().getResource("flight.json").getFile()), flightsJsonObject);
 
         System.out.println(json);
 

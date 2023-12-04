@@ -81,7 +81,7 @@ public class SeatController implements Initializable {
     @FXML
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ListSpinnerValueFactory<Integer> valueFactory = new ListSpinnerValueFactory<>(FXCollections.observableArrayList(1,2,3,4,5));
+        ListSpinnerValueFactory<Integer> valueFactory = new ListSpinnerValueFactory<>(FXCollections.observableArrayList(0,1,2,3,4,5));
         bagsSpinner.setValueFactory(valueFactory);
         initList();
         DisplayTickets();
@@ -210,8 +210,8 @@ public class SeatController implements Initializable {
         passenger.setDOB(DOBTxt.getText());
         passenger.setBags(bagsSpinner.getValue());
         ticket.setSeatNum(seatComboBox.getValue());
-        ticket.getFlight().setSeatsOpen(ticket.getFlight().getSeatsOpen()-1);
 
+        ticket.getFlight().setSeatsOpen(ticket.getFlight().getSeatsOpen()-1);
         updateSeatList(seatComboBox.getValue());
 
 

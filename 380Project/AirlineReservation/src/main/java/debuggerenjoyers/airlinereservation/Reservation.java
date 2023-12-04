@@ -172,7 +172,7 @@ public class Reservation {
     public void updatePrice(){
         double total = 0;
         for (Ticket ticket : tickets) {
-            total = ticket.getPrice();
+            total = total +ticket.getPrice();
         }
         this.priceTotal = total;
     }
