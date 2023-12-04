@@ -28,10 +28,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import org.w3c.dom.Text;
 import java.util.List;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class SeatController implements Initializable {
@@ -64,6 +68,8 @@ public class SeatController implements Initializable {
     private TextField DOBTxt;
     @FXML
     private ComboBox<Integer> seatComboBox;
+    @FXML
+    private Label seatErrorMsg;
 
     Reservation reservation = Reservation.getInstance();
 
@@ -158,15 +164,16 @@ public class SeatController implements Initializable {
     @FXML
     private void PassengertoPurchaseButton(ActionEvent event) {
         Boolean result =reservation.checkTickets();
+        if(result == false){
+            seatErrorMsg.setText("Not all Passenger Info has been Filled in");
+            return;
+        }
+
         for (Ticket ticketprice : reservation.getTickets()){
             ticketprice.updatePrice();
         }
         reservation.updatePrice();
 
-        if(result == false){
-            SeatController.IncompleteInfo();
-            return;
-        }
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("PurchaseUI.fxml"));
@@ -197,34 +204,43 @@ public class SeatController implements Initializable {
      */
     @FXML
     private void SavePassengerButton(ActionEvent event){
-        int selectedPassenger = Character.getNumericValue(ticketsSpinner.getValue().charAt(ticketsSpinner.getValue().length() - 1))-1;
+        if(IncompleteInfo()){
+            int selectedPassenger = Character.getNumericValue(ticketsSpinner.getValue().charAt(ticketsSpinner.getValue().length() - 1)) - 1;
 
-        List<Ticket> tickets = reservation.getTickets();
-        Ticket ticket = tickets.get(selectedPassenger);
-        Passenger passenger = ticket.getPassenger();
-
-
-
-        passenger.setFirstName(firstNameTxt.getText());
-        passenger.setLastName(lastNameTxt.getText());
-        passenger.setDOB(DOBTxt.getText());
-        passenger.setBags(bagsSpinner.getValue());
-        ticket.setSeatNum(seatComboBox.getValue());
-
-        ticket.getFlight().setSeatsOpen(ticket.getFlight().getSeatsOpen()-1);
-        updateSeatList(seatComboBox.getValue());
+            List<Ticket> tickets = reservation.getTickets();
+            Ticket ticket = tickets.get(selectedPassenger);
+            Passenger passenger = ticket.getPassenger();
 
 
+            passenger.setFirstName(firstNameTxt.getText());
+            passenger.setLastName(lastNameTxt.getText());
+            passenger.setDOB(DOBTxt.getText());
+            passenger.setBags(bagsSpinner.getValue());
+            ticket.setSeatNum(seatComboBox.getValue());
 
-        reservation.setTickets(tickets);
+            ticket.getFlight().setSeatsOpen(ticket.getFlight().getSeatsOpen() - 1);
+            updateSeatList(seatComboBox.getValue());
 
-        DisplayTickets();
+
+            reservation.setTickets(tickets);
+
+            DisplayTickets();
 
 
-        firstNameTxt.setText("");
-        lastNameTxt.setText("");
-        DOBTxt.setText("");
-
+            firstNameTxt.setText("");
+            lastNameTxt.setText("");
+            DOBTxt.setText("");
+            firstNameTxt.setPromptText("Passenger First Name");
+            firstNameTxt.setStyle("");
+            lastNameTxt.setPromptText("Passenger Last Name");
+            lastNameTxt.setStyle("");
+            DOBTxt.setPromptText("Enter DOB: yyyy-MM-dd");
+            DOBTxt.setStyle("");
+            seatErrorMsg.setText("");
+            if(reservation.checkTickets()){
+                seatErrorMsg.setText("All Passenger Info is Complete. \n Please Continue to Purchase.");
+            }
+        }
     }
 
     /**
@@ -264,8 +280,55 @@ public class SeatController implements Initializable {
         }
     }
 
-    private static void IncompleteInfo(){
-        return;
+    private Boolean IncompleteInfo(){
+        if(Objects.equals(firstNameTxt.getText(), "")){
+            firstNameTxt.setPromptText("NAME MISSING!!!");
+            firstNameTxt.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(Objects.equals(lastNameTxt.getText(), "")){
+            lastNameTxt.setPromptText("LAST NAME MISSING!!!");
+            lastNameTxt.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(Objects.equals(DOBTxt.getText(), "")){
+            DOBTxt.setPromptText("DOB MISSING!!!");
+            DOBTxt.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        Boolean out = validDate(DOBTxt.getText());
+
+        if(out) {
+            if (Objects.equals(seatComboBox.getValue(), null)) {
+                seatErrorMsg.setText("PLEASE SELECT A SEAT!");
+                return Boolean.FALSE;
+            }
+        }
+
+        return out;
+    }
+
+    private Boolean validDate(String date){
+        try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate.parse(date, formatter);
+            LocalDate currentDate = LocalDate.now();
+            LocalDate input = LocalDate.parse(date);
+            if(input.isAfter(currentDate)  || input.isEqual(currentDate)){
+                seatErrorMsg.setText("DOB NOT VALID: YYYY-MM-DD");
+                DOBTxt.setPromptText("Enter DOB: yyyy-MM-dd");
+                DOBTxt.setStyle("");
+                DOBTxt.setText("");
+                return Boolean.FALSE;
+            }
+            return true; // Date input matches the specified format
+        } catch (DateTimeParseException e) {
+            seatErrorMsg.setText("DOB NOT VALID: YYYY-MM-DD");
+            DOBTxt.setPromptText("Enter DOB: yyyy-MM-dd");
+            DOBTxt.setStyle("");
+            DOBTxt.setText("");
+            return false; // Date input doesn't match the specified format
+        }
     }
 
     /**

@@ -29,8 +29,11 @@ import java.util.List;
 
 import java.io.IOException;
 import com.google.gson.Gson;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 //Email stuff
+import java.util.Objects;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -116,7 +119,7 @@ public class PurchaseController {
 
     @FXML
     private void submitButtonClicked(ActionEvent event) {
-
+        if(IncompleteInfo()) {
             // Handle the action when the "Submit Information" button is clicked
             // You can collect the entered information and perform further actions
             String firstName = firstNameField.getText();
@@ -176,28 +179,106 @@ public class PurchaseController {
             System.out.println(json);
             sendEmail();
 
-            try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmationUI.fxml"));
-            Parent root = loader.load();
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmationUI.fxml"));
+                Parent root = loader.load();
 
-            // Create a new stage for the seat selection UI
-            Stage seatStage = new Stage();
-            seatStage.setTitle("Confirmation");
-            seatStage.setScene(new Scene(root));
+                // Create a new stage for the seat selection UI
+                Stage seatStage = new Stage();
+                seatStage.setTitle("Confirmation");
+                seatStage.setScene(new Scene(root));
 
-            // Get the current scene and window
-            Scene currentScene = ((Node) event.getSource()).getScene();
-            Stage currentStage = (Stage) currentScene.getWindow();
+                // Get the current scene and window
+                Scene currentScene = ((Node) event.getSource()).getScene();
+                Stage currentStage = (Stage) currentScene.getWindow();
 
-            // Close the current window
-            currentStage.close();
+                // Close the current window
+                currentStage.close();
 
-            // Show the new stage
-            seatStage.show();
-        }catch (IOException e) {
-            e.printStackTrace();
+                // Show the new stage
+                seatStage.show();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private Boolean IncompleteInfo(){
+        if(Objects.equals(firstNameField.getText(), "")){
+            firstNameField.setPromptText("NAME MISSING!!!");
+            firstNameField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(Objects.equals(lastNameField.getText(), "")){
+            lastNameField.setPromptText("LAST NAME MISSING!!!");
+            lastNameField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(Objects.equals(homeAddressField.getText(), "")){
+            homeAddressField.setPromptText("HOME ADDRESS MISSING!!!");
+            homeAddressField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(Objects.equals(emailAddressField.getText(), "")){
+            emailAddressField.setPromptText("EMAIL ADDRESS MISSING!!!");
+            emailAddressField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(!emailAddressField.getText().matches(".+@.+\\..+")){
+            emailAddressField.setPromptText("EMAIL INVALID!!!");
+            emailAddressField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(Objects.equals(cardNumberField.getText(), "")){
+            cardNumberField.setPromptText("CARD NUMBER MISSING!!!");
+            cardNumberField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(!cardNumberField.getText().matches("\\d{16}")){
+            cardNumberField.setPromptText("CARD NUMBER INVALID!!!");
+            cardNumberField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(expirationDateField.getText().isEmpty()){
+            expirationDateField.setPromptText("EXPIRATION DATE MISSING!!!");
+            expirationDateField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(!expirationDateField.getText().matches("^(0[1-9]|1[0-2])/(\\d{2})$")){
+            expirationDateField.setPromptText("Format!!!");
+            expirationDateField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
         }
 
+        if(!Objects.equals(expirationDateField.getText(), "")) {
+
+            //CHECK DATE
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yy");
+            LocalDate inputDate = LocalDate.parse(("01/" + expirationDateField.getText()), formatter);
+
+            // Get the current date
+            LocalDate currentDate = LocalDate.now();
+
+            if(!inputDate.isAfter(currentDate)){
+                expirationDateField.setPromptText("EXPIRATION DATE INVALID!!!");
+                expirationDateField.setStyle("-fx-prompt-text-fill: red;");
+                return Boolean.FALSE;
+            }
+        }
+
+        if(Objects.equals(cvvField.getText(), "")){
+            cvvField.setPromptText("MISSING!!!");
+            cardNumberField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+        if(!cvvField.getText().matches("\\d{3}")){
+            cvvField.setPromptText("INVALID!!!");
+            cvvField.setStyle("-fx-prompt-text-fill: red;");
+            return Boolean.FALSE;
+        }
+
+        return Boolean.TRUE;
     }
 
     private  void sendEmail(){
