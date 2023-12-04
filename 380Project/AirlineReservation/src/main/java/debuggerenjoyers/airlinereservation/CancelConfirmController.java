@@ -65,6 +65,7 @@ public class CancelConfirmController {
         if (reservations != null && reservationToRemove != null) {
             reservations.remove(reservationToRemove);
             updateJsonFile();
+            confirmationNumField.setText("Reservation Cancelled Successfully");
         }
         else confirmationNumField.setText("Invalid Confirmation Code");
     }

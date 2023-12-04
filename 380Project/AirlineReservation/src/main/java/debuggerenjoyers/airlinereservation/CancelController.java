@@ -200,6 +200,7 @@ public class CancelController implements Initializable {
                 arrivalField.setText(infoHolder.getFlight().getArrivalAirport());
                 deDateField.setText(infoHolder.getFlight().getDepartAirport());
                 deTimeField.setText(infoHolder.getFlight().getDepartTime());
+                arrTimeField.setText(infoHolder.getFlight().getArrivalTime());
                 priceField.setText(Double.toString(infoHolder.getFlight().getPrice()));
             } else {
                 // Handle case where the reservation is not found
