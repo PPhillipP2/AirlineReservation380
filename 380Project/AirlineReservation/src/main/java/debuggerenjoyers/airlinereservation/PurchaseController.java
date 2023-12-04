@@ -16,16 +16,18 @@ import com.google.gson.JsonObject;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.URL;
+import java.util.*;
 
 import java.io.IOException;
 import com.google.gson.Gson;
@@ -33,12 +35,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 //Email stuff
-import java.util.Objects;
-import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-public class PurchaseController {
+public class PurchaseController implements Initializable {
 
     @FXML
     private Button PurchasetoHome;
@@ -64,13 +64,41 @@ public class PurchaseController {
     @FXML
     private TextField emailAddressField;
 
+    @FXML
+    private Label reservationinfo;
+
     Reservation reservation = Reservation.getInstance();
+    @FXML
+    public void initialize(URL url, ResourceBundle resourceBundle){
+        Flight flight = reservation.getFirstTicket().getFlight();
+        List <Ticket> tickets = reservation.getTickets();
+
+        int bags = 0;
+        String passengerSTR = "";
+        for(Ticket ticket : tickets){
+            bags = bags + ticket.getPassenger().getBags();
+            passengerSTR = passengerSTR +"\n           "+ticket.getPassenger().getFirstName()+" "+ticket.getPassenger().getLastName();
+        }
+
+        String reservationInfo = "Reservation:\n" +
+                "Flight ID: " + flight.getFlightID()+ "\n" +
+                "Origin: " + flight.getDepartAirport()+ "\n" +
+                "Destination: " + flight.getArrivalAirport() + "\n" +
+                "Date: " + flight.getDepartDate() + "\n" +
+                "Time: " + flight.getDepartTime() + "\n" +
+                "Arrival Time: " + flight.getArrivalTime() + "\n" +
+                "Price Total: " + reservation.getPriceTotal() + "\n" +
+                "Total Bags: " + bags +"\n"+
+                "Passengers: " + passengerSTR;
+        reservationinfo.setText(reservationInfo);
+    }
 
     /**
      * Handles the action triggered when the user clicks the "Home" button.
      *
      * @param event The ActionEvent triggered by clicking the "Home" button.
      */
+
 
     @FXML
     private void PurchasetoHomeButton(ActionEvent event) {
@@ -290,12 +318,8 @@ public class PurchaseController {
         String emailContent = "Thank you for choosing Debugger Airlines\n\n";
         emailContent += "Below is your confirmation number and more important information:\n";
         emailContent += "Confirmation Number: " + reservation.getConfirmationNum()+ "\n";
-        emailContent += "Flight ID: " + reservation.getFirstTicket().getFlight().getFlightID() + "\n";
-        emailContent += "Flight Date: " + reservation.getFirstTicket().getFlight().getDepartDate() + "\n";
-        emailContent += "Flight Time: " + reservation.getFirstTicket().getFlight().getDepartTime() + "\n";
-        emailContent += "Reservation was made for " + reservation.getTickets().size() + " passengers.\n";
-        emailContent += "Total price: " + reservation.getPriceTotal()+ "\n\n";
-        emailContent += "If you would like to make changes to your reservation, ";
+        emailContent +="\n"+ reservationinfo.getText();
+        emailContent += "\nIf you would like to make changes to your reservation, ";
         emailContent += "please head to the View/Modify page on the Debugger Airlines App.";
 
         Properties props = new Properties();
