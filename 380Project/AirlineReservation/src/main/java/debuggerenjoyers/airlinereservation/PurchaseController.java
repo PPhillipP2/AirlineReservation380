@@ -30,6 +30,11 @@ import java.util.List;
 import java.io.IOException;
 import com.google.gson.Gson;
 
+//Email stuff
+import java.util.Properties;
+import javax.mail.*;
+import javax.mail.internet.*;
+
 public class PurchaseController {
 
     @FXML
@@ -169,6 +174,8 @@ public class PurchaseController {
             JSONRewrite.updateConfirmationNum(new File(getClass().getResource("flight.json").getFile()), flightsJsonObject);
 
             System.out.println(json);
+            sendEmail();
+
             try{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ConfirmationUI.fxml"));
             Parent root = loader.load();
@@ -191,6 +198,52 @@ public class PurchaseController {
             e.printStackTrace();
         }
 
+    }
+
+    private  void sendEmail(){
+
+        final String username = "debuggerenjoyerairlines@gmail.com"; // Replace with your email
+        final String password = "slwj aahp fsvt tral"; // Replace with your password
+
+        String emailContent = "Thank you for choosing Debugger Airlines\n\n";
+        emailContent += "Below is your confirmation number and more important information:\n";
+        emailContent += "Confirmation Number: " + reservation.getConfirmationNum()+ "\n";
+        emailContent += "Flight ID: " + reservation.getFirstTicket().getFlight().getFlightID() + "\n";
+        emailContent += "Flight Date: " + reservation.getFirstTicket().getFlight().getDepartDate() + "\n";
+        emailContent += "Flight Time: " + reservation.getFirstTicket().getFlight().getDepartTime() + "\n";
+        emailContent += "Reservation was made for " + reservation.getTickets().size() + " passengers.\n";
+        emailContent += "Total price: " + reservation.getPriceTotal()+ "\n\n";
+        emailContent += "If you would like to make changes to your reservation, ";
+        emailContent += "please head to the View/Modify page on the Debugger Airlines App.";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com"); // Replace with your SMTP server
+        props.put("mail.smtp.port", "587"); // Replace with your SMTP port
+
+        // Get the Session object with authentication
+        Session session = Session.getInstance(props, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username)); // Set sender email
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(reservation.getPurchase().getCustomer().getEmailAddress())); // Set recipient email
+            message.setSubject("Debugger Airlines Confirmation"); // Set email subject
+            message.setText(emailContent); // Set email content
+
+            // Send the message
+            Transport.send(message);
+
+            System.out.println("Email sent successfully!");
+
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
