@@ -66,6 +66,7 @@ public class PurchaseController {
 
     @FXML
     private void PurchasetoHomeButton(ActionEvent event) {
+        reservation.clearReservation();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Parent root = loader.load();

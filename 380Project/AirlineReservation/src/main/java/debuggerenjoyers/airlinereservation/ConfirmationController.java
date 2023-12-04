@@ -47,6 +47,7 @@ public class ConfirmationController {
     @FXML
     private void PurchasetoHomeButton(ActionEvent event) {
         // Code to handle the return button click event
+        reservation.clearReservation();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
             Parent root = loader.load();
