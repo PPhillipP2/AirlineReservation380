@@ -64,9 +64,9 @@ public class CancelConfirmController {
         if (reservations != null && reservationToRemove != null) {
             reservations.remove(reservationToRemove);
             updateJsonFile();
-            confirmationNumField.setText("Reservation Cancelled Successfully");
+            confirmationNumField.setText("Cancelled Successfully");
         }
-        else confirmationNumField.setText("Invalid Confirmation Code");
+        else confirmationNumField.setText("Invalid Code");
     }
 
     private Reservation findReservationByConfirmationNumber(String confirmationNum) {
@@ -99,7 +99,7 @@ public class CancelConfirmController {
                 JSONRewrite.updateConfirmationNum(new File("reservations.json"), jsonObject);
             } else {
                 // Handle null inputStream (file not found)
-                confirmationNumField.setText("Invalid Confirmation Code");
+                confirmationNumField.setText("Invalid Code");
             }
         } catch (Exception e) {
             e.printStackTrace();
