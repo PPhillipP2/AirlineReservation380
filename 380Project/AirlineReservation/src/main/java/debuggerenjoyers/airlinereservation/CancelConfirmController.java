@@ -96,7 +96,8 @@ public class CancelConfirmController {
                     }
                 }
                 // Update the JSON file with the modified JSON object
-                JSONRewrite.updateConfirmationNum(new File("reservations.json"), jsonObject);
+                JSONRewrite.updateConfirmationNum(new File(getClass().getResource("reservations.json").getFile()), jsonObject);
+
             } else {
                 // Handle null inputStream (file not found)
                 confirmationNumField.setText("Invalid Code");
