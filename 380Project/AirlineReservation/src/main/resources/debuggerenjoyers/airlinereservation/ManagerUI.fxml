@@ -40,16 +40,12 @@
       </AnchorPane>
       <TableView fx:id="reservationTableView" disable="true" layoutX="374.0" layoutY="249.0" prefHeight="540.0" prefWidth="907.0" visible="false">
         <columns>
-            <TableColumn fx:id="flightIDReservation" prefWidth="75.0" text="Flight ID" />
-          <TableColumn fx:id="departAirportReservation" prefWidth="89.90219116210938" text="Origin" />
-          <TableColumn fx:id="arrivalAirportReservation" prefWidth="84.12326049804688" text="Arrival" />
-            <TableColumn fx:id="departDateReservation" prefWidth="71.87677001953125" text="Date" />
-            <TableColumn fx:id="firstName" prefWidth="91.63031005859375" text="First Name" />
-            <TableColumn fx:id="lastName" prefWidth="88.57244873046875" text="Last Name" />
-            <TableColumn fx:id="contactInfo" prefWidth="101.82611083984375" text="Contact Info" />
-            <TableColumn fx:id="dateOfBirth" prefWidth="101.833251953125" text="DOB" />
-            <TableColumn fx:id="numBags" prefWidth="148.3404541015625" text="Num of Bags" />
-            <TableColumn fx:id="priceAmount" prefWidth="130.9852294921875" text="Price Per Ticket" />
+            <TableColumn fx:id="firstName" prefWidth="129.28994750976562" text="First Name" />
+            <TableColumn fx:id="lastName" prefWidth="131.7100830078125" text="Last Name" />
+            <TableColumn fx:id="contactInfo" prefWidth="247.9549560546875" text="Contact Info" />
+            <TableColumn fx:id="dateOfBirth" prefWidth="110.5450439453125" text="DOB" />
+            <TableColumn fx:id="numBags" prefWidth="127.71002197265625" text="Num of Bags" />
+            <TableColumn fx:id="priceAmount" prefWidth="162.3548583984375" text="Price Per Ticket" />
         </columns>
       </TableView>
       <TextField fx:id="originTextField" disable="true" layoutX="403.0" layoutY="202.0" promptText="Origin" visible="false" />

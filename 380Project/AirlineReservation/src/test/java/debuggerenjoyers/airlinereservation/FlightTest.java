@@ -12,7 +12,7 @@ class FlightTest {
     void getSeatList() {
         // Arrange
         Flight flight = new Flight(
-                1, "LAX", "ATL", "2023-11-28",
+                "1", "LAX", "ATL", "2023-11-28",
                 "12:00 PM", "5:00 PM", 99, "1,2,3,4,5", 100.0
         );
 

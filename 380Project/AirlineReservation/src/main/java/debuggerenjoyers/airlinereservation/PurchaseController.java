@@ -41,7 +41,7 @@ import javax.mail.internet.*;
 public class PurchaseController implements Initializable {
 
     @FXML
-    private Button PurchasetoHome;
+    private Button cancelPurchase;
 
     @FXML
     private TextField firstNameField;
@@ -102,6 +102,16 @@ public class PurchaseController implements Initializable {
 
     @FXML
     private void PurchasetoHomeButton(ActionEvent event) {
+
+    }
+
+    /**
+     * Handles the action triggered when the user clicks the "Cancel Purchase" button.
+     * @param event The ActionEvent triggered by clicking the "Cancel Purchase" button.
+     */
+
+    @FXML
+    private void cancelButtonClicked(ActionEvent event) {
         reservation.clearReservation();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
@@ -129,15 +139,6 @@ public class PurchaseController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    /**
-     * Handles the action triggered when the user clicks the "Cancel Purchase" button.
-     * @param event The ActionEvent triggered by clicking the "Cancel Purchase" button.
-     */
-
-    @FXML
-    private void cancelButtonClicked(ActionEvent event) {
     }
 
     /**
@@ -216,12 +217,8 @@ public class PurchaseController implements Initializable {
                 seatStage.setTitle("Confirmation");
                 seatStage.setScene(new Scene(root));
 
-                // Get the current scene and window
-                Scene currentScene = ((Node) event.getSource()).getScene();
-                Stage currentStage = (Stage) currentScene.getWindow();
 
-                // Close the current window
-                currentStage.close();
+
 
                 // Show the new stage
                 seatStage.show();
