@@ -217,8 +217,12 @@ public class PurchaseController implements Initializable {
                 seatStage.setTitle("Confirmation");
                 seatStage.setScene(new Scene(root));
 
+                // Get the current scene and window
+                Scene currentScene = ((Node) event.getSource()).getScene();
+                Stage currentStage = (Stage) currentScene.getWindow();
 
-
+                // Close the current window
+                currentStage.close();
 
                 // Show the new stage
                 seatStage.show();
