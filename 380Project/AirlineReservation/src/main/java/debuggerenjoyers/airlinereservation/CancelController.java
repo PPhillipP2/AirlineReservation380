@@ -240,7 +240,7 @@ public class CancelController implements Initializable {
      */
     public void CancelPopUpButton(ActionEvent actionEvent) {
         // Check if a ticket is selected
-        Ticket selectedTicket = ticketTableView.getSelectionModel().getSelectedItem();
+ /*       Ticket selectedTicket = ticketTableView.getSelectionModel().getSelectedItem();
         // If selected, delete the ticket
         if(selectedTicket != null) {
             String selectedLastName = selectedTicket.getPassenger().getLastName();
@@ -251,28 +251,46 @@ public class CancelController implements Initializable {
                 try {
                     JsonObject jsonObject = JSONParser.getReservationJsonObject(inputStream);
                     JsonArray ticketArray = jsonObject.getAsJsonArray("tickets");
+                    if(ticketArray.size() == 1) {
+                        try {
+                            // Load the FXML file for the new scene
+                            FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelConfirmUI.fxml"));
+                            Parent root = loader.load();
 
-                    for (int i = 0; i < ticketArray.size(); i++) {
-                        JsonObject ticketObject = ticketArray.get(i).getAsJsonObject();
-                        JsonObject passengerObject = ticketObject.getAsJsonObject("passenger");
-                        if (passengerObject.get("lastName").getAsString().equals(selectedLastName) && passengerObject.get("DOB").getAsString().equals(selectedDOB)) {
-                            ticketArray.remove(i);
-                            break;
+                            Scene newScene = new Scene(root);
+                            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                            Stage newStage = new Stage();
+                            newStage.setScene(newScene);
+                            newStage.initOwner(currentStage);
+                            newStage.show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     }
-                    // Update the JSON file with the modified JSON object
-                    JSONRewrite.updateConfirmationNum(new File(getClass().getResource("reservations.json").getFile()), jsonObject);
-                    // Refresh the table view and the Reservation List to reflect new change
-                    String confirmationNum = confirmationNumField.getText();
-                    Reservation refreshReservation = findReservationByConfirmationNumber(confirmationNum);
-                    refreshReservation.getTickets().remove(selectedTicket);
-                    displayTickets(refreshReservation.getTickets());
+                    else {
+                        for (int i = 0; i < ticketArray.size(); i++) {
+                            JsonObject ticketObject = ticketArray.get(i).getAsJsonObject();
+                            JsonObject passengerObject = ticketObject.getAsJsonObject("passenger");
+                            if (passengerObject.get("lastName").getAsString().equals(selectedLastName) && passengerObject.get("DOB").getAsString().equals(selectedDOB)) {
+                                ticketArray.remove(i);
+                                break;
+                            }
+                        }
+
+                        // Update the JSON file with the modified JSON object
+                        JSONRewrite.updateConfirmationNum(new File(getClass().getResource("reservations.json").getFile()), jsonObject);
+                        // Refresh the table view and the Reservation List to reflect new change
+                        String confirmationNum = confirmationNumField.getText();
+                        Reservation refreshReservation = findReservationByConfirmationNumber(confirmationNum);
+                        refreshReservation.getTickets().remove(selectedTicket);
+                        displayTickets(refreshReservation.getTickets());
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
         }
         // If no ticket is selected jump to reservation deletion scene
-        else {
+        else { */
                 try {
                     // Load the FXML file for the new scene
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelConfirmUI.fxml"));
@@ -289,9 +307,9 @@ public class CancelController implements Initializable {
                     // Handle the exception appropriately (e.g., show an error message)
                 }
             }
-        }
+     //   }
 
-    }
+  // }
 
 }
 
