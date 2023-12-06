@@ -234,24 +234,65 @@ public class CancelController implements Initializable {
     }
 
 
-
+    /**
+     * Delete a singular ticket or pop a window to lead to CancelConfirmController where the entire reservation can be deleted
+     * @param actionEvent
+     */
     public void CancelPopUpButton(ActionEvent actionEvent) {
-        try {
-            // Load the FXML file for the new scene
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelConfirmUI.fxml"));
-            Parent root = loader.load();
+        // Check if a ticket is selected
+        Ticket selectedTicket = ticketTableView.getSelectionModel().getSelectedItem();
+        // If selected, delete the ticket
+        if(selectedTicket != null) {
+            String selectedLastName = selectedTicket.getPassenger().getLastName();
+            String selectedDOB = selectedTicket.getPassenger().getDOB();
+            // Delete and update the JSON accordingly
+            InputStream inputStream = getClass().getResourceAsStream("reservations.json");
+            if (inputStream != null) {
+                try {
+                    JsonObject jsonObject = JSONParser.getReservationJsonObject(inputStream);
+                    JsonArray ticketArray = jsonObject.getAsJsonArray("tickets");
 
-            Scene newScene = new Scene(root);
-            Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-            Stage newStage = new Stage();
-            newStage.setScene(newScene);
-            newStage.initOwner(currentStage);
-            newStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle the exception appropriately (e.g., show an error message)
+                    for (int i = 0; i < ticketArray.size(); i++) {
+                        JsonObject ticketObject = ticketArray.get(i).getAsJsonObject();
+                        JsonObject passengerObject = ticketObject.getAsJsonObject("passenger");
+                        if (passengerObject.get("lastName").getAsString().equals(selectedLastName) && passengerObject.get("DOB").getAsString().equals(selectedDOB)) {
+                            ticketArray.remove(i);
+                            break;
+                        }
+                    }
+                    // Update the JSON file with the modified JSON object
+                    JSONRewrite.updateConfirmationNum(new File(getClass().getResource("reservations.json").getFile()), jsonObject);
+                    // Refresh the table view and the Reservation List to reflect new change
+                    String confirmationNum = confirmationNumField.getText();
+                    Reservation refreshReservation = findReservationByConfirmationNumber(confirmationNum);
+                    refreshReservation.getTickets().remove(selectedTicket);
+                    displayTickets(refreshReservation.getTickets());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
         }
+        // If no ticket is selected jump to reservation deletion scene
+        else {
+                try {
+                    // Load the FXML file for the new scene
+                    FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelConfirmUI.fxml"));
+                    Parent root = loader.load();
+
+                    Scene newScene = new Scene(root);
+                    Stage currentStage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+                    Stage newStage = new Stage();
+                    newStage.setScene(newScene);
+                    newStage.initOwner(currentStage);
+                    newStage.show();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Handle the exception appropriately (e.g., show an error message)
+                }
+            }
+        }
+
     }
+
 }
 
 
