@@ -67,7 +67,7 @@
       </Text>
       <ImageView fitHeight="161.0" fitWidth="167.0" layoutX="34.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../../../../../../../paper-plane-stock-footage-airplane-animation-triangle-paper-wing-transport-rectangle-drawing-thumbnail.png" />
+            <Image url="@../../../../images/paper-plane-stock-footage-airplane-animation-triangle-paper-wing-transport-rectangle-drawing-thumbnail.png" />
          </image>
       </ImageView>
     </children>
