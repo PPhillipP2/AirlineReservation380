@@ -309,7 +309,7 @@ public class PurchaseController implements Initializable {
 
         return Boolean.TRUE;
     }
-
+//
     private  void sendEmail(){
 
         final String username = "debuggerenjoyerairlines@gmail.com"; // Replace with your email
