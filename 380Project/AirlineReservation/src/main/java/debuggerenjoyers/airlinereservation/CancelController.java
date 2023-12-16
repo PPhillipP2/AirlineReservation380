@@ -240,9 +240,10 @@ public class CancelController implements Initializable {
      */
     public void CancelPopUpButton(ActionEvent actionEvent) {
         // Check if a ticket is selected
- /*       Ticket selectedTicket = ticketTableView.getSelectionModel().getSelectedItem();
+        Ticket selectedTicket = ticketTableView.getSelectionModel().getSelectedItem();
         // If selected, delete the ticket
         if(selectedTicket != null) {
+            String confirmNum = confirmationNumField.getText();
             String selectedLastName = selectedTicket.getPassenger().getLastName();
             String selectedDOB = selectedTicket.getPassenger().getDOB();
             // Delete and update the JSON accordingly
@@ -250,7 +251,17 @@ public class CancelController implements Initializable {
             if (inputStream != null) {
                 try {
                     JsonObject jsonObject = JSONParser.getReservationJsonObject(inputStream);
-                    JsonArray ticketArray = jsonObject.getAsJsonArray("tickets");
+                    JsonArray reservationArray = jsonObject.getAsJsonArray("reservations");
+                    JsonArray ticketArray = null;
+                    for(int i = 0; i < reservationArray.size(); i++) {
+
+                        JsonObject reservation = reservationArray.get(i).getAsJsonObject();
+                        if(reservation.get("confirmationNum").getAsString().equals(confirmNum)) {
+                            ticketArray = reservation.getAsJsonArray("tickets");
+                            break;
+                        }
+                    }
+
                     if(ticketArray.size() == 1) {
                         try {
                             // Load the FXML file for the new scene
@@ -290,7 +301,7 @@ public class CancelController implements Initializable {
                 }
         }
         // If no ticket is selected jump to reservation deletion scene
-        else { */
+        else {
                 try {
                     // Load the FXML file for the new scene
                     FXMLLoader loader = new FXMLLoader(getClass().getResource("CancelConfirmUI.fxml"));
@@ -307,9 +318,9 @@ public class CancelController implements Initializable {
                     // Handle the exception appropriately (e.g., show an error message)
                 }
             }
-     //   }
+        }
 
-  // }
+   }
 
 }
 
