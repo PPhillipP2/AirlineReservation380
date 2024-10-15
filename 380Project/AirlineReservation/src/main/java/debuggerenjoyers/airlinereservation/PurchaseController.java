@@ -314,7 +314,6 @@ public class PurchaseController implements Initializable {
 
         final String username = "debuggerenjoyerairlines@gmail.com"; // Replace with your email
         final String password = "temp";
-        //final String password = "slwj aahp fsvt tral"; // Replace with your password
 
         String emailContent = "Thank you for choosing Debugger Airlines\n\n";
         emailContent += "Below is your confirmation number and more important information:\n";
